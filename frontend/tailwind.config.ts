@@ -22,6 +22,13 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          container: "hsl(var(--primary-container))",
+        },
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          low: "hsl(var(--surface-low))",
+          high: "hsl(var(--surface-high))",
+          highest: "hsl(var(--surface-highest))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,11 +54,13 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Manrope", "system-ui", "sans-serif"],
       },
       animation: {
-        "fade-in": "fadeIn 0.3s ease",
-        "slide-up": "slideUp 0.3s ease",
-        shimmer: "shimmer 1.5s infinite",
+        "fade-in": "fadeIn 0.5s ease-out",
+        "slide-up": "slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-in-bottom": "slideInBottom 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        shimmer: "shimmer 2s infinite linear",
       },
       keyframes: {
         fadeIn: {
@@ -59,7 +68,11 @@ const config: Config = {
           to: { opacity: "1" },
         },
         slideUp: {
-          from: { opacity: "0", transform: "translateY(12px)" },
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        slideInBottom: {
+          from: { opacity: "0", transform: "translateY(10px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         shimmer: {

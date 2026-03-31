@@ -17,11 +17,11 @@ const sizes = {
 
 export default function Avatar({ src, name, size = "md", className }: AvatarProps) {
   return (
-    <div className={cn("relative rounded-full overflow-hidden flex-shrink-0", sizes[size], className)}>
+    <div className={cn("relative rounded-full overflow-hidden flex-shrink-0 bg-surface-highest", sizes[size], className)}>
       {src ? (
         <img src={src} alt={name} className="w-full h-full object-cover" />
       ) : (
-        <div className="w-full h-full bg-gradient-to-br from-primary/80 to-primary flex items-center justify-center font-semibold text-primary-foreground">
+        <div className="w-full h-full signature-gradient flex items-center justify-center font-bold text-primary-foreground tracking-wider">
           {getInitials(name)}
         </div>
       )}
