@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#131316",
+            "on-surface": "#e6e4ec",
+            "error-dim": "#b95463",
+            "on-secondary": "#202023",
+            "inverse-surface": "#fcf8fb",
+            "surface-bright": "#2b2c32",
+            "primary-container": "#332dbc",
+            "tertiary": "#e2e7ff",
+            "surface-container-highest": "#25252b",
+            "outline": "#75757b",
+            "on-secondary-fixed-variant": "#5c5b5f",
+            "secondary-container": "#3c3b3f",
+            "primary-fixed-dim": "#d2d0ff",
+            "surface-variant": "#25252b",
+            "on-secondary-container": "#c1bec3",
+            "on-primary": "#2c23b6",
+            "error": "#ec7c8a",
+            "on-primary-fixed": "#2b22b5",
+            "tertiary-fixed": "#d1d9f8",
+            "surface": "#0e0e10",
+            "on-tertiary-fixed": "#313951",
+            "on-tertiary": "#4c546e",
+            "surface-container-high": "#1f1f24",
+            "surface-container-lowest": "#000000",
+            "on-surface-variant": "#abaab1",
+            "surface-tint": "#c2c1ff",
+            "on-error-container": "#ff97a3",
+            "on-background": "#e6e4ec",
+            "secondary-fixed-dim": "#d7d3d8",
+            "inverse-primary": "#4e4bd5",
+            "tertiary-dim": "#c3cbe9",
+            "primary-fixed": "#e2dfff",
+            "tertiary-fixed-dim": "#c3cbe9",
+            "on-tertiary-container": "#444c65",
+            "surface-container": "#19191d",
+            "secondary-fixed": "#e5e1e6",
+            "on-tertiary-fixed-variant": "#4d556f",
+            "outline-variant": "#47474d",
+            "surface-dim": "#0e0e10",
+            "background": "#0e0e10",
+            "secondary-dim": "#9f9da1",
+            "on-error": "#490013",
+            "on-secondary-fixed": "#403f43",
+            "primary-dim": "#b2b1ff",
+            "on-primary-fixed-variant": "#4a47d2",
+            "on-primary-container": "#cdccff",
+            "secondary": "#9f9da1",
+            "inverse-on-surface": "#555557",
+            "primary": "#c2c1ff",
+            "error-container": "#7f2737",
+            "tertiary-container": "#d1d9f8"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e10]/70 backdrop-blur-xl flex justify-between items-center px-12 py-6">
+<div class="flex items-center gap-12">
+<span class="text-xl font-bold text-[#e6e4ec] font-headline tracking-tight">The Sonic Gallery</span>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 font-inter text-sm font-medium" href="#">Studio</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 font-inter text-sm font-medium" href="#">Library</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 font-inter text-sm font-medium" href="#">Marketplace</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-[#abaab1]">
+<span class="material-symbols-outlined hover:text-[#e6e4ec] cursor-pointer transition-colors duration-300">notifications</span>
+<span class="material-symbols-outlined hover:text-[#e6e4ec] cursor-pointer transition-colors duration-300">settings</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant/20">
+<img alt="Profile" data-alt="Close up portrait of a professional female music producer in a dark studio setting with soft purple ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuhWCd1Vzo5cLBbShLJ0w9bmAsirZpWk3_1c5r18SV_ODXLAAI-Gyz-aSINZ2pjuJy9y-6KKv9gpB-oCI36HgNGQrhB2uSSqkMG2fEXH2Ufnxnb3_JBsS7qOhhfN0CjcoIluubPW6q90uMHMAeVhMGFjdRygfbSUFySWJzkBsAN126ycqQ2hYPBlXIqIncz7wnrELL_GETkrMCeoxSpLBgtvhTuDTdHcObQwkAOLxJHlCmh5jQ2WSuGBivAfGfe9_Ym5x-i-85WhY"/>
+</div>
+</div>
+</nav>
+<!-- Side Navigation Shell (Hidden on mobile) -->
+<aside class="hidden md:flex h-screen w-20 hover:w-64 transition-all duration-500 fixed left-0 top-0 z-40 overflow-hidden bg-[#19191d] flex-col py-8 px-4 gap-8 group">
+<div class="flex items-center gap-4 px-2">
+<div class="min-w-[40px] h-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#c2c1ff] text-2xl">mic</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<p class="text-lg font-black tracking-tighter text-[#c2c1ff] whitespace-nowrap">Sonic Gallery</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-4 px-2 py-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">album</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Library</span>
+</a>
+<a class="flex items-center gap-4 px-2 py-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Collaborators</span>
+</a>
+<a class="flex items-center gap-4 px-2 py-3 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] text-[#2c23b6] rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Projects</span>
+</a>
+<a class="flex items-center gap-4 px-2 py-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Marketplace</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-4 px-2 py-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Help</span>
+</a>
+<a class="flex items-center gap-4 px-2 py-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-inter text-sm font-medium">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-20 pt-24 min-h-screen">
+<!-- Profile Banner Section -->
+<section class="px-6 md:px-12 mb-16">
+<div class="relative w-full h-[409px] rounded-xl overflow-hidden bg-surface-container-low group">
+<img alt="Banner" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[2000ms]" data-alt="Atmospheric wide shot of a high-end recording studio with modular synths and moody violet lighting reflections on glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAP5f-xViEoc7n82s_FK3mEuZpm0iFm2TEcTFEjNjsgxQq8XvY_VzwpNQWSDu2QVVrw5hrW0ubg7EL6JvpmPNpAmtQy3L2zAFlTlOgHPb5Knw0sMIOHDfYI31CMx6MqH5ajXXR0JDyc7j7zki-0eSoarogc5k4432CEBjA5RE22QTO0db4IkpcYkTdwv8RBYnZOKYod2IruTo-hMbkZmHuLEeXSTvXJvdxrp0oEvDCApmkkYhMfo7uQNRB6bZThyszYV_tumk965w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+<!-- Avatar Overlay -->
+<div class="absolute -bottom-12 left-12 flex items-end gap-8">
+<div class="h-40 w-40 rounded-full border-[6px] border-surface bg-surface-container-highest overflow-hidden shadow-2xl">
+<img alt="Artist Avatar" class="w-full h-full object-cover" data-alt="Stylish portrait of a musician wearing headphones, looking away, in a moody dark room with cinematic indigo lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZw2YoCFzdLaeersp6RVKEcG-fsmk79x1O-zjgo8NbJ69_NbRoaMo8WhltfWUiFyqOLbHr2NigUy2TRg6EHro1oC_fkovi1cXf_TJlMtp0cKplDneeClLxe_XfVbTcMrz7CUuvJeG-5UDsOLMRyi8cw6wZUHaFbNwbL9GIjXfwankFC4c2G6NVINwUXL10nZYtMzGqD0UOLDh-Zd3-f52HRLRhqQi_6NTgib5BKpMrCNrxmwqzTMjFJvwaihW0T2E5xuZpovSf-CM"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Header & Meta Section -->
+<section class="px-6 md:px-12 mt-20 flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-2xl">
+<p class="text-[0.6875rem] uppercase tracking-[0.2em] text-on-surface-variant font-medium mb-2 font-body">Featured Producer</p>
+<h1 class="text-6xl md:text-8xl font-black font-headline tracking-tighter text-on-surface mb-6">Lyra Vance</h1>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-xs font-medium rounded-full hover:text-on-surface transition-colors">Experimental Pop</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-xs font-medium rounded-full hover:text-on-surface transition-colors">Sound Design</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-xs font-medium rounded-full hover:text-on-surface transition-colors">Cinematic</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant text-xs font-medium rounded-full hover:text-on-surface transition-colors">Vocal Production</span>
+</div>
+<div class="space-y-6">
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed font-light tracking-wide max-w-xl">
+            Sculpting sonic landscapes from the intersection of organic textures and digital synthesis. Lyra specializes in immersive audio experiences for independent film and avant-garde pop.
+          </p>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-md font-semibold text-sm hover:scale-[1.02] active:scale-95 transition-all duration-200">
+              Contact Artist
+            </button>
+<button class="bg-surface-container-high text-on-surface px-8 py-3 rounded-md font-semibold text-sm hover:bg-surface-container-highest transition-colors">
+              Edit Profile
+            </button>
+</div>
+</div>
+</div>
+<div class="w-full md:w-80 flex flex-col gap-12">
+<div class="bg-surface-container-low p-8 rounded-xl border-l-2 border-primary/20">
+<h3 class="text-xs uppercase tracking-widest text-on-surface-variant mb-6">Active Collaborations</h3>
+<ul class="space-y-6">
+<li class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest overflow-hidden">
+<img alt="Collab 1" data-alt="Abstract music album art with neon light streaks and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3n2606NLXCsqtvUcws8gTwiUyKADiPIvJaiPGdKfz6O5032nHEmw9GKmxqUmHDNqFigwGBH_ORG-qjeoZ2jBwVi_8fVjH50yMJg9L2TMr35ox1z6KqtkzBu-gLqp6DkjrAu7Uk1ZN6OyKOHEHUwMa8NMPiiQvD40FDxtPYIjL0SAqO36trIqoT5-_dWf2c8pa4T7HbiRmMWXMaJUo0Ks-UuAHPyt3i1QnpnudKvgLup_tji6boJmyoWfxmnS2Cew1SM8YwJGdPHg"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors">Project Neon</p>
+<p class="text-[0.75rem] text-on-surface-variant">Lead Engineer</p>
+</div>
+</li>
+<li class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest overflow-hidden">
+<img alt="Collab 2" data-alt="Minimalist waveform graphic on a dark textured background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwumsiyE1FaIGdagjPlhILNRcinY6hKLcqB7jscH8kwrgJNCu9w-IH6wG4MOA6qtnmRP4uD1bSVHGAJsvi9ExTMbk8Vc2iY1db4jYDb5mnR6gegCF7PFpnyyD_tM7U2NC6aSEkJ3hlpFD6AhT2H4Sl2FVbzotmKH7_JFoN5IoH1Tol1QiiamkNlnyTTUI7s_0ebUPnS6kyqXXXxdXgsOvjQa-9swdjR_vbW9RH0xcgq7wzSP7VuCyP3jKPC7pAmRhEZLvo2QysSlM"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors">Ghost Echoes</p>
+<p class="text-[0.75rem] text-on-surface-variant">Composer</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Portfolio Grid Section -->
+<section class="px-6 md:px-12 mt-32 mb-20">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Portfolio</h2>
+<p class="text-3xl font-bold font-headline tracking-tight">Sonic Artifacts</p>
+</div>
+<a class="text-sm font-medium text-primary hover:underline underline-offset-4" href="#">View All Projects</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+<!-- Project Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-[16/10] bg-surface-container-low rounded-xl overflow-hidden mb-6">
+<img alt="Work 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Close up of a professional DJ mixer with glowing buttons in a dark club environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtvqz0eIjrkjVUizh8u3QGDhc5vNmpnhbkBOcQaJqZJ9ah-13GwPFGU5TIU_gvbvMg30I-i6uMP-K3HGszNQ5PBjrt5eq4fosd-D6zemJHrDwP0qXyTGD05OakjWwlAdkS_NLaO_LHwZrwdAlytdcWxL-SJXbOMT6HTWFCwNbBQm3OATrSiPcyd6qQE-8SHCAj-LzXDAbQHxnHtuccq0Bl-OfGAS67swMflG0rvHRhmkscGBX56ZDwqyIUJ9TYxYKuqz8IUDJB2_Q"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-xl font-bold text-on-surface mb-1">Aether Pulse</h4>
+<p class="text-sm text-on-surface-variant">Experimental EP · 2024</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-[16/10] bg-surface-container-low rounded-xl overflow-hidden mb-6">
+<img alt="Work 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Wide angle view of a modern recording booth with high-end microphones and wooden acoustic panels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASuLqAqfQ8TA3yBYNX0LDiYQ4LXW0kA8fsbyJC2uDPCmXgrVEd4k3nQsD1Hamt_X0c5Vawi9WEPhTkbOfhwRfju2_tFNT_TJBXjTI_spw3usF_lE4RxSeMaCNAJBxwyNJL_05uuqgD_H1nS1sxxZGmCwZEHQakXbwxKrC0dqwGNVBvpwQNGmIL4iWCX0O4M28oMsj5IXkZBYz-Tj4VrUdXV0-tEUgAU4tlN6iJ12zDctKiz58KC2p7h9rIM0imweZF-jzZOzLv4kI"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-xl font-bold text-on-surface mb-1">Obsidian Sky</h4>
+<p class="text-sm text-on-surface-variant">Film Score · 2023</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-[16/10] bg-surface-container-low rounded-xl overflow-hidden mb-6">
+<img alt="Work 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Vibrant close-up of a synthesizer patch cables with soft bokeh lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoCY9HNyvsuhSqPDeV6-1i-MjKcBPDeT6UYL2wbYUEVrq1rAU4dkB2Eb5Q_TkQpSMGojxjaA3jC9H2th88zboFWAJmbh0Z7PILZvyA7uEyGLPdKyXE0oQGsElEHSJMuS7zaPbHUc0Tip5O1SB7WbtBvWo_V8C33g-3TBud6afFfs8eeLaIkY3OZW-xSadrYEcCq_lAltybColo_t_xw_kvHA2gxv6lXkniGfsLKRxRLgIn50MmeiyOUvUz19lC-PRfiqL9BNBJJXk"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-xl font-bold text-on-surface mb-1">Fragmented</h4>
+<p class="text-sm text-on-surface-variant">Sound Design · 2023</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Shell -->
+<footer class="flex justify-between items-center px-12 mt-20 py-12 bg-transparent text-[#c2c1ff] font-inter text-[0.6875rem] uppercase tracking-widest opacity-80">
+<div class="flex gap-8">
+<a class="text-[#9f9da1] hover:text-[#e6e4ec] transition-opacity" href="#">Privacy</a>
+<a class="text-[#9f9da1] hover:text-[#e6e4ec] transition-opacity" href="#">Terms</a>
+<a class="text-[#9f9da1] hover:text-[#e6e4ec] transition-opacity" href="#">API Status</a>
+</div>
+<p class="text-[#9f9da1]">© 2024 THE SONIC GALLERY. EDITORIAL MUSIC SYSTEMS.</p>
+</footer>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<div class="md:hidden fixed bottom-0 w-full z-50 bg-[#0e0e10]/90 backdrop-blur-2xl flex justify-around items-center py-4 px-6 border-t border-outline-variant/10">
+<span class="material-symbols-outlined text-[#abaab1]">mic</span>
+<span class="material-symbols-outlined text-[#abaab1]">album</span>
+<span class="material-symbols-outlined text-[#c2c1ff] font-semibold" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="material-symbols-outlined text-[#abaab1]">shopping_bag</span>
+<span class="material-symbols-outlined text-[#abaab1]">help_outline</span>
+</div>
+</body></html>

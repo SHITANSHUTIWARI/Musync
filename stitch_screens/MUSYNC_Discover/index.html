@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MUSYNC | Discover Elite Talent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#131313",
+              "surface-container-low": "#1c1b1b",
+              "surface-container-highest": "#353534",
+              "on-background": "#e5e2e1",
+              "primary-fixed-dim": "#c1c1ff",
+              "on-tertiary-container": "#fff6f3",
+              "surface-container": "#201f1f",
+              "surface-tint": "#c1c1ff",
+              "surface": "#131313",
+              "tertiary-fixed-dim": "#ffb689",
+              "on-primary-fixed-variant": "#2e2bc2",
+              "on-tertiary-fixed": "#321300",
+              "tertiary-fixed": "#ffdbc8",
+              "on-surface-variant": "#c7c4d7",
+              "outline-variant": "#464555",
+              "surface-bright": "#393939",
+              "on-primary-fixed": "#07006c",
+              "outline": "#908fa0",
+              "primary": "#c1c1ff",
+              "surface-container-lowest": "#0e0e0e",
+              "background": "#131313",
+              "on-secondary": "#303033",
+              "primary-fixed": "#e1e0ff",
+              "secondary": "#c8c6c9",
+              "inverse-on-surface": "#313030",
+              "primary-container": "#5d5fef",
+              "error-container": "#93000a",
+              "tertiary": "#ffb689",
+              "tertiary-container": "#b65700",
+              "on-secondary-fixed-variant": "#47464a",
+              "secondary-fixed": "#e4e1e5",
+              "secondary-container": "#47464a",
+              "on-error-container": "#ffdad6",
+              "inverse-primary": "#4849da",
+              "surface-variant": "#353534",
+              "secondary-fixed-dim": "#c8c6c9",
+              "on-primary-container": "#faf7ff",
+              "on-primary": "#1200a9",
+              "surface-container-high": "#2a2a2a",
+              "on-tertiary-fixed-variant": "#743500",
+              "on-tertiary": "#512300",
+              "on-surface": "#e5e2e1",
+              "error": "#ffb4ab",
+              "on-error": "#690005",
+              "inverse-surface": "#e5e2e1",
+              "on-secondary-container": "#b6b4b8",
+              "on-secondary-fixed": "#1b1b1e"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #131313;
+        color: #e5e2e1;
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #c1c1ff 0%, #5d5fef 100%);
+      }
+      .glass-panel {
+        background: rgba(57, 57, 57, 0.4);
+        backdrop-filter: blur(24px);
+      }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30">
+<!-- SideNavBar (Authority: JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-white/5 bg-[#1c1b1b] dark:bg-stone-900 font-['Manrope'] antialiased tracking-tight shadow-2xl flex flex-col py-8 z-50">
+<div class="px-8 mb-12">
+<span class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#c1c1ff] to-[#5d5fef]">MUSYNC</span>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mt-1">Elite Collaboration</p>
+</div>
+<div class="flex flex-col flex-grow">
+<!-- Home -->
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-medium">Home</span>
+</a>
+<!-- Discover (Active) -->
+<a class="flex items-center gap-4 px-6 py-4 text-[#c1c1ff] bg-[#2a2a2a] border-l-4 border-[#5d5fef] font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-medium">Discover</span>
+</a>
+<!-- Projects -->
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span class="font-medium">Projects</span>
+</a>
+<!-- Messages -->
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-medium">Messages</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full signature-gradient text-on-primary-fixed font-bold py-4 rounded-full flex items-center justify-center gap-2 Active: scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Create Project
+            </button>
+</div>
+</nav>
+<!-- TopNavBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 left-64 h-20 z-40 bg-[#131313]/80 backdrop-blur-xl flex justify-between items-center px-10 w-full font-['Inter'] font-medium text-sm tracking-wide">
+<div class="flex-1 max-w-xl">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 material-symbols-outlined" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 pl-12 pr-4 text-on-surface focus:ring-1 focus:ring-[#5d5fef]/50 placeholder-stone-600 transition-all" placeholder="Search elite professionals, skills, or locations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-stone-400 hover:text-white transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-[#5d5fef] rounded-full"></span>
+</button>
+<button class="text-stone-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</button>
+<div class="h-10 w-[1px] bg-white/5 mx-2"></div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<span class="text-stone-400 group-hover:text-white transition-colors">Profile</span>
+<img alt="Professional Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-transparent group-hover:border-[#5d5fef] transition-all" data-alt="close-up professional portrait of a confident man with a groomed beard in a dark studio setting with cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfG_zYQqFHil_nsbBugJytACaiK9mQ_JOPXYs09ApjQyy7ehRMa7H_V-nSj-M4qwoW1Qn7e8qqIhgHQFv2P-2OocuUaqoK-PDkeq94xERTP3k5TPsqmJ7e8bZpFp26zhd7bqUShTXWW-C2ElG9v9qUOzr5FeqWgo-m91A6mCTiY9uR6QiwVVM7WeQqpRaHaVCifkZaQYswXT3ZFzCmdtPx6vCqe6CYGvj2DJx1q8nfO3Lc49o1qIY3EKaOB00bzru6f113WZnMwxk"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 pt-32 pb-20 px-10 bg-surface">
+<!-- Filter Bar -->
+<section class="mb-12">
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">Discover</h1>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm bg-surface-container-low px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span>London, UK + 50mi</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-3 items-center">
+<span class="text-stone-500 text-xs uppercase tracking-widest mr-2">Genres</span>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-sm text-xs font-semibold hover:bg-surface-container-highest transition-colors">Electronic</button>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-sm text-xs font-semibold hover:bg-surface-container-highest transition-colors">Jazz</button>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-sm text-xs font-semibold hover:bg-surface-container-highest transition-colors">Hip-Hop</button>
+<div class="h-4 w-[1px] bg-white/10 mx-2"></div>
+<span class="text-stone-500 text-xs uppercase tracking-widest mr-2">Roles</span>
+<button class="bg-primary-container text-on-primary-container px-4 py-1.5 rounded-sm text-xs font-semibold">Producer</button>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-sm text-xs font-semibold hover:bg-surface-container-highest transition-colors">Vocalist</button>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-sm text-xs font-semibold hover:bg-surface-container-highest transition-colors">Mixing Engineer</button>
+<button class="ml-auto flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="tune">tune</span>
+                        Advanced Filters
+                    </button>
+</div>
+</div>
+</section>
+<!-- Discovery Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Artist Card 1 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="absolute left-0 top-0 w-[2px] h-0 bg-[#5d5fef] group-hover:h-full transition-all duration-700"></div>
+<div class="h-48 relative overflow-hidden">
+<img alt="Producer in Studio" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="cinematic shot of a music producer working with high-end modular synthesizers in a moody blue lit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsk3nCudYG03yzv4EtCRfpP0u1F7oqJarG4Q8rYlhonndQKzmWR0SMRjX-2wBz5cmnkuNGy7Xp6lD8g4QLXZ8Hip3hbUOwACUZxzwyEdx_JRQpdFLf5dLg32duarzm2pLb1QawmS5fcY7qgMb0jWy7QiAQTgc9WED-cC2LWqaij5MeasZ5t9GVWYw2smqMVB2muw2Q_rhJEaXqbcuYEUWQm5eDGeBognCUHWMJt9INCYbULYmKixUqVXB9EMg0FaPodJiRbT1AlWo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative">
+<div class="flex items-center gap-4 mb-4 -mt-12">
+<img alt="Artist Portrait" class="w-16 h-16 rounded-xl object-cover ring-4 ring-surface-container-low" data-alt="high fashion close-up portrait of a young male musician with sharp features in soft artistic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQAZLtyfZbM6jqfMfV53Zgl-S8ta8qtBFWGKTgEG48hgWoPdZ--myhcDNSogQ4tkY___rZKwU3_03j-KGEWw-uuyS6kopUKQj0zsHQhMr9xCLB-AtNne9eKIwl4CYxqRgeOvFFVY7ayplCbsly5t5AbAphF-aTFS6tFCITHJKWvdcuyrJtjWe0sco-jEe9qgFVEuFtH8QjGESafPUNX_NFI5RcMC3rACov9EElGd8tlJV-MiTxydWHk9_bFIiIk97f6y1bAEeBPSU"/>
+<div class="mt-8">
+<h3 class="font-headline text-lg font-bold text-on-surface">Elena Vance</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="location_on">location_on</span>
+                                Berlin, DE
+                            </p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Genres</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">TECHNO</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">AMBIENT</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Expertise</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">SOUND DESIGN</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">PRODUCER</span>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 text-xs font-bold py-3 rounded-md bg-surface-container-highest text-on-surface hover:bg-surface-bright transition-colors">View Portfolio</button>
+<button class="signature-gradient p-3 rounded-md text-on-primary-fixed hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Artist Card 2 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="absolute left-0 top-0 w-[2px] h-0 bg-[#5d5fef] group-hover:h-full transition-all duration-700"></div>
+<div class="h-48 relative overflow-hidden">
+<img alt="Stage Setup" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="abstract stage lighting in purple and gold tones with a silhouette of a grand piano and microphone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCczEeO8Whst7EOwKGh9h-bG3wOZpf7-LV1SJ7Vz804yPqe-jB4aheTJ64m9CKN-gK59rNZRb1VvwJuLAnSaFLTGzalJymITWev_YU9wqsW4T8Z0oa3FOqMzVuqemucS3Y-FJUeR2vNKrMO9Ql1XVD6HGXcredJQIuwmvzzRmLoDrsltzymPgsLLn0Aj8VLaMWuZFK6GMtzXbiRZwbHG_ymFckzrutXkWHB0kzXkBXWQ6Cg9KP5cnYA_z2vQ1rm7VCRmPkHY8acUFY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative">
+<div class="flex items-center gap-4 mb-4 -mt-12">
+<img alt="Artist Portrait" class="w-16 h-16 rounded-xl object-cover ring-4 ring-surface-container-low" data-alt="striking portrait of a woman with braided hair wearing elite fashion against a deep charcoal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzxdlgsWzffyLj54rxox_tAsoTT5IOk4ALtbx8Fhy2zjTAoE9XPpyQDmdq4Q0eBChvBSCkPXm6Kn_TvE24197B_YDJV64iViaTDOGpz6fpmESMpXlF9r8ahGegWtq45SAYN-ysDS_6l9-GrXoK_Jy0zMN0ZJYDgMs66YmAWII0OMa7URkBrrrWi7wNKnV4Nn8NKbTsax5_tFmz3TxZzuubaDJ18vIOrFMKLPiAe0Mq_4ANHIsvrnGLjPxRmqFbFB-uJPySzosNl_g"/>
+<div class="mt-8">
+<h3 class="font-headline text-lg font-bold text-on-surface">Marcus Thorne</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="location_on">location_on</span>
+                                New York, US
+                            </p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Genres</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">JAZZ</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">SOUL</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Expertise</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">PIANIST</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">COMPOSER</span>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 text-xs font-bold py-3 rounded-md bg-surface-container-highest text-on-surface hover:bg-surface-bright transition-colors">View Portfolio</button>
+<button class="signature-gradient p-3 rounded-md text-on-primary-fixed hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Artist Card 3 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="absolute left-0 top-0 w-[2px] h-0 bg-[#5d5fef] group-hover:h-full transition-all duration-700"></div>
+<div class="h-48 relative overflow-hidden">
+<img alt="Mixing Console" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="close-up of a high-end analog mixing console with soft bokeh of studio lights in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtfJPZZgs5cszRwysUdBG26T13Am49gtH_bkChF7mgJh3l3eqEqS_iO4QRrSYNabCy5czTZk4gmZDY1_re3-KB7XD5QCWhlUMUi9kmfJTkxqeiQWU6kz9NZvbsHmOsol62lqgOGYbqNg8ibPGHIE6N4-QIsKOdhgtdKJsKvNzt77zLjyKPetfFwlvSmdwBBuPjnGqHExHBRbeWcLflG3Np3YZvOtRD73qS5wlmis6tKjmsneIJzl2SwGzxh07XBI2FJemO7Bo32ys"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative">
+<div class="flex items-center gap-4 mb-4 -mt-12">
+<img alt="Artist Portrait" class="w-16 h-16 rounded-xl object-cover ring-4 ring-surface-container-low" data-alt="middle-aged man with artistic eye glasses in a professional studio setting, looking focused" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUxAH_11-yaiu_RySHZzJ6xxhUwfgMP-zVobr4vQXr6feRyFXhqIfunVaaFEQJejKpFyeC5jSzefI-Beble27fp7fBDqzPrNCluSmpnnRLxmL-pwuzqPoLkPMdw2nUQYzPixAp_vzflUaA6VoIEBPxqxR-e_YlWQnwj_QN2gDfJSqHDLSVpxDPT9gBFB4DxvL8CEEz9_R0E2BqxfUd8c_zLOBOeMmnpDi6XXBPjR46szqQTOFQUb7ET9t_EXgXKx5S12FFPh27w6I"/>
+<div class="mt-8">
+<h3 class="font-headline text-lg font-bold text-on-surface">Sarah K.</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="location_on">location_on</span>
+                                London, UK
+                            </p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Genres</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">HIP-HOP</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">R&amp;B</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Expertise</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">MIXING ENGINEER</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">VOCALIST</span>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 text-xs font-bold py-3 rounded-md bg-surface-container-highest text-on-surface hover:bg-surface-bright transition-colors">View Portfolio</button>
+<button class="signature-gradient p-3 rounded-md text-on-primary-fixed hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Artist Card 4 -->
+<div class="group relative bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="absolute left-0 top-0 w-[2px] h-0 bg-[#5d5fef] group-hover:h-full transition-all duration-700"></div>
+<div class="h-48 relative overflow-hidden">
+<img alt="Concert Crowd" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="cinematic wide shot of a concert crowd silhouetted against vibrant blue and purple stage lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNuSaUR1PtOTygdQmFPmw70x-ZIZWQ30gtp2hYXawax0eXRNnKr-91AS_FprcvK7XAegAimfwHk7pagp2MIYByQA5WlqXMUQL7BBPnye4vrishPWeN9STlXQVIioyHOLm2awMBXeKKZrRrwpLPyEebb4keeKHPf2jyonHnQfEVlDf7lW6mNd7gK2rFLPP_7Xewj7s4_qvvT_1xXci2I-jtA5oBVmMFj8dfK1D6wLAYhjLuyXkVpA_YddFyH1lCa7VKix7Kt5rzSXM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative">
+<div class="flex items-center gap-4 mb-4 -mt-12">
+<img alt="Artist Portrait" class="w-16 h-16 rounded-xl object-cover ring-4 ring-surface-container-low" data-alt="close up of a modern artist with vibrant lighting reflecting on their face, expressive and professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKv8oSnX0idYrhdr0J9WsxUTcpuxyu-2Rpu0QmXlDrRvYpxDVJ5MoRuWHKZcVz-8OBzYARbWrMHPf4UtzRKW8WouMPPIhpwZHPjeb5GxbK-E_Zahs8XiqaUwLTtb1RR_W0yKZ1bYeg54zIPsG9YgPWKwuhQYL-bubd60AVewTTfzpSijhLvDBE61xP1kwzG-hcRAyd6eXz6CxxQcKtjW2MMd6ZmjAsM58LkTIwqINVwVu1Oq2WvUK913qClEEtKRWv19pScw_SOf4"/>
+<div class="mt-8">
+<h3 class="font-headline text-lg font-bold text-on-surface">Julian Rossi</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="location_on">location_on</span>
+                                Milan, IT
+                            </p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Genres</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">HOUSE</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded-sm text-[10px] font-medium text-primary">POPLINE</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] uppercase tracking-wider text-stone-500 w-full mb-1">Expertise</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">MASTERING</span>
+<span class="px-2 py-0.5 border border-outline-variant/20 rounded-sm text-[10px] font-medium text-on-surface-variant">PRODUCER</span>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 text-xs font-bold py-3 rounded-md bg-surface-container-highest text-on-surface hover:bg-surface-bright transition-colors">View Portfolio</button>
+<button class="signature-gradient p-3 rounded-md text-on-primary-fixed hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Asymmetric Featured Section -->
+<section class="mt-24">
+<div class="grid grid-cols-12 gap-8 items-center">
+<div class="col-span-12 lg:col-span-5 z-10">
+<span class="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Elite Spotlight</span>
+<h2 class="font-headline text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">CURATE YOUR <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">INNER CIRCLE.</span></h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-8 max-w-md">MUSYNC is designed for high-stakes collaboration. Filter through world-class talent and build a production team that matches your ambition.</p>
+<div class="flex gap-4">
+<button class="px-8 py-4 signature-gradient text-on-primary-fixed font-bold rounded-full hover:scale-105 transition-transform">Get Started</button>
+<button class="px-8 py-4 bg-surface-container-highest text-on-surface font-bold rounded-full hover:bg-surface-bright transition-colors">Learn More</button>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-7 relative">
+<div class="aspect-[4/3] rounded-2xl overflow-hidden glass-panel p-2">
+<img alt="Premium Studio" class="w-full h-full object-cover rounded-xl" data-alt="an extremely high-end, futuristic recording studio with wood panelling and neon purple accents, minimalist design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDFsVuDkV_lkEjFq_zgPlo_cz2MvKBwHoAIriSfN8ZENUMuXMF8d-wJXrtwQs3GiOySSDUSUT7PbBClGWPDxNXacTvLDA0rV07q9YHID6Pq1NqyadL7El-OHP8FBMC1gUfGc56skFdHTj6sqIac4OOYhL4t6rReYoMcnYb5wY6JD_QYevw2jfnRDAzNnwl2l_uBWzFU2bhAvkNQcL9gleyIgC7GYsKRlHK2gG9aQI5-BfdphW9NeoDjbb_FImw_d7o3-sTr7jH7Ok"/>
+</div>
+<!-- Overlapping Card -->
+<div class="absolute -bottom-10 -left-10 bg-surface-container-highest p-8 rounded-xl shadow-2xl border border-white/5 max-w-xs hidden xl:block">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full signature-gradient flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="verified">verified</span>
+</div>
+<div>
+<p class="text-xs text-stone-500 uppercase tracking-widest">Global Reach</p>
+<p class="text-xl font-bold text-on-surface">8.4k Verified Engineers</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant">Vetted professional network spanning across 42 countries and 150+ genres.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Authority: JSON) -->
+<footer class="w-full py-12 ml-64 max-w-[calc(100%-16rem)] bg-[#0e0e0e] border-t border-white/5 flex flex-col md:flex-row justify-between items-center px-10 gap-6 font-['Inter'] text-[12px] uppercase tracking-[0.1em] text-stone-500">
+<div class="flex items-center gap-8">
+<span class="text-stone-400 font-bold">MUSYNC</span>
+<span>© 2024 MUSYNC Elite Professional. All rights reserved.</span>
+</div>
+<div class="flex gap-10">
+<a class="text-stone-600 hover:text-[#c1c1ff] transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="text-stone-600 hover:text-[#c1c1ff] transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-stone-600 hover:text-[#c1c1ff] transition-colors opacity-80 hover:opacity-100" href="#">Support</a>
+<a class="text-stone-600 hover:text-[#c1c1ff] transition-colors opacity-80 hover:opacity-100" href="#">API</a>
+</div>
+</footer>
+</body></html>

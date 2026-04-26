@@ -33,6 +33,10 @@ const createProfile = async (req, res, next) => {
       socialLinks: req.body.socialLinks,
       avatar: req.body.avatar
     };
+
+    if (req.file) {
+      profileData.avatar = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/../uploads/images/${req.file.filename}`;
+    }
     
     const profile = await Profile.create(profileData);
     
@@ -110,6 +114,10 @@ const updateProfile = async (req, res, next) => {
     
     // Set updatedAt
     profile.updatedAt = new Date();
+    
+    if (req.file) {
+      profile.avatar = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/../uploads/images/${req.file.filename}`;
+    }
     
     await profile.save();
     

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artist Marketplace | The Sonic Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#131316",
+              "on-surface": "#e6e4ec",
+              "error-dim": "#b95463",
+              "on-secondary": "#202023",
+              "inverse-surface": "#fcf8fb",
+              "surface-bright": "#2b2c32",
+              "primary-container": "#332dbc",
+              "tertiary": "#e2e7ff",
+              "surface-container-highest": "#25252b",
+              "outline": "#75757b",
+              "on-secondary-fixed-variant": "#5c5b5f",
+              "secondary-container": "#3c3b3f",
+              "primary-fixed-dim": "#d2d0ff",
+              "surface-variant": "#25252b",
+              "on-secondary-container": "#c1bec3",
+              "on-primary": "#2c23b6",
+              "error": "#ec7c8a",
+              "on-primary-fixed": "#2b22b5",
+              "tertiary-fixed": "#d1d9f8",
+              "surface": "#0e0e10",
+              "on-tertiary-fixed": "#313951",
+              "on-tertiary": "#4c546e",
+              "surface-container-high": "#1f1f24",
+              "surface-container-lowest": "#000000",
+              "on-surface-variant": "#abaab1",
+              "surface-tint": "#c2c1ff",
+              "on-error-container": "#ff97a3",
+              "on-background": "#e6e4ec",
+              "secondary-fixed-dim": "#d7d3d8",
+              "inverse-primary": "#4e4bd5",
+              "tertiary-dim": "#c3cbe9",
+              "primary-fixed": "#e2dfff",
+              "tertiary-fixed-dim": "#c3cbe9",
+              "on-tertiary-container": "#444c65",
+              "surface-container": "#19191d",
+              "secondary-fixed": "#e5e1e6",
+              "on-tertiary-fixed-variant": "#4d556f",
+              "outline-variant": "#47474d",
+              "surface-dim": "#0e0e10",
+              "background": "#0e0e10",
+              "secondary-dim": "#9f9da1",
+              "on-error": "#490013",
+              "on-secondary-fixed": "#403f43",
+              "primary-dim": "#b2b1ff",
+              "on-primary-fixed-variant": "#4a47d2",
+              "on-primary-container": "#cdccff",
+              "secondary": "#9f9da1",
+              "inverse-on-surface": "#555557",
+              "primary": "#c2c1ff",
+              "error-container": "#7f2737",
+              "tertiary-container": "#d1d9f8"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e10;
+            color: #e6e4ec;
+            font-family: 'Inter', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #19191d 25%, #25252b 50%, #19191d 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite linear;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #c2c1ff;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e10]/70 backdrop-blur-xl flex justify-between items-center px-12 py-6 font-manrope tracking-tight border-b border-outline-variant/10">
+<div class="text-xl font-bold text-[#e6e4ec]">The Sonic Gallery</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Studio</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Library</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Collaborators</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Projects</a>
+<a class="text-[#c2c1ff] font-semibold hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Marketplace</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdRCBHamiU449-SVU9byOqYmyrvQ0p7v8ASreMIucJFFTFKfJAYc0C59VEpGUES1oyIw0ptQH78zHDpeSYgZh0W4upGOUHT3a_Zbw24PS1u4Zt7sbVfxnBslHK3obR3pdttl-8BJ-qZYV_8MlbYAGf0D85wjSIz1yV1ufONIQE3VKv7lZud_JO-uteSoqfmLwV-NNWlBDGslnkmqar2Uq-hVqcZBVyOpx2Svq_hNi_D2cU4G6ZyPggGNozzblHLsmRgnCPmCJJ5MU"/>
+</div>
+</div>
+</nav>
+<!-- Sidebar (Desktop Navigation) -->
+<aside class="hidden lg:flex h-screen w-20 hover:w-64 transition-all duration-500 fixed left-0 top-0 z-40 overflow-hidden bg-[#19191d] flex-col py-8 px-4 gap-8 shadow-2xl shadow-black/40 group">
+<div class="flex items-center gap-4 px-2 mb-4">
+<div class="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+<p class="text-lg font-black tracking-tighter text-[#c2c1ff]">Marketplace</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Premium Talent</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Studio</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="album">album</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Library</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Collaborators</span>
+</a>
+<a class="flex items-center gap-4 p-3 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] text-[#2c23b6] rounded-md ease-in-out transform-gpu" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Marketplace</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:pl-20 pt-32 pb-20 flex min-h-screen">
+<!-- Marketplace Content -->
+<div class="flex-1 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+<!-- Header & Robust Search -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+<div class="space-y-2">
+<span class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-on-surface-variant block">Connect with professionals</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface">Marketplace.</h1>
+</div>
+<div class="relative w-full md:w-[480px] group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant transition-colors group-focus-within:text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl py-4 pl-12 pr-12 text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/40 focus:bg-surface-container focus:outline-none transition-all" placeholder="Search by name, role, or genre..." type="text"/>
+<button class="absolute inset-y-0 right-4 flex items-center text-on-surface-variant hover:text-on-surface transition-opacity opacity-0 group-focus-within:opacity-100">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+</header>
+<!-- Trending Artists Carousel -->
+<section class="mb-20">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Trending Artists</h2>
+<div class="flex gap-2 items-center">
+<div class="flex gap-1 mr-4">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="w-2 h-2 rounded-full bg-surface-container-highest"></span>
+<span class="w-2 h-2 rounded-full bg-surface-container-highest"></span>
+</div>
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-4 -mx-2 px-2">
+<!-- Trending Card 1 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative h-48 rounded-xl overflow-hidden mb-4 editorial-shadow">
+<img alt="Trending Artist" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhkS65HsY0hcMLvYfnh1NRR-rtXp7Seq9vulc2Srph8XEawfLZmGooTHnezz4nw-d1ksJTBCTXtCHpKOuQccjGBiVbyH37OR4-sdAZ4yuEBNzku3ckctv5lMuffHJmYf6Dn_QzxuUTJTkjqP5nkzPPtYintzP6UAUm3Bi3xzV-65B_r56FS_qLqgW-_xREGnjKXgsGD9H6hj3SoneTlywSQQoq-y-2kSQBXem1w9z21u9K--YBSFbaReSRUPZ5r0WKPENOIrjMiWo"/>
+<div class="absolute top-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded text-[10px] font-bold text-white uppercase tracking-tighter">Rising</div>
+</div>
+<h4 class="font-bold">Elena Rossi</h4>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Techno • Milan</p>
+</div>
+<!-- Trending Card 2 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative h-48 rounded-xl overflow-hidden mb-4 editorial-shadow">
+<img alt="Trending Artist" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIq5zzZoP-prD7b6gx0hAgA_IP6LvDZnZhUUEDFf4xVAePsmSgJX8xkazquQBFrvMU978bQ4BcwTNLphxYy2LkktXPnc7APBiHLaCOq8l3soqW1J0jiXWL1404PeMLeTawzpbnAJF6Q9LXH6v6d4QUyuUlscjmWSCU0IfPQ1afOBO1AMmPKpmHQvxOv3Urh5kRKAZXOpeNS6kaG_sBombU49MsFCULj58PWrTqDWj2Y8rJq69pPpCdCz-OFJfjl8SZbI4sxMtdi9Q"/>
+<div class="absolute top-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded text-[10px] font-bold text-white uppercase tracking-tighter">Verified</div>
+</div>
+<h4 class="font-bold">Julian Thorne</h4>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Composer • London</p>
+</div>
+<!-- Trending Card 3 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative h-48 rounded-xl overflow-hidden mb-4 editorial-shadow">
+<img alt="Trending Artist" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcZ9AK4mfr5hoTzlocGhHIylyLUwOr8ysgEAEU0Vzyc2UVTHu0AidNKZaFq9R4YKzu66fDSWGSR4oH5TQW65G-dnVIJ8aVaueCm017gx-KDf0LWWk93Aif1VglWJ1GSnYBWC9WmcnM1C0ge8V5ZiFlsZdZdam7IeLsa7nw1FDX9RI8E1skSse4mDV0g0r_nnuK-3cmG6o4g2jlKXu32wQVV6mU2pbpGQ84O8fiSildnO_2_Wc9cWL4qNQW4eTHCkOs6t1APo7CP_w"/>
+<div class="absolute top-3 right-3 px-2 py-1 bg-black/40 backdrop-blur-md rounded text-[10px] font-bold text-white uppercase tracking-tighter">Hot</div>
+</div>
+<h4 class="font-bold">Mila K.</h4>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Soul • New York</p>
+</div>
+</div>
+</section>
+<div class="flex gap-12">
+<!-- Sidebar Filters -->
+<aside class="hidden xl:block w-64 flex-shrink-0 space-y-10">
+<div>
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant mb-6">Filter by Role</h3>
+<div class="space-y-4">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded bg-surface-container-high border-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Producers</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded bg-surface-container-high border-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Engineers</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded bg-surface-container-high border-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Vocalists</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded bg-surface-container-high border-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+<span class="text-sm text-on-surface group-hover:text-primary transition-colors">Composers</span>
+</label>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant">BPM Range</h3>
+<span class="text-[10px] text-primary font-bold">80 - 140</span>
+</div>
+<input class="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer range-slider accent-primary" max="200" min="40" type="range"/>
+<div class="flex justify-between mt-2 text-[10px] text-on-surface-variant font-medium">
+<span>40 BPM</span>
+<span>200 BPM</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant mb-6">Genre</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1 rounded-full text-[10px] font-bold border border-primary text-primary bg-primary/10">Techno</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-bold border border-outline-variant/30 text-on-surface-variant hover:border-on-surface-variant transition-all">Ambient</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-bold border border-outline-variant/30 text-on-surface-variant hover:border-on-surface-variant transition-all">House</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-bold border border-outline-variant/30 text-on-surface-variant hover:border-on-surface-variant transition-all">Soul</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-bold border border-outline-variant/30 text-on-surface-variant hover:border-on-surface-variant transition-all">Hip Hop</button>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-container-high hover:bg-surface-bright text-xs font-bold uppercase tracking-widest transition-all rounded">Reset All Filters</button>
+</aside>
+<!-- Professional Grid -->
+<div class="flex-1">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline text-3xl font-bold tracking-tight">Available Talent</h2>
+<div class="flex items-center gap-4">
+<span class="text-xs text-on-surface-variant">Showing 24 of 1,280 artists</span>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<button class="flex items-center gap-2 text-xs font-bold text-on-surface">
+                                Sort: Most Relevant <span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Artist Card 1 -->
+<article class="group relative bg-surface-container rounded-xl p-5 border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high relative mb-6">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhkS65HsY0hcMLvYfnh1NRR-rtXp7Seq9vulc2Srph8XEawfLZmGooTHnezz4nw-d1ksJTBCTXtCHpKOuQccjGBiVbyH37OR4-sdAZ4yuEBNzku3ckctv5lMuffHJmYf6Dn_QzxuUTJTkjqP5nkzPPtYintzP6UAUm3Bi3xzV-65B_r56FS_qLqgW-_xREGnjKXgsGD9H6hj3SoneTlywSQQoq-y-2kSQBXem1w9z21u9K--YBSFbaReSRUPZ5r0WKPENOIrjMiWo"/>
+<!-- Hover Quick Listen Reveal -->
+<div class="absolute inset-x-4 bottom-4 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2">
+<button class="flex-1 h-10 bg-primary text-on-primary rounded font-bold text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                        Quick Listen
+                                    </button>
+<button class="w-10 h-10 bg-white/20 backdrop-blur-md rounded flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h5 class="text-lg font-bold text-on-surface">Elena Rossi</h5>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold mt-1">Mixing Engineer • Milan</p>
+</div>
+<span class="text-sm font-bold text-primary">$85<span class="text-[10px] text-on-surface-variant font-normal">/hr</span></span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.9</span>
+<span class="text-[10px] text-on-surface-variant">(124)</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface-container bg-surface-container-high text-[8px] flex items-center justify-center">+12</div>
+</div>
+</div>
+</article>
+<!-- Artist Card 2 -->
+<article class="group relative bg-surface-container rounded-xl p-5 border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high relative mb-6">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIq5zzZoP-prD7b6gx0hAgA_IP6LvDZnZhUUEDFf4xVAePsmSgJX8xkazquQBFrvMU978bQ4BcwTNLphxYy2LkktXPnc7APBiHLaCOq8l3soqW1J0jiXWL1404PeMLeTawzpbnAJF6Q9LXH6v6d4QUyuUlscjmWSCU0IfPQ1afOBO1AMmPKpmHQvxOv3Urh5kRKAZXOpeNS6kaG_sBombU49MsFCULj58PWrTqDWj2Y8rJq69pPpCdCz-OFJfjl8SZbI4sxMtdi9Q"/>
+<div class="absolute inset-x-4 bottom-4 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2">
+<button class="flex-1 h-10 bg-primary text-on-primary rounded font-bold text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                        Quick Listen
+                                    </button>
+<button class="w-10 h-10 bg-white/20 backdrop-blur-md rounded flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h5 class="text-lg font-bold text-on-surface">Julian Thorne</h5>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold mt-1">Composer • London</p>
+</div>
+<span class="text-sm font-bold text-primary">$120<span class="text-[10px] text-on-surface-variant font-normal">/hr</span></span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">5.0</span>
+<span class="text-[10px] text-on-surface-variant">(86)</span>
+</div>
+<span class="px-2 py-1 bg-surface-container-high rounded text-[8px] font-bold uppercase tracking-widest text-on-surface-variant">Top Tier</span>
+</div>
+</article>
+<!-- Artist Card Skeleton (High-end loading state) -->
+<article class="relative bg-surface-container rounded-xl p-5 border border-outline-variant/5">
+<div class="aspect-square rounded-lg skeleton mb-6"></div>
+<div class="space-y-3">
+<div class="h-5 w-3/4 skeleton rounded"></div>
+<div class="h-3 w-1/2 skeleton rounded opacity-50"></div>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 flex justify-between">
+<div class="h-4 w-12 skeleton rounded"></div>
+<div class="h-4 w-16 skeleton rounded"></div>
+</div>
+</article>
+<!-- Artist Card 3 -->
+<article class="group relative bg-surface-container rounded-xl p-5 border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="aspect-square rounded-lg overflow-hidden bg-surface-container-high relative mb-6">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcZ9AK4mfr5hoTzlocGhHIylyLUwOr8ysgEAEU0Vzyc2UVTHu0AidNKZaFq9R4YKzu66fDSWGSR4oH5TQW65G-dnVIJ8aVaueCm017gx-KDf0LWWk93Aif1VglWJ1GSnYBWC9WmcnM1C0ge8V5ZiFlsZdZdam7IeLsa7nw1FDX9RI8E1skSse4mDV0g0r_nnuK-3cmG6o4g2jlKXu32wQVV6mU2pbpGQ84O8fiSildnO_2_Wc9cWL4qNQW4eTHCkOs6t1APo7CP_w"/>
+<div class="absolute inset-x-4 bottom-4 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2">
+<button class="flex-1 h-10 bg-primary text-on-primary rounded font-bold text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                        Quick Listen
+                                    </button>
+<button class="w-10 h-10 bg-white/20 backdrop-blur-md rounded flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h5 class="text-lg font-bold text-on-surface">Mila K.</h5>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold mt-1">Vocalist • New York</p>
+</div>
+<span class="text-sm font-bold text-primary">$150<span class="text-[10px] text-on-surface-variant font-normal">/hr</span></span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-on-surface">4.8</span>
+<span class="text-[10px] text-on-surface-variant">(210)</span>
+</div>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-[8px] font-bold text-on-surface-variant uppercase tracking-tighter">Available Now</span>
+</div>
+</div>
+</article>
+<!-- Artist Card Skeleton 2 -->
+<article class="relative bg-surface-container rounded-xl p-5 border border-outline-variant/5">
+<div class="aspect-square rounded-lg skeleton mb-6"></div>
+<div class="space-y-3">
+<div class="h-5 w-3/4 skeleton rounded"></div>
+<div class="h-3 w-1/2 skeleton rounded opacity-50"></div>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 flex justify-between">
+<div class="h-4 w-12 skeleton rounded"></div>
+<div class="h-4 w-16 skeleton rounded"></div>
+</div>
+</article>
+<!-- Artist Card Skeleton 3 -->
+<article class="relative bg-surface-container rounded-xl p-5 border border-outline-variant/5">
+<div class="aspect-square rounded-lg skeleton mb-6"></div>
+<div class="space-y-3">
+<div class="h-5 w-3/4 skeleton rounded"></div>
+<div class="h-3 w-1/2 skeleton rounded opacity-50"></div>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 flex justify-between">
+<div class="h-4 w-12 skeleton rounded"></div>
+<div class="h-4 w-16 skeleton rounded"></div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-16 flex justify-center items-center gap-4">
+<button class="w-10 h-10 rounded border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded bg-primary text-on-primary font-bold text-xs">1</button>
+<button class="w-10 h-10 rounded hover:bg-surface-container text-on-surface-variant font-bold text-xs transition-all">2</button>
+<button class="w-10 h-10 rounded hover:bg-surface-container text-on-surface-variant font-bold text-xs transition-all">3</button>
+<span class="w-10 h-10 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-10 h-10 rounded hover:bg-surface-container text-on-surface-variant font-bold text-xs transition-all">12</button>
+</div>
+<button class="w-10 h-10 rounded border border-outline-variant/30 flex items-center justify-center text-on-surface-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 flex flex-col md:flex-row justify-between items-center px-12 mt-20 font-inter text-[0.6875rem] uppercase tracking-widest bg-surface-container-lowest border-t border-outline-variant/5">
+<div class="text-[#9f9da1] mb-8 md:mb-0">© 2024 The Sonic Gallery. Professional Marketplace.</div>
+<div class="flex gap-8">
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">API Status</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">Help Center</a>
+</div>
+</footer>
+<!-- Filter FAB for Mobile -->
+<button class="xl:hidden fixed bottom-10 right-10 w-14 h-14 bg-primary text-on-primary rounded-full editorial-shadow flex items-center justify-center active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</button>
+</body></html>

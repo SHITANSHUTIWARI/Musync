@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MUSYNC | Elite Professional Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#131313",
+              "surface-container-low": "#1c1b1b",
+              "surface-container-highest": "#353534",
+              "on-background": "#e5e2e1",
+              "primary-fixed-dim": "#c1c1ff",
+              "on-tertiary-container": "#fff6f3",
+              "surface-container": "#201f1f",
+              "surface-tint": "#c1c1ff",
+              "surface": "#131313",
+              "tertiary-fixed-dim": "#ffb689",
+              "on-primary-fixed-variant": "#2e2bc2",
+              "on-tertiary-fixed": "#321300",
+              "tertiary-fixed": "#ffdbc8",
+              "on-surface-variant": "#c7c4d7",
+              "outline-variant": "#464555",
+              "surface-bright": "#393939",
+              "on-primary-fixed": "#07006c",
+              "outline": "#908fa0",
+              "primary": "#c1c1ff",
+              "surface-container-lowest": "#0e0e0e",
+              "background": "#131313",
+              "on-secondary": "#303033",
+              "primary-fixed": "#e1e0ff",
+              "secondary": "#c8c6c9",
+              "inverse-on-surface": "#313030",
+              "primary-container": "#5d5fef",
+              "error-container": "#93000a",
+              "tertiary": "#ffb689",
+              "tertiary-container": "#b65700",
+              "on-secondary-fixed-variant": "#47464a",
+              "secondary-fixed": "#e4e1e5",
+              "secondary-container": "#47464a",
+              "on-error-container": "#ffdad6",
+              "inverse-primary": "#4849da",
+              "surface-variant": "#353534",
+              "secondary-fixed-dim": "#c8c6c9",
+              "on-primary-container": "#faf7ff",
+              "on-primary": "#1200a9",
+              "surface-container-high": "#2a2a2a",
+              "on-tertiary-fixed-variant": "#743500",
+              "on-tertiary": "#512300",
+              "on-surface": "#e5e2e1",
+              "error": "#ffb4ab",
+              "on-error": "#690005",
+              "inverse-surface": "#e5e2e1",
+              "on-secondary-container": "#b6b4b8",
+              "on-secondary-fixed": "#1b1b1e"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #131313;
+        color: #e5e2e1;
+      }
+      .glass-card {
+        background: rgba(57, 57, 57, 0.4);
+        backdrop-filter: blur(20px);
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #c1c1ff 0%, #5d5fef 100%);
+      }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-white/5 bg-[#1c1b1b] shadow-2xl z-50 flex flex-col py-8 font-['Manrope'] antialiased tracking-tight">
+<div class="px-8 mb-10">
+<h1 class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#c1c1ff] to-[#5d5fef]">MUSYNC</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mt-1">Elite Collaboration</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-all duration-300 hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-all duration-300 hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-sm font-medium">Discover</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-all duration-300 hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-all duration-300 hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="text-sm font-medium">Messages</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-[#c1c1ff] bg-[#2a2a2a] border-l-4 border-[#5d5fef] font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full signature-gradient text-on-primary-fixed font-bold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Create Project
+            </button>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-20 z-40 bg-[#131313]/80 backdrop-blur-xl flex justify-between items-center px-10">
+<div class="flex-1 max-w-xl">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-stone-500" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-1 focus:ring-[#5d5fef]/50 placeholder-stone-600 transition-all" placeholder="Search elite creators..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-stone-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-stone-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-white/10"></div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium text-stone-200">Alex Rivers</span>
+<img alt="Professional Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20" data-alt="close-up professional headshot of a person with stylish lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvMjBDPiulHeVYUbn2eDtUqSwzNCju4H7MCwRZJyUFaiyDIG6-AxNx4r6350N0T0QcqzhV_P8nZhubvSq79hQZQB5osvFtrOTu4iQ7fQ5DJefLwmwaGXS0CErDzt_USTV7Hxr0UmhqC3czGR7OhIZRdxDBcXESc2s88_lGuslYWvRyUij7nkZTI8e4_QV5-H15V-x5LtCbjpEGdqAVcVoFd9cWxSGGIvoKU8PYjQHMDd5tlQe0rSoa8kj8wTdOFmPOFBYXF_C0I08"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 min-h-screen bg-surface">
+<!-- Hero Banner Section -->
+<section class="relative h-[400px] w-full overflow-hidden">
+<img alt="Profile Banner" class="w-full h-full object-cover" data-alt="professional music studio with synthesizers and mood lighting in deep purple and blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvh59jCx3HOUCZMZ8xQ7eXACUOCA0NESKi0VrIpZQrp5JIJUpUa4llDWaj5oa_y7gjghw5cfHQ9_cgrBe4UOdxmTK5I8PrfzF1laH7x-AAtOCyibbT0npMv_gJ7v4loKZ-cjd16zyoMhswJqu3URmuiKSVcE1KFL9HSlc_qOoMoWXDE6EcX-3QdUoMm_6ZjCDdHsrS5tUaVWQg7gsXDyukUWO_WsiOGBXu8aAvixgoA3G8PikxgnhL0gxb_EpYVDtcVBrNtk3SXGU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
+<div class="absolute bottom-0 left-10 flex items-end gap-8 translate-y-1/3">
+<div class="relative group">
+<img alt="User Profile Picture" class="w-48 h-48 rounded-full border-8 border-surface object-cover shadow-2xl" data-alt="high-end editorial portrait of a music producer with soft dramatic lighting and cinematic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4Kabxfyk8b12-jFPM9-wTGdD8HcDe3885bMDT_n2Ne3F3yA6ImiruZANHvY5IlowXOAbmTzl2ZYZutMCULmUdBws7Z9wW-hHU77MFAHdaz7aGY7jP3s5Z36-K_T57xLJplQ-ON_-5ffBAOG2aH5vaDnBtuJo5pyJgr8XaHx74siN178l5CUkJdFygwg-7qm13MPXHZq2-hysxkLK-ODq09bwogKukBrzXuGKaQ9z53gnJAOvX3wiDihhzyC1ciwpRKfqqQJQXmG8"/>
+<div class="absolute inset-0 rounded-full bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="photo_camera">photo_camera</span>
+</div>
+</div>
+<div class="pb-12 mb-4">
+<h2 class="font-headline text-5xl font-black tracking-tighter text-on-surface mb-2">Alex Rivers</h2>
+<p class="font-body text-lg text-on-surface-variant max-w-xl">Award-winning Multi-Instrumentalist &amp; Audio Architect specializing in immersive sonic landscapes.</p>
+</div>
+</div>
+<div class="absolute bottom-12 right-10 flex gap-4">
+<button class="bg-surface-container-highest px-6 py-2.5 rounded-full border border-outline-variant/15 font-medium flex items-center gap-2 hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+                    Edit Profile
+                </button>
+<button class="signature-gradient text-on-primary-fixed px-8 py-2.5 rounded-full font-bold shadow-lg active:scale-95 transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+                    Contact
+                </button>
+</div>
+</section>
+<!-- Profile Content Grid -->
+<div class="mt-32 px-10 pb-20 grid grid-cols-12 gap-10">
+<!-- Left Column: About & Identity -->
+<div class="col-span-12 lg:col-span-4 space-y-10">
+<!-- Tags & Identity -->
+<div class="space-y-6">
+<div>
+<h3 class="text-[12px] uppercase tracking-[0.2em] text-stone-500 mb-4">Professional Skills</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary-container/30 text-secondary-fixed px-3 py-1 rounded-sm text-xs font-medium border border-outline-variant/10">Music Producer</span>
+<span class="bg-secondary-container/30 text-secondary-fixed px-3 py-1 rounded-sm text-xs font-medium border border-outline-variant/10">Songwriter</span>
+<span class="bg-secondary-container/30 text-secondary-fixed px-3 py-1 rounded-sm text-xs font-medium border border-outline-variant/10">Mixing Engineer</span>
+<span class="bg-secondary-container/30 text-secondary-fixed px-3 py-1 rounded-sm text-xs font-medium border border-outline-variant/10">Sound Designer</span>
+</div>
+</div>
+<div>
+<h3 class="text-[12px] uppercase tracking-[0.2em] text-stone-500 mb-4">Genre Specialties</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-sm text-xs font-medium border border-primary/20">Indie-Pop</span>
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-sm text-xs font-medium border border-primary/20">Lo-fi</span>
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-sm text-xs font-medium border border-primary/20">Ambient</span>
+</div>
+</div>
+</div>
+<!-- About Card -->
+<div class="bg-surface-container-low rounded-xl p-8 shadow-sm">
+<h3 class="font-headline text-xl font-bold mb-4 text-on-surface">About</h3>
+<p class="text-on-surface-variant leading-relaxed text-sm mb-6">
+                        With over a decade of experience in the London and LA music scenes, I focus on the intersection of organic instrumentation and cutting-edge digital synthesis. My philosophy is rooted in "Atmospheric Intent"—ensuring every sonic element serves the emotional core of the narrative. 
+                        <br/><br/>
+                        Currently open to high-end collaborations and bespoke score commissions for visual media.
+                    </p>
+<div class="pt-6 border-t border-outline-variant/10 flex flex-col gap-4">
+<div class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+<span class="text-xs">Los Angeles, CA / Remote</span>
+</div>
+<div class="flex items-center gap-3 text-stone-400">
+<span class="material-symbols-outlined text-sm" data-icon="language">language</span>
+<span class="text-xs">alexrivers-audio.com</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Portfolio & Projects -->
+<div class="col-span-12 lg:col-span-8 space-y-12">
+<!-- Portfolio Grid -->
+<div>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline text-3xl font-black text-on-surface">Portfolio</h3>
+<p class="text-stone-500 text-sm mt-1">Featured works and visual releases</p>
+</div>
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1">
+                            Add Project <span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Project Card 1 -->
+<div class="group bg-surface-container-low rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl">
+<div class="relative h-48">
+<img alt="Neon Nights cover" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="abstract neon light trails in a dark tunnel representing motion and synthwave energy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYLigiPbh0fHTViDoaxtfZEa-eIWE7qQ_ZMpzH4UCWJ6uPUQ8e2CD4x9pJMQtSBAFwPlwPyDfg88mBgif5Ct0J5OChMLG9uksOroTGV6d7YIIxpcSvNeOY8sjWZC_YM7GVSEV2pJ6A3EZDjUjK464p3G2wkX0qikHtkzIApkUzwVA5ixWCeyv3Jo91D6KAukJevNeyncZi0nWVEpx4n2QMTwdIv3rrdVdeRuSClY6wRzH5wySS4t7gErkwy6fFzA7ZSszxQWsbtXI"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+<button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-lg text-on-surface">Neon Nights (EP)</h4>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">RELEASED</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-2">A conceptual journey through late-night urban landscapes, blending analog synths with field recordings.</p>
+<div class="mt-4 flex gap-4">
+<span class="material-symbols-outlined text-stone-500 text-lg" data-icon="headphones">headphones</span>
+<span class="material-symbols-outlined text-stone-500 text-lg" data-icon="videocam">videocam</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group bg-surface-container-low rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl">
+<div class="relative h-48">
+<img alt="Ethereal Waves cover" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="minimalist landscape of rolling fog over dark ocean waters with soft blue tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlZOE5XRYjqCBT-5bPkVHcge5y9di1F79rNjwUEXQewqqa5KZy92sqrlf1nAmwdLvevjCUEjWRO940oBeA6AdWqCypiCUsZpDb7AarNFG27sqfgP3E_ToulB0z25jdbakPE2kR74GhQWL7GSmgp1QZXv9Ym-xA-MDjejZBR93hAcW3DycbJihjNB4qaY0W3kUNX24xOu2JyNd6ve232qUzgw3phMt762jAHE2BvH2g_AsX5m9O6HT_WG0MmRbrNfEWL5B7UJwELxk"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+<button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-lg text-on-surface">Ethereal Waves</h4>
+<span class="text-[10px] bg-surface-container-highest text-stone-400 px-2 py-0.5 rounded-full font-bold">ARCHIVE</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-2">Ambient experimental session recorded at Black Rock Studios. Focus on texture and space.</p>
+<div class="mt-4 flex gap-4">
+<span class="material-symbols-outlined text-stone-500 text-lg" data-icon="headphones">headphones</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ongoing Projects (Nodes) -->
+<div>
+<h3 class="font-headline text-2xl font-bold mb-6 text-on-surface">Active Collaborations</h3>
+<div class="space-y-4">
+<!-- Collaboration Node 1 -->
+<div class="bg-surface-container-high rounded-lg p-6 relative border-l-2 border-primary shadow-sm group hover:bg-surface-bright/50 transition-colors">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="flex -space-x-3">
+<img alt="Collaborator 1" class="w-10 h-10 rounded-full border-2 border-surface-container-high" data-alt="portrait of a male singer with focused expression and dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVtlm9SGsOb614Cl3eEzYDcj5YW1XvkN5jJ1N6IGH_qrpP8aUYh4IdwdMiXgGFrZA4s-jylPH8vjOhhHveDo-j54qWwvphXRLyNyteEZYl3OE8smdl_LJBqICw4BDjDlOXKGJyv1zqFW2zYEIpZueKZ4HeEJdVaLn1xVL-wAE9pNiFoDffA_2v68k8rQyVr54FFwruFQom4K3R_9GwAI9I_ntSz_hsksDKs_DDbAFlqrtm2ga1nVL8CFDTrIgw-fjeIGKwi48HF90"/>
+<img alt="Collaborator 2" class="w-10 h-10 rounded-full border-2 border-surface-container-high" data-alt="portrait of a female artist with creative makeup and confident look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfZRiiJil861vTG3OtQfMWrJTCKGTpqC4kNpc52w33XmAoeaTT3AkBBwW_cwze28iE-WDbalsqWSw-wSMNmSqvOFH9pgSzEqvokYDHUerJEPu3ty2HJoFfXa1FI2KNKdT5V_kvPP0h4HZoGSTY78LTyf0Ymxy4UiXN19Pf4rQjK_TGPfQONogA_kyAWOIkm0mZIYw7E0bETWTp4lm-U5e7nN5uvvsmi3PL3qrKVkjH2zbEHXxifI_LdMQCEztxvCjbZKc6RgBqoTM"/>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-surface-container-high flex items-center justify-center text-[10px] font-bold text-stone-400">+2</div>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Synth-Pop Revival Album</h4>
+<p class="text-xs text-stone-500 mt-0.5">Stage: Production &amp; Mixing • Next Milestone: Vocal Comping</p>
+</div>
+</div>
+<button class="text-stone-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Collaboration Node 2 -->
+<div class="bg-surface-container-high rounded-lg p-6 relative border-l-2 border-primary shadow-sm group hover:bg-surface-bright/50 transition-colors">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="flex -space-x-3">
+<img alt="Collaborator 3" class="w-10 h-10 rounded-full border-2 border-surface-container-high" data-alt="headshot of a man with glasses and professional musician style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2XmFg3L3HZpawG6BF2opBuBdiGYO8-cayQVRg__1SwcnyLPQ0TCVFwwQy9jW9zkj2rdKi4sNPY4dUNHATIHs2Ni7pzsmQRal9VHDvT7kuwsLLOhoF8pCjiPjPz8CihOf4IeFjOBHo7bTvQ7L6Arw5mZH9EZotKo5B-5cL9Qi1-N6UDu1pnooTsF3SHnScJb8NmrrdV0OxYARnhfx5JVYS6m-gFVDX0qPowDH29ETKFOUr3InDPiJalQO23LG5i-8fPvKNJW8Xlaw"/>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-surface-container-high flex items-center justify-center text-[10px] font-bold text-stone-400">ME</div>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">"Fractured" - Indie Short Film Score</h4>
+<p class="text-xs text-stone-500 mt-0.5">Stage: Composing • Next Milestone: Final Arrangement Review</p>
+</div>
+</div>
+<button class="text-stone-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-12 ml-64 max-w-[calc(100%-16rem)] border-t border-white/5 bg-[#0e0e0e] flex flex-col md:flex-row justify-between items-center px-10 gap-6">
+<div class="text-stone-400 font-bold uppercase tracking-[0.1em] text-[12px]">MUSYNC Elite Professional</div>
+<div class="flex gap-8">
+<a class="text-[12px] uppercase tracking-[0.1em] text-stone-600 hover:text-[#c1c1ff] transition-colors" href="#">Terms</a>
+<a class="text-[12px] uppercase tracking-[0.1em] text-stone-600 hover:text-[#c1c1ff] transition-colors" href="#">Privacy</a>
+<a class="text-[12px] uppercase tracking-[0.1em] text-stone-600 hover:text-[#c1c1ff] transition-colors" href="#">Support</a>
+<a class="text-[12px] uppercase tracking-[0.1em] text-stone-600 hover:text-[#c1c1ff] transition-colors" href="#">API</a>
+</div>
+<div class="text-stone-500 text-[10px] uppercase tracking-[0.1em]">
+                © 2024 MUSYNC Elite Professional. All rights reserved.
+            </div>
+</footer>
+</main>
+</body></html>

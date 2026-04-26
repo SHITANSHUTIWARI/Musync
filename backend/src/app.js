@@ -38,6 +38,13 @@ if (config.env !== 'test') {
   app.use(morgan(config.env === 'development' ? 'dev' : 'combined'));
 }
 
+const path = require('path');
+
+// ===================
+// Static Files (Uploads)
+// ===================
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+
 // ===================
 // API Routes
 // ===================

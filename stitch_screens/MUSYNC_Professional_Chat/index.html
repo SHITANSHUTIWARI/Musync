@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MUSYNC | Elite Collaboration Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#131313",
+            "surface-container-low": "#1c1b1b",
+            "surface-container-highest": "#353534",
+            "on-background": "#e5e2e1",
+            "primary-fixed-dim": "#c1c1ff",
+            "on-tertiary-container": "#fff6f3",
+            "surface-container": "#201f1f",
+            "surface-tint": "#c1c1ff",
+            "surface": "#131313",
+            "tertiary-fixed-dim": "#ffb689",
+            "on-primary-fixed-variant": "#2e2bc2",
+            "on-tertiary-fixed": "#321300",
+            "tertiary-fixed": "#ffdbc8",
+            "on-surface-variant": "#c7c4d7",
+            "outline-variant": "#464555",
+            "surface-bright": "#393939",
+            "on-primary-fixed": "#07006c",
+            "outline": "#908fa0",
+            "primary": "#c1c1ff",
+            "surface-container-lowest": "#0e0e0e",
+            "background": "#131313",
+            "on-secondary": "#303033",
+            "primary-fixed": "#e1e0ff",
+            "secondary": "#c8c6c9",
+            "inverse-on-surface": "#313030",
+            "primary-container": "#5d5fef",
+            "error-container": "#93000a",
+            "tertiary": "#ffb689",
+            "tertiary-container": "#b65700",
+            "on-secondary-fixed-variant": "#47464a",
+            "secondary-fixed": "#e4e1e5",
+            "secondary-container": "#47464a",
+            "on-error-container": "#ffdad6",
+            "inverse-primary": "#4849da",
+            "surface-variant": "#353534",
+            "secondary-fixed-dim": "#c8c6c9",
+            "on-primary-container": "#faf7ff",
+            "on-primary": "#1200a9",
+            "surface-container-high": "#2a2a2a",
+            "on-tertiary-fixed-variant": "#743500",
+            "on-tertiary": "#512300",
+            "on-surface": "#e5e2e1",
+            "error": "#ffb4ab",
+            "on-error": "#690005",
+            "inverse-surface": "#e5e2e1",
+            "on-secondary-container": "#b6b4b8",
+            "on-secondary-fixed": "#1b1b1e"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #353534;
+      border-radius: 10px;
+    }
+    body {
+      background-color: #131313;
+      color: #e5e2e1;
+    }
+  </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-white overflow-hidden h-screen">
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-white/5 bg-[#1c1b1b] shadow-2xl flex flex-col py-8 z-50 font-['Manrope'] antialiased tracking-tight">
+<div class="px-8 mb-10">
+<h1 class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#c1c1ff] to-[#5d5fef]">MUSYNC</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mt-1">Elite Collaboration</p>
+</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-medium">Discover</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="work_outline">work_outline</span>
+<span class="font-medium">Projects</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-[#c1c1ff] bg-[#2a2a2a] border-l-4 border-[#5d5fef] font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-medium">Messages</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-stone-400 hover:text-stone-100 transition-colors hover:bg-[#2a2a2a]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full py-4 rounded-full bg-gradient-to-br from-[#c1c1ff] to-[#5d5fef] text-on-primary-fixed font-bold text-sm tracking-tight active:scale-95 transition-transform">
+        Create Project
+      </button>
+</div>
+</nav>
+<header class="fixed top-0 right-0 left-64 h-20 z-40 bg-[#131313]/80 backdrop-blur-xl flex justify-between items-center px-10 w-full font-['Inter'] font-medium text-sm tracking-wide">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-2.5 pl-12 pr-4 text-on-surface focus:ring-1 focus:ring-[#5d5fef]/50 placeholder:text-stone-600 transition-all" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-stone-400 hover:text-white transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-container rounded-full"></span>
+</button>
+<button class="text-stone-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</button>
+<div class="h-8 w-px bg-white/5 mx-2"></div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-[#5d5fef]/50 transition-all" data-alt="close-up portrait of a professional male music producer in a dark studio setting with soft blue backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD43MgBHyTn9zBHMxnXGh_wTUbv0bkk-VY-kfGg67kSWtgbWR-3bZ9B7Qu9ae5noqp7QPexxV0n4ajIsYUnQ5H1mQ2ibrk2IguKKdXxOehFHvCy0MpDszFCSMQXCZVNKpTWAPqasYfIeClnuFijiy5VZeb4aA36qqBe-4kjcQd52WkxelnLRyxrq8QPfoyfoSeb6oYaC9fPtQoj2u4K1xMR14uwN6Lt3stmgCUjOEss1DfDguCSgDMMTi4UboW-gFjNHzpfmZSJe8U"/>
+<span class="font-semibold text-on-surface">Alex River</span>
+</div>
+</div>
+</header>
+<main class="pl-64 pt-20 h-screen flex bg-surface">
+<aside class="w-80 h-full bg-surface-container-low flex flex-col border-r border-white/5">
+<div class="p-6">
+<h2 class="font-headline font-bold text-xl tracking-tight text-on-surface mb-1">Collaboration Hub</h2>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Active Threads</p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar px-3 space-y-1">
+<div class="p-3 rounded-xl bg-surface-container-high relative group cursor-pointer transition-all">
+<div class="absolute left-0 top-1/4 bottom-1/4 w-1 bg-primary rounded-full"></div>
+<div class="flex gap-4">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="professional headshot of a female artist with creative lighting and warm skin tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqOPmnOz0FP3YpK5XneDJXYDVtuQKcm4ZqxU0_3dVLWfzbtI179of9QxPopXoAZlZM-H7MlLpq63exR9j5gz4ayh5STQBWWJ37TuUZ0uDZyV09rsHe5YV--hx05yhLzBjuIHBmYAAG-7NC81O5ONOBNY1Y_hc8yZRvicTc8F76lMN2qAfS2PxfRFbvULADeqK2MOwG01P2PEkYx4aRU2dgFf0zoMlSzNbM4lTr6wjX4uhQI65kZHIuoiaA778wUr5v6R0TZKcaLWw"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-surface-container-high rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-bold text-sm truncate text-on-surface">Sarah J. Bass</h3>
+<span class="text-[10px] text-stone-500 font-medium">12:45 PM</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate font-medium">Just uploaded the stem for the bridge...</p>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-xl hover:bg-surface-container transition-all group cursor-pointer">
+<div class="flex gap-4 opacity-70 group-hover:opacity-100 transition-opacity">
+<div class="relative flex-shrink-0">
+<img class="w-12 h-12 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="portrait of a male sound engineer wearing professional headphones in a recording studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmrudn4LpX_vRhYBa7D4aKxpkG9W-K5A2akvqY4G_KkvqbeswNH839eJFuUC8vhpgzdtBnot02ASs_AtxEhVOHmDV04nZtjoAX49_2EPQzovONRtZD3_moC6YaUdKLIgWjArXx-6JLM_XlGA8M5CJRck9uwk7uuaV26DQpCUbaWUZ01oByhGetPFnTNytlpuQxFAuh-3Jr1YQqnSEyOmmYPk64PjriT5OZ0PROhd7YwHIdUhvT2zWPgGz5qxakOHpaiECz6FBJID0"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-bold text-sm truncate text-on-surface">Marcus V.</h3>
+<span class="text-[10px] text-stone-500 font-medium">YESTERDAY</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate font-medium">The mixing on 'Neon Dreams' is sick!</p>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-xl hover:bg-surface-container transition-all group cursor-pointer">
+<div class="flex gap-4 opacity-70 group-hover:opacity-100 transition-opacity">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container font-bold text-xs uppercase tracking-tighter">
+                EP
+              </div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-center mb-0.5">
+<h3 class="font-bold text-sm truncate text-on-surface">Echo Project</h3>
+<span class="text-[10px] text-stone-500 font-medium">OCT 12</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate font-medium italic">Group chat updated</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-white/5">
+<button class="w-full py-3 rounded-lg border border-outline-variant/30 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">add</span> New Conversation
+        </button>
+</div>
+</aside>
+<section class="flex-1 flex flex-col relative overflow-hidden bg-surface">
+<header class="px-8 h-20 flex items-center justify-between border-b border-white/5 bg-surface/50 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center relative">
+<img class="w-full h-full rounded-lg object-cover" data-alt="profile image of Sarah J. Bass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXSV3aVEilORZ4u_OJVuo4-D1Q6dJlhwhPBnAPz0tWg4qmErw9bRhRmq6ZOrnNl3dToFB4-Cl6pZMoSYcLLZUvoyF9wz88EDP1TwzOLp0XAquAhTrOSwjpD49y-AKD0OK3WxpAv_ZV-2MysiEvegkWW_7_yspMa9ONgeW-ru_1LmXV6qJiEi8KSQZ-5nfEkdPXtb58GqJfx4zsmRfzO1ppcJuIhRv5zTT3gKtqIicus723n3cC-3k1hMWErpaqtNLUy4x3HX_-iz0"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-surface-dim rounded-full"></div>
+</div>
+<div>
+<h2 class="font-headline font-bold text-lg leading-tight">Sarah J. Bass</h2>
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-primary-fixed-dim uppercase tracking-widest">PRO ARTIST</span>
+<span class="w-1 h-1 bg-stone-700 rounded-full"></span>
+<span class="text-xs text-stone-500">Active now • GMT-5</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2.5 rounded-full text-stone-400 hover:bg-surface-container-high hover:text-primary transition-all">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="p-2.5 rounded-full text-stone-400 hover:bg-surface-container-high hover:text-primary transition-all">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<div class="w-px h-6 bg-white/5 mx-2"></div>
+<button class="p-2.5 rounded-full text-stone-400 hover:bg-surface-container-high hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-10 space-y-10">
+<div class="flex flex-col items-center py-6">
+<span class="px-4 py-1.5 rounded-full bg-surface-container text-[10px] font-bold text-stone-500 uppercase tracking-widest border border-white/5">October 24, 2024</span>
+</div>
+<div class="flex gap-4 max-w-2xl">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="small square portrait of Sarah J. Bass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuKDxhexJQTST_IRKWQZYLl1iRQqn5_LE9Z4-0KVlC9JXm9YBH7OVGnRoL1YhPosOc3tOPPOT-U7PpihLF6dhCslWXU9THOkCUIGMtvObJWNn5zeXV3p_cKUHiR5ZInd1RQZjaBbbG1rc9vTNEPJE-TgFaJ0iSvgfx2phndxpupoBS3R1ez4zh1u5thYzYqyutYBEBpRAxeUVcCTC5e0wryQj1-SIHwgP0qyWAINkyY7A343KEhDDnaSb3vFTKCrCObGkEHzuhQUQ"/>
+<div class="space-y-2">
+<div class="flex items-baseline gap-3">
+<span class="font-bold text-sm">Sarah J. Bass</span>
+<span class="text-[10px] text-stone-600 font-medium uppercase tracking-tighter">10:12 AM</span>
+</div>
+<div class="bg-surface-container-high p-4 rounded-r-2xl rounded-bl-2xl text-on-surface leading-relaxed text-sm">
+              Hey Alex! I've been working on the vocal layers for the chorus of "Midnight Drift." I think we need a bit more texture in the lower mids.
+            </div>
+</div>
+</div>
+<div class="flex gap-4 max-w-2xl ml-auto flex-row-reverse">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="small square portrait of Alex River" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIZ_QVxqDCkp5FyFkTgzgWPdV2Y2OamdGuwhNC55S1LVFCB9WY-aVRTrqSGKPu-9J6EPXiIq6slE9YYtQvnPo1ZChMNHosd3GNK8RKSZlrj9SnwjP8lu-7VckdZ1KVTFdVaHDXrUcTg0nv18QC9pPK8vHwcD9czDfRfzz7QzwCRkIOGhROYbmlWBQa-9tx-unGioWjph0yLbsPxeJE1T3AnrLPhuwwOe34PqSSzBRo6KvV7oK-Z2Ht2KpRbyOHVrX8GZXgNk4Xdoo"/>
+<div class="space-y-2 text-right">
+<div class="flex items-baseline gap-3 justify-end">
+<span class="text-[10px] text-stone-600 font-medium uppercase tracking-tighter">11:05 AM</span>
+<span class="font-bold text-sm">You</span>
+</div>
+<div class="bg-primary-container p-4 rounded-l-2xl rounded-br-2xl text-on-primary-container leading-relaxed text-sm inline-block shadow-lg">
+              Totally agree. I can try to layer in some analog synth pads to thicken it up. Can you send over the raw vocal stem?
+            </div>
+</div>
+</div>
+<div class="flex gap-4 max-w-2xl">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="small square portrait of Sarah J. Bass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXnURGoyrIhkTBBGimvUFC-mLHXP8AljoiBlVqDvs7mgA164TQlv3jQhOsANpYrVs0H5bTTzv2wDYaOwQFN-K1jlZcvT1ABSlV-y3Br_RxUesBOEJfWfs6YCk4E50Q8ISz9gC4bzLLB6JPmem45o3ujX3JG0UeJ5pNlevd6xeZC162sPzBGBhsu3MDAmkMgQScB16gX_BIIO93R1mBufRKnh142CaxFtI_jTIF7Dd_Z3QN2-_fsuIcBtCqfPjNWfoHO9-VJ2yutWo"/>
+<div class="space-y-4">
+<div class="flex items-baseline gap-3">
+<span class="font-bold text-sm">Sarah J. Bass</span>
+<span class="text-[10px] text-stone-600 font-medium uppercase tracking-tighter">12:45 PM</span>
+</div>
+<div class="bg-surface-container-high p-4 rounded-r-2xl rounded-bl-2xl text-on-surface leading-relaxed text-sm space-y-4">
+<p>Just uploaded the stem for the bridge. It's much cleaner than the previous take.</p>
+<div class="bg-surface-container-low border border-white/10 rounded-xl overflow-hidden flex items-center p-3 gap-4 group cursor-pointer hover:bg-surface-container-highest transition-all">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-2xl" data-weight="fill">audio_file</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-xs font-bold truncate">MIDNIGHT_DRIFT_VOCALS_V3.mp3</div>
+<div class="text-[10px] text-stone-500 uppercase tracking-widest font-semibold">12.4 MB • MP3 Link</div>
+</div>
+<button class="p-2 rounded-lg bg-surface-bright/20 hover:bg-primary/20 text-primary transition-all">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center py-4">
+<div class="w-full h-px bg-white/5 relative">
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 bg-surface text-[10px] text-stone-600 font-bold uppercase tracking-[0.2em]">New Messages</span>
+</div>
+</div>
+</div>
+<div class="px-10 pb-10 pt-4 bg-surface">
+<div class="bg-surface-container-low rounded-2xl p-2.5 shadow-2xl border border-white/5 focus-within:ring-1 focus-within:ring-[#5d5fef]/30 transition-all">
+<div class="flex items-center gap-2 px-3 pb-2 pt-1 border-b border-white/5 mb-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-base">attach_file</span> Attach File
+            </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold text-primary hover:bg-primary-container/10 transition-all">
+<span class="material-symbols-outlined text-base">link</span> Project Link
+            </button>
+<div class="ml-auto flex items-center gap-1">
+<button class="p-1.5 text-stone-600 hover:text-stone-300"><span class="material-symbols-outlined text-lg">sentiment_satisfied</span></button>
+<button class="p-1.5 text-stone-600 hover:text-stone-300"><span class="material-symbols-outlined text-lg">mic</span></button>
+</div>
+</div>
+<div class="flex items-center gap-4 px-3">
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 resize-none custom-scrollbar placeholder:text-stone-600" placeholder="Type a professional message..." rows="1"></textarea>
+<button class="w-12 h-12 flex-shrink-0 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center shadow-lg hover:shadow-primary-container/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-weight="fill">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="fixed bottom-0 left-64 right-0 bg-[#0e0e0e] border-t border-white/5 py-4 px-10 flex justify-between items-center z-30 font-['Inter'] text-[10px] uppercase tracking-[0.1em] text-stone-500">
+<div class="flex items-center gap-8">
+<span class="text-stone-400 font-bold">MUSYNC ELITE</span>
+<div class="flex gap-6">
+<a class="hover:text-[#c1c1ff] transition-colors" href="#">Terms</a>
+<a class="hover:text-[#c1c1ff] transition-colors" href="#">Privacy</a>
+<a class="hover:text-[#c1c1ff] transition-colors" href="#">Support</a>
+<a class="hover:text-[#c1c1ff] transition-colors" href="#">API</a>
+</div>
+</div>
+<div>
+      © 2024 MUSYNC Elite Professional. All rights reserved.
+    </div>
+</footer>
+</body></html>

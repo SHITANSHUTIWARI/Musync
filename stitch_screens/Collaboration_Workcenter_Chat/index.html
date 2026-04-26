@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#111111",
+            "on-surface": "#f2f2f2",
+            "error-dim": "#b95463",
+            "on-secondary": "#1a1a1a",
+            "inverse-surface": "#ffffff",
+            "surface-bright": "#222222",
+            "primary-container": "#222222",
+            "tertiary": "#e2e7ff",
+            "surface-container-highest": "#2a2a2a",
+            "outline": "#444444",
+            "on-secondary-fixed-variant": "#5c5b5f",
+            "secondary-container": "#222222",
+            "primary-fixed-dim": "#ffffff",
+            "surface-variant": "#1a1a1a",
+            "on-secondary-container": "#c1bec3",
+            "on-primary": "#000000",
+            "error": "#ec7c8a",
+            "on-primary-fixed": "#000000",
+            "tertiary-fixed": "#d1d9f8",
+            "surface": "#080808",
+            "on-tertiary-fixed": "#313951",
+            "on-tertiary": "#4c546e",
+            "surface-container-high": "#181818",
+            "surface-container-lowest": "#000000",
+            "on-surface-variant": "#888888",
+            "surface-tint": "#ffffff",
+            "on-error-container": "#ff97a3",
+            "on-background": "#f2f2f2",
+            "secondary-fixed-dim": "#d7d3d8",
+            "inverse-primary": "#ffffff",
+            "tertiary-dim": "#c3cbe9",
+            "primary-fixed": "#ffffff",
+            "tertiary-fixed-dim": "#c3cbe9",
+            "on-tertiary-container": "#444c65",
+            "surface-container": "#121212",
+            "secondary-fixed": "#e5e1e6",
+            "on-tertiary-fixed-variant": "#4d556f",
+            "outline-variant": "#333333",
+            "surface-dim": "#080808",
+            "background": "#080808",
+            "secondary-dim": "#999999",
+            "on-error": "#490013",
+            "on-secondary-fixed": "#403f43",
+            "primary-dim": "#ffffff",
+            "on-primary-fixed-variant": "#888888",
+            "on-primary-container": "#ffffff",
+            "secondary": "#999999",
+            "inverse-on-surface": "#333333",
+            "primary": "#ffffff",
+            "error-container": "#7f2737",
+            "tertiary-container": "#d1d9f8"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "0px", "lg": "4px", "xl": "8px", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #333333;
+      border-radius: 0px;
+    }
+    .waveform-bar {
+      width: 2px;
+      background: #444;
+      border-radius: 1px;
+    }
+    .waveform-bar.active {
+      background: #fff;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-white selection:text-black antialiased overflow-hidden h-screen flex">
+<!-- SideNavBar Anchor -->
+<aside class="h-screen w-16 hover:w-64 transition-all duration-300 fixed left-0 top-0 z-40 overflow-hidden bg-surface-container-low flex flex-col py-6 px-3 border-r border-outline-variant group">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-8 h-8 bg-white rounded flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-black" style="font-variation-settings: 'FILL' 1;">dataset</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 overflow-hidden whitespace-nowrap">
+<h1 class="text-sm font-bold tracking-tight text-white">Collaboration Hub</h1>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-4 px-2 py-2.5 cursor-pointer text-on-surface-variant hover:bg-surface-container-high hover:text-white rounded transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-sm">Workbench</span>
+</div>
+<div class="flex items-center gap-4 px-2 py-2.5 cursor-pointer bg-surface-container-highest text-white rounded shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-sm font-medium">Messages</span>
+</div>
+<div class="flex items-center gap-4 px-2 py-2.5 cursor-pointer text-on-surface-variant hover:bg-surface-container-high hover:text-white rounded transition-colors">
+<span class="material-symbols-outlined">folder</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-sm">Assets</span>
+</div>
+<div class="flex items-center gap-4 px-2 py-2.5 cursor-pointer text-on-surface-variant hover:bg-surface-container-high hover:text-white rounded transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-sm">Schedule</span>
+</div>
+</nav>
+<div class="mt-auto flex flex-col gap-1">
+<div class="flex items-center gap-4 px-2 py-2.5 cursor-pointer text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-sm">Settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-16 flex bg-surface relative">
+<!-- Conversation Sidebar -->
+<section class="w-80 h-full bg-surface-container border-r border-outline-variant flex flex-col">
+<div class="p-5 flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<h2 class="font-bold text-sm uppercase tracking-widest text-on-surface-variant">Messages</h2>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-white cursor-pointer">add_comment</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded py-2 pl-10 pr-4 text-xs text-on-surface placeholder:text-on-surface-variant focus:ring-1 focus:ring-white/20 focus:border-white/20 transition-all" placeholder="Find people or files..." type="text"/>
+</div>
+<div class="flex p-0.5 bg-surface-container-low border border-outline-variant rounded">
+<button class="flex-1 py-1.5 text-[11px] font-medium bg-surface-container-highest text-white rounded">All Chats</button>
+<button class="flex-1 py-1.5 text-[11px] font-medium text-on-surface-variant hover:text-white">Unread</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col">
+<!-- Active Conversation -->
+<div class="flex items-center gap-3 px-5 py-4 border-l-2 border-white bg-surface-container-high cursor-pointer">
+<div class="relative">
+<img alt="Avatar" class="w-10 h-10 rounded object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSSEF0e3QzlPOfyLEAQX0WlucLaJfyBNRRSBGvzJjCQiII_Lm09uPVcCbvIuD4wf6hicSBOB30SPnS8lut-qtCMb2d9ZIEdixzqrgy65foWO7yiIpoaif6do274WYxA1qybiAfCOW5cXilf_12DsSvE45tb83yGRRpAoQ9eA7UIk2luQ9wGvHqR14SPog-Beq2l7cdAJ5Y340fy4WT3jeq5Xr2QLPA_WRqrlua0wWkfmpNxVIZSP5kYpHpOYTWxRDglkLNI7fXXVI"/>
+<div class="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-surface-container-high"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<span class="font-semibold text-sm truncate">Marcus Chen</span>
+<span class="text-[10px] text-on-surface-variant font-medium">12:45</span>
+</div>
+<p class="text-xs text-white/60 truncate">Shared: Neon_Drift_V3...</p>
+</div>
+</div>
+<!-- Inactive Conversations -->
+<div class="flex items-center gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors cursor-pointer opacity-70 hover:opacity-100">
+<img alt="Avatar" class="w-10 h-10 rounded object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBltsTXw--Y9O1xIa1ULdtwiaVidOFjHIRzURtcY1CTvHXtAQ_8DCl7jQ9--YSXIpJVaawItnYfVC_FA19Us_w15eThNe9ojPE1SYgWb8EnSSPAxrvHYT5WCWFSalnehV8uRz50kzVorh5nQxEF9YK70Ad92ykrxaj53gkKs_8jtrncD9o4pgfRVI_-HvsSimx2HF0iR8cseGU7_zGurifNjstpHj6fRnVcnBu4KbBpln5_wc8UanoBka3_uhKwF6wWuQgCb3twi6A"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<span class="font-medium text-sm truncate">Elena Rodriguez</span>
+<span class="text-[10px] text-on-surface-variant">Yesterday</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Stems are ready for review.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors cursor-pointer opacity-70 hover:opacity-100">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">groups</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<span class="font-medium text-sm truncate">Midnight Crew</span>
+<span class="text-[10px] text-on-surface-variant">Tue</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">James: New kick pattern.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Chat Window / Workspace -->
+<section class="flex-1 h-full flex flex-col relative bg-surface">
+<!-- Header -->
+<header class="h-16 px-8 flex items-center justify-between border-b border-outline-variant bg-surface/50 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<h3 class="font-bold text-sm tracking-tight">Marcus Chen</h3>
+<span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-white/50 uppercase tracking-widest font-semibold">Live Session</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">call</span>
+</button>
+<div class="h-4 w-px bg-outline-variant mx-1"></div>
+<button class="h-8 px-4 bg-white text-black text-[11px] font-bold rounded flex items-center gap-2 hover:bg-white/90 transition-colors">
+<span class="material-symbols-outlined text-[14px]">videocam</span> Join Studio
+</button>
+</div>
+</header>
+<!-- Messaging Area -->
+<div class="flex-1 overflow-y-auto custom-scrollbar px-8 py-6 flex flex-col gap-8">
+<!-- Timestamp -->
+<div class="flex items-center gap-4">
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">August 24, 2024</span>
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+</div>
+<!-- Message -->
+<div class="flex gap-4 max-w-3xl">
+<img alt="Marcus" class="w-8 h-8 rounded mt-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlJ1hOgQAGr-JcyDjscHHdnXKnDcZnnr5KjWWdgS7vQBdGEtUtzPigNVb8AFmmkE84BW7RVHAhVNG4F8O3uEEht0faTStB7zHPBdmhVeYVzM9BzisYQaC5PBYZ-oIVUn0p9AXw2SsFM55zwdGTpwdhR0PEOmcVsqpj5sFNdnV6SQx2nWom0X0OUmE6pPRkHbxV3BpTIaNZ9i4xcd_sON1sjbM4CxrZPhhteVxJcjxRswFE7hfeKBWnowwP_H2nRGZAXPbMdU61kAk"/>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-bold text-white">Marcus Chen</span>
+<span class="text-[10px] text-on-surface-variant">12:40 PM</span>
+</div>
+<div class="text-[13px] leading-relaxed text-white/90">
+                Hey, I've finished the initial mix for the synth-wave track. Broadened the stereo field in the chorus as requested. Check this out:
+              </div>
+</div>
+</div>
+<!-- Audio File Attachment with Waveform -->
+<div class="ml-12 max-w-lg bg-surface-container-low border border-outline-variant rounded-xl p-4 group cursor-pointer hover:border-white/20 transition-all">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-10 h-10 bg-white/5 rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+<div class="flex-1">
+<h4 class="text-xs font-bold text-white mb-0.5">Neon_Drift_V3_Final.mp3</h4>
+<p class="text-[10px] text-on-surface-variant">14.2 MB • Stereo 48kHz</p>
+</div>
+<button class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="flex items-end gap-1 h-12 px-2">
+<div class="waveform-bar h-[20%]"></div>
+<div class="waveform-bar h-[40%]"></div>
+<div class="waveform-bar h-[70%]"></div>
+<div class="waveform-bar h-[50%] active"></div>
+<div class="waveform-bar h-[85%] active"></div>
+<div class="waveform-bar h-[60%] active"></div>
+<div class="waveform-bar h-[90%] active"></div>
+<div class="waveform-bar h-[45%]"></div>
+<div class="waveform-bar h-[75%]"></div>
+<div class="waveform-bar h-[30%]"></div>
+<div class="waveform-bar h-[60%]"></div>
+<div class="waveform-bar h-[40%]"></div>
+<div class="waveform-bar h-[80%]"></div>
+<div class="waveform-bar h-[25%]"></div>
+<div class="waveform-bar h-[55%]"></div>
+<div class="waveform-bar h-[95%]"></div>
+<div class="waveform-bar h-[35%]"></div>
+<div class="waveform-bar h-[65%]"></div>
+<div class="waveform-bar h-[45%]"></div>
+<div class="waveform-bar h-[85%]"></div>
+<div class="waveform-bar h-[20%]"></div>
+<div class="waveform-bar h-[40%]"></div>
+<div class="waveform-bar h-[70%]"></div>
+<div class="waveform-bar h-[50%]"></div>
+<div class="waveform-bar h-[85%]"></div>
+<div class="waveform-bar h-[60%]"></div>
+<div class="waveform-bar h-[90%]"></div>
+<div class="waveform-bar h-[45%]"></div>
+<div class="waveform-bar h-[75%]"></div>
+<div class="waveform-bar h-[30%]"></div>
+<div class="waveform-bar h-[60%]"></div>
+<div class="waveform-bar h-[40%]"></div>
+</div>
+</div>
+<!-- Outgoing Message -->
+<div class="flex flex-col items-end gap-2 ml-auto max-w-3xl">
+<div class="bg-surface-container-highest border border-outline-variant px-4 py-3 rounded-xl rounded-tr-none">
+<p class="text-[13px] text-white leading-relaxed">Sounds incredible. The reverb tail on the lead synth is exactly what it needed. Let's push this to the main project folder.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-widest">Seen 12:44 PM</span>
+<span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: 'wght' 700;">done_all</span>
+</div>
+</div>
+<!-- Typing Indicator -->
+<div class="flex items-center gap-2 ml-12 opacity-60">
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+<div class="w-1.5 h-1.5 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+<div class="w-1.5 h-1.5 bg-white rounded-full animate-bounce"></div>
+</div>
+<span class="text-[11px] font-medium text-on-surface-variant">Marcus is adding a comment...</span>
+</div>
+</div>
+<!-- Input Bar -->
+<footer class="p-6">
+<div class="max-w-4xl mx-auto bg-surface-container-low border border-outline-variant rounded-xl p-1.5 flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm py-2 placeholder:text-on-surface-variant/50" placeholder="Type a message or drop a file..." type="text"/>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined">mood</span>
+</button>
+<button class="w-9 h-9 bg-white text-black rounded flex items-center justify-center hover:bg-white/90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</footer>
+</section>
+<!-- Collaboration Hub Sidebar -->
+<section class="w-80 h-full bg-surface-container border-l border-outline-variant flex flex-col overflow-y-auto custom-scrollbar">
+<div class="p-6 flex flex-col gap-10">
+<!-- Shared Assets Section -->
+<div>
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Workspace Files</h4>
+<span class="text-[10px] text-white font-bold">12 Total</span>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low border border-outline-variant rounded hover:border-white/20 cursor-pointer transition-colors group">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center text-on-surface-variant group-hover:text-white">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[11px] font-bold truncate">Lyrics_Draft_v2.pdf</p>
+<p class="text-[9px] text-on-surface-variant">Added 2h ago by Marcus</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low border border-outline-variant rounded hover:border-white/20 cursor-pointer transition-colors group">
+<div class="w-10 h-10 bg-surface-container-highest rounded overflow-hidden flex items-center justify-center">
+<img alt="Thumbnail" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmeHJOhjV-RkmgL_pKOiihPHZczgTXLKmu8hFxq2VIzJXJOUQopBqFi0O4OTliQPcDD6cbZifRxDihy7xYFuTlnNZAvP0T4K_-oormVYCaC97WV02BM_MLFaFLNQWtzf5pJCTbLlvW5RDehyDHgskDgbTRVjJAtvDLC8F-krKnwK3gW_Ev3urtCyRLndCDXt7MthSqpHi62tcURhPVr5mazH8yV3EfuoYnJKqx04gbwyTV6EzjMYs0uYG1eZDsXuBL5ByRXGdCmGw"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[11px] font-bold truncate">CoverArt_Sketch.png</p>
+<p class="text-[9px] text-on-surface-variant">Added Yesterday</p>
+</div>
+</div>
+<button class="w-full py-2 text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant hover:text-white border border-dashed border-outline-variant rounded hover:border-white/20 transition-all">
+          View All Assets
+        </button>
+</div>
+</div>
+<!-- Task Checklist -->
+<div>
+<h4 class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-6">Action Items</h4>
+<div class="flex flex-col gap-4">
+<label class="flex items-start gap-3 cursor-pointer group">
+<input class="mt-0.5 w-4 h-4 rounded border-outline-variant bg-transparent text-white focus:ring-offset-0 focus:ring-white/20" type="checkbox"/>
+<span class="text-[12px] text-on-surface-variant group-hover:text-white transition-colors">Finalize vocal eq on bridge</span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<input checked="" class="mt-0.5 w-4 h-4 rounded border-outline-variant bg-transparent text-white focus:ring-offset-0 focus:ring-white/20" type="checkbox"/>
+<span class="text-[12px] text-on-surface-variant line-through opacity-40">Sync stems to master project</span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<input class="mt-0.5 w-4 h-4 rounded border-outline-variant bg-transparent text-white focus:ring-offset-0 focus:ring-white/20" type="checkbox"/>
+<span class="text-[12px] text-on-surface-variant group-hover:text-white transition-colors">Prepare distribution metadata</span>
+</label>
+</div>
+</div>
+<!-- Upcoming Events -->
+<div>
+<h4 class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-6">Upcoming</h4>
+<div class="flex flex-col gap-4">
+<div class="pl-3 border-l-2 border-white/20">
+<p class="text-[11px] font-bold">Vocal Session @ Studio A</p>
+<p class="text-[10px] text-on-surface-variant">Tomorrow, 10:00 AM</p>
+</div>
+<div class="pl-3 border-l-2 border-transparent">
+<p class="text-[11px] font-bold text-on-surface-variant">Final Master Review</p>
+<p class="text-[10px] text-on-surface-variant/60">Fri, Aug 26, 2:00 PM</p>
+</div>
+</div>
+</div>
+<!-- Sync Status Card -->
+<div class="mt-auto pt-6">
+<div class="bg-surface-container-high border border-outline-variant rounded p-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-3xl rounded-full -mr-12 -mt-12"></div>
+<div class="flex items-center gap-2 mb-2">
+<div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+<h5 class="text-[11px] font-bold text-white uppercase tracking-tighter">Real-time Sync Active</h5>
+</div>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">
+              Your Logic Pro session is currently linked with Marcus. 2 users connected.
+            </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

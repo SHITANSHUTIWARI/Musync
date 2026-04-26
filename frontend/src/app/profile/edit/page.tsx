@@ -20,6 +20,8 @@ export default function EditProfilePage() {
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+
   useEffect(() => {
     API.get("/profile/me").then(({ data }) => {
       if (data.success && data.profile) {
@@ -46,14 +48,39 @@ export default function EditProfilePage() {
   const setSocial = (field: string, val: string) =>
     setForm((p) => ({ ...p, socialLinks: { ...p.socialLinks, [field]: val } }));
 
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setAvatarFile(file);
+      // Create object URL for preview
+      set("avatar", URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.displayName.trim()) { toast.error("Display name is required"); return; }
     setSaving(true);
-    const payload = { ...form, genres: form.genres.split(",").map((g) => g.trim()).filter(Boolean) };
+    
     try {
-      if (isUpdate) { await API.put("/profile", payload); }
-      else { await API.post("/profile", payload); }
+      const formData = new FormData();
+      formData.append('displayName', form.displayName);
+      formData.append('bio', form.bio);
+      formData.append('location', form.location);
+      
+      const genresArray = form.genres.split(",").map((g) => g.trim()).filter(Boolean);
+      formData.append('genres', JSON.stringify(genresArray));
+      formData.append('socialLinks', JSON.stringify(form.socialLinks));
+      
+      if (avatarFile) {
+        formData.append('avatarFile', avatarFile);
+      }
+
+      if (isUpdate) { 
+        await API.put("/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
+      } else { 
+        await API.post("/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
+      }
       toast.success("Profile updated successfully!");
       router.push("/profile");
     } catch (err: any) {
@@ -145,14 +172,19 @@ export default function EditProfilePage() {
               />
               <div className="flex gap-4">
                 <div className="flex-1">
-                  <Input 
-                    label="Profile Image Link" 
-                    value={form.avatar} 
-                    onChange={(e) => set("avatar", e.target.value)} 
-                    placeholder="https://images.com/your-photo.jpg" 
-                  />
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
+                      Profile Image
+                    </label>
+                    <input 
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarChange}
+                      className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                    />
+                  </div>
                   <p className="text-[10px] text-muted-foreground mt-2 font-bold uppercase tracking-widest px-1">
-                    Provide a direct URL to a high-quality JPG or PNG.
+                    Upload a high-quality JPG or PNG (max 5MB).
                   </p>
                 </div>
                 <div className="w-20 h-20 rounded-2xl bg-surface-high border border-dashed border-border flex items-center justify-center overflow-hidden shrink-0 mt-7">

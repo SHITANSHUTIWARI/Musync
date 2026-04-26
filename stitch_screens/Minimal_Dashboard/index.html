@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MUSYNC | The Sonic Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#131316",
+              "on-surface": "#e6e4ec",
+              "error-dim": "#b95463",
+              "on-secondary": "#202023",
+              "inverse-surface": "#fcf8fb",
+              "surface-bright": "#2b2c32",
+              "primary-container": "#332dbc",
+              "tertiary": "#e2e7ff",
+              "surface-container-highest": "#25252b",
+              "outline": "#75757b",
+              "on-secondary-fixed-variant": "#5c5b5f",
+              "secondary-container": "#3c3b3f",
+              "primary-fixed-dim": "#d2d0ff",
+              "surface-variant": "#25252b",
+              "on-secondary-container": "#c1bec3",
+              "on-primary": "#2c23b6",
+              "error": "#ec7c8a",
+              "on-primary-fixed": "#2b22b5",
+              "tertiary-fixed": "#d1d9f8",
+              "surface": "#0e0e10",
+              "on-tertiary-fixed": "#313951",
+              "on-tertiary": "#4c546e",
+              "surface-container-high": "#1f1f24",
+              "surface-container-lowest": "#000000",
+              "on-surface-variant": "#abaab1",
+              "surface-tint": "#c2c1ff",
+              "on-error-container": "#ff97a3",
+              "on-background": "#e6e4ec",
+              "secondary-fixed-dim": "#d7d3d8",
+              "inverse-primary": "#4e4bd5",
+              "tertiary-dim": "#c3cbe9",
+              "primary-fixed": "#e2dfff",
+              "tertiary-fixed-dim": "#c3cbe9",
+              "on-tertiary-container": "#444c65",
+              "surface-container": "#19191d",
+              "secondary-fixed": "#e5e1e6",
+              "on-tertiary-fixed-variant": "#4d556f",
+              "outline-variant": "#47474d",
+              "surface-dim": "#0e0e10",
+              "background": "#0e0e10",
+              "secondary-dim": "#9f9da1",
+              "on-error": "#490013",
+              "on-secondary-fixed": "#403f43",
+              "primary-dim": "#b2b1ff",
+              "on-primary-fixed-variant": "#4a47d2",
+              "on-primary-container": "#cdccff",
+              "secondary": "#9f9da1",
+              "inverse-on-surface": "#555557",
+              "primary": "#c2c1ff",
+              "error-container": "#7f2737",
+              "tertiary-container": "#d1d9f8"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e10;
+            color: #e6e4ec;
+            font-family: 'Inter', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .glass-panel {
+            backdrop-filter: blur(24px);
+        }
+        .text-gradient-primary {
+            background: linear-gradient(135deg, #c2c1ff 0%, #332dbc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body overflow-x-hidden">
+<!-- SideNavBar Shell -->
+<nav class="h-screen w-20 hover:w-64 transition-all duration-500 fixed left-0 top-0 z-40 overflow-hidden bg-[#19191d] flex flex-col py-8 px-4 gap-8 group shadow-2xl shadow-black/40">
+<div class="flex items-center gap-4 px-2">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#2c23b6] font-bold">gallery_thumbnail</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">
+<h2 class="text-lg font-black tracking-tighter text-[#c2c1ff]">Sonic Gallery</h2>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Professional Studio</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-8">
+<a class="flex items-center gap-4 p-3 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] text-[#2c23b6] rounded-md ease-in-out transform-gpu" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Studio</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="album">album</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Library</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Collaborators</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Projects</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Marketplace</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:text-[#c2c1ff] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Help</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:text-error transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-20 transition-all duration-500 min-h-screen">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 right-0 left-20 z-50 bg-[#0e0e10]/70 backdrop-blur-xl flex justify-between items-center px-12 py-6">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold text-[#e6e4ec] font-headline tracking-tight">The Sonic Gallery</h1>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-6 py-2 text-sm w-80 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant/50" placeholder="Search tracks, talent, or projects..." type="text"/>
+</div>
+</div>
+<nav class="flex items-center gap-8">
+<div class="flex gap-6 items-center">
+<button class="material-symbols-outlined text-[#9f9da1] hover:text-[#e6e4ec] transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-[#9f9da1] hover:text-[#e6e4ec] transition-colors" data-icon="settings">settings</button>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/20">
+<img alt="Julian Vox Profile" data-alt="close-up portrait of a stylish young creative professional with short hair and minimalist clothing in a dark studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB59moyE54wHWBSxXhcWXUGXSS7hPW_sFmCPC0IcNL4rXxMuVB-UdFp_lcRZGC_Kid1x3YPgGCMPG4SSaU_6O27ESjTmFx-QqyYtArtbyDNbf02oXj3IXXdreMzSMqVWeZjwmPQRwgntWiEhw0I6amIOWNJw2RqVUVQ2V_IJAYZlxhHlCkZ8ZVJyLApBWYv_ETaOG5dZtbbIU2k85KM7UfL8D-rT63IylOKxEUfPFVsiZPqUaq_yUEUagePjWOKOs1RC0MnTvQ5IZI"/>
+</div>
+</nav>
+</header>
+<!-- Page Canvas -->
+<section class="pt-32 px-12 pb-20 max-w-[1600px] mx-auto">
+<!-- Greeting & Editorial Header -->
+<header class="mb-16">
+<p class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-on-surface-variant mb-4">Monday, October 24</p>
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-on-surface">
+                    Welcome back, <span class="text-gradient-primary">Julian Vox</span>.
+                </h2>
+<p class="mt-4 text-on-surface-variant text-lg max-w-2xl font-light">
+                    Your networking velocity is up 12% this week. Three new collaborators are waiting for your response in the studio.
+                </p>
+</header>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+<!-- Velocity Metric -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-all duration-500">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 scale-110" data-icon="bolt">bolt</span>
+<h3 class="text-on-surface-variant text-sm font-medium uppercase tracking-widest mb-1">Networking Velocity</h3>
+</div>
+<div class="flex items-baseline gap-4 mt-8">
+<span class="text-4xl font-headline font-bold">84.2</span>
+<span class="text-primary text-sm font-semibold flex items-center">
+<span class="material-symbols-outlined text-xs mr-1" data-icon="trending_up">trending_up</span> +12.4%
+                        </span>
+</div>
+</div>
+<!-- Invites Card -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-all duration-500">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 scale-110" data-icon="mail">mail</span>
+<h3 class="text-on-surface-variant text-sm font-medium uppercase tracking-widest mb-1">Action Required</h3>
+</div>
+<div class="mt-8 flex items-center justify-between">
+<span class="text-4xl font-headline font-bold">03</span>
+<div class="flex -space-x-3">
+<img alt="user" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="professional headshot of a woman creative" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyidzBP3lvy_GzWvz6qVvitp33SoKPe57x409OZRA_L4svlMo9fqiz8EnVFagXnIY-b7aGfd6Ry_jHrErCG2rIW5phlifAksez2svWk7m100afvpJ8JY7Qu2pec5OCJZITE-CqbZohEdQh5D-GY0s1DWS0P_cK7IBxiSy_7EbG3hqDBKbuJP1aRilPTnWYuWD4XSNvrc4neunor-13kz4v0tDKi_ggAXmiB4ySglS7d1VfGkbfXcD865lqKsm3Z9KSG_WW-j9M8ac"/>
+<img alt="user" class="w-8 h-8 rounded-full border-2 border-surface-container-low" data-alt="professional headshot of a male musician" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjn0lN8cJJ7QJjLxYOwLOffWso8RD1WAEDFVF2naK7VupVGl_kc1CEN5QkHenC7Jbu9ErHA5dZelVlTmbcPE_pkiIkoRs25FfnmJs635nSuJtyiVacPEs1PCrXqrcQrrZKMQcoenbNKNX0YOcxUDYSHUK3wAjjyDnYvAZ8pPxmOKQlvKAmSsXYLKLAxDAEz-sfhyqE3nKC6adyDEt57BphaD9SX9keiG0urS1Zwg1b84OrP1NCndwrHGXlklgkTqmmUDyJkueHlJE"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-low bg-primary-container text-[10px] flex items-center justify-center text-on-primary-container font-bold">+1</div>
+</div>
+</div>
+</div>
+<!-- Studio Time -->
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-all duration-500">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 scale-110" data-icon="schedule">schedule</span>
+<h3 class="text-on-surface-variant text-sm font-medium uppercase tracking-widest mb-1">Studio Time (7D)</h3>
+</div>
+<div class="flex items-baseline gap-4 mt-8">
+<span class="text-4xl font-headline font-bold">24h</span>
+<span class="text-on-surface-variant/40 text-sm">Across 4 sessions</span>
+</div>
+</div>
+</div>
+<!-- Curated Opportunities (Carousel/Grid) -->
+<section class="mb-20">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h3 class="font-headline text-3xl font-bold tracking-tight">Curated Opportunities</h3>
+<p class="text-on-surface-variant mt-2 font-light">Projects matched to your sonic profile.</p>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline flex items-center gap-2">
+                        View Marketplace <span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Project Card 1 -->
+<div class="relative group aspect-[4/5] rounded-xl overflow-hidden cursor-pointer editorial-shadow">
+<img alt="Neon Studio" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="cinematic shot of a professional music studio with neon purple and blue lighting casting soft glows on high-end analog gear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4MH1_lOtnQsZWHMaHHCz9kwfqYxS-Z7Y55IbrDfpQoL7fMd_6N77mfutcd9VcC8WmPThKWoMeL97wXqOMCvicfCO32OcWn53Xvm78qHmImyNNSmQRA1vzNB5ETzqEoTmGWRYAvkvNnFLp_25_up7s3m9YPWr2FS8vdCXgae3aionqYgcc9LAi45gLar9DObxP6FtuV5eS8s0_k277nhmPtupjH2MVpt6chBzR5EzGn5EJNcHnTg1aiXayNRgaB4spiE6groGGp3U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<span class="inline-block px-3 py-1 bg-primary text-[#2c23b6] text-[10px] font-bold rounded-full mb-4 uppercase tracking-tighter">New Opportunity</span>
+<h4 class="text-2xl font-bold text-on-surface group-hover:translate-x-1 transition-transform">Midnight Sessions Vol. II</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2">Seeking lead synthesizer for an upcoming cinematic electronica project. 12-week commitment.</p>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="relative group aspect-[4/5] rounded-xl overflow-hidden cursor-pointer editorial-shadow">
+<img alt="DJ Table" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="close-up of a high-end turntable and mixing console in a dimly lit club setting with moody atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbItlxSxQnaL1ecVY7hGTjvvmx7A9p9xcMQF6VE9AHV16R10dHNwdalAD6YnU56Kzay2aYEiy9SMwiBzBHlrodjiwf2tz-Pfv7UdKPUP1N9_c5IW57AC23qiCkgvz3Kv7epfLjF6xcf2enZWpq5SlPB-qN9-BEVFveQpBvX0LEiu39U5w_o1rhUy4_8kJPwnKvr5dmzuoPJe468sOp_S42Sa4A_A5888hOAE1DtDrCECTPPLuIbcMFdL807LskmqbzJMGvmRPn94A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<span class="inline-block px-3 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded-full mb-4 uppercase tracking-tighter">Collaborative</span>
+<h4 class="text-2xl font-bold text-on-surface group-hover:translate-x-1 transition-transform">Rhythm &amp; Bloom</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2">A joint venture focused on organic deep house. High networking velocity required.</p>
+</div>
+</div>
+<!-- Project Card 3 (Asymmetric size hint) -->
+<div class="relative group aspect-[4/5] rounded-xl overflow-hidden cursor-pointer editorial-shadow">
+<img alt="Acoustic Scene" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist aesthetic shot of an acoustic guitar leaning against a concrete wall in a sun-drenched loft with dust motes dancing in the light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw8kGtveeOZ95klg8mKU5hdEtSNb7pfwmhwig46iIw_Sz-s_zTc5tmvn06mnwuwmmKOKmPd2Nw3ie5YabDgFsFYcDzR9W7bpZ17Ld2ghJ1gzsvuxarCIeO0L72jPhEhpz9FuleKng6GgFDT7HV8Et3PpxsiKxVrHgAfDyhyvQh019hVB4HqHFQjQ6mHWF7CTKsblNLTEFWFAFfavFyks8z9dckkK_cEmEqrrvq1loBRzb34S9Vf2Hmb8Olah5rKVjr-pbSFh5tvQo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<span class="inline-block px-3 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded-full mb-4 uppercase tracking-tighter">Solo Focus</span>
+<h4 class="text-2xl font-bold text-on-surface group-hover:translate-x-1 transition-transform">Echo Chamber</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2">Experimental ambient project looking for spatial audio specialists.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Activity List (Clean & List Pattern) -->
+<section class="max-w-4xl">
+<h3 class="font-headline text-2xl font-bold tracking-tight mb-8">Recent Activity</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-sm font-medium">New connection made with <span class="text-primary">Elias Thorne</span></p>
+<p class="text-[11px] text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="upload_file">upload_file</span>
+</div>
+<div>
+<p class="text-sm font-medium">Updated <span class="text-primary">Project Neon Drift</span> masters</p>
+<p class="text-[11px] text-on-surface-variant">Yesterday at 4:12 PM</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="forum">forum</span>
+</div>
+<div>
+<p class="text-sm font-medium">New message from the <span class="text-primary">Synth Collective</span></p>
+<p class="text-[11px] text-on-surface-variant">Oct 22, 2024</p>
+</div>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+</section>
+<!-- Footer Shell -->
+<footer class="flex justify-between items-center px-12 py-12 mt-20 font-inter text-[0.6875rem] uppercase tracking-widest bg-transparent opacity-80 hover:opacity-100 transition-opacity">
+<p class="text-[#9f9da1]">© 2024 The Sonic Gallery. Editorial Music Systems.</p>
+<div class="flex gap-8">
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors" href="#">Privacy</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors" href="#">Terms</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors" href="#">API Status</a>
+</div>
+</footer>
+</main>
+</body></html>

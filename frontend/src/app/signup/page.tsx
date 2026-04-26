@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import { Music2 } from "lucide-react";
 import { motion } from "framer-motion";
 
-const ROLES = ["artist", "producer", "listener"];
+const ROLES = ["artist", "producer", "listener", "rapper", "musician", "engineer"];
 
 export default function SignupPage() {
   const { signup } = useAuth();

@@ -1,127 +1,79 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import Avatar from "@/components/ui/Avatar";
-import { Search, Bell, ChevronDown, User, Settings, LogOut } from "lucide-react";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { Search, Bell, Mail, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Topbar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (search.trim()) {
       router.push(`/discover?q=${encodeURIComponent(search.trim())}`);
       setSearch("");
-      setIsFocused(false);
     }
   };
 
   return (
-    <header className="fixed top-0 left-64 right-0 h-20 bg-background/60 backdrop-blur-xl border-b border-border/50 z-30 flex items-center px-8 gap-6 transition-all duration-300">
-      {/* Search */}
-      <form onSubmit={handleSearch} className="flex-1 max-w-xl">
-        <motion.div 
-          animate={isFocused ? { scale: 1.02 } : { scale: 1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          className="relative group"
-        >
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
+    <header className="fixed top-0 right-0 left-64 h-20 z-40 bg-surface/80 backdrop-blur-xl flex justify-between items-center px-10 border-b border-white/5 font-body font-medium text-sm tracking-wide">
+      <div className="flex items-center gap-4 flex-1 max-w-xl">
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={() => router.back()} 
+            className="w-8 h-8 rounded-full bg-surface-low hover:bg-surface-high flex items-center justify-center text-secondary-foreground transition-colors"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button 
+            onClick={() => router.forward()} 
+            className="w-8 h-8 rounded-full bg-surface-low hover:bg-surface-high flex items-center justify-center text-secondary-foreground transition-colors"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+        <form onSubmit={handleSearch} className="relative w-full group">
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-secondary-foreground group-focus-within:text-primary transition-colors" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            placeholder="Search artists, projects, genres..."
-            className="w-full h-12 pl-12 pr-4 rounded-2xl bg-surface-low border border-border text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 focus:bg-surface transition-all duration-300 shadow-sm"
+            placeholder="Search elite creators or projects..."
+            className="w-full bg-surface-low border-none rounded-full py-2.5 pl-12 pr-4 text-foreground placeholder:text-secondary-foreground focus:ring-1 focus:ring-primary/50 transition-all font-body font-medium"
           />
-        </motion.div>
-      </form>
+        </form>
+      </div>
 
-      <div className="flex items-center gap-4 ml-auto">
-        {/* Notifications */}
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-10 h-10 rounded-xl flex items-center justify-center text-muted-foreground bg-surface-low border border-border/50 hover:bg-surface-high hover:text-foreground transition-colors relative shadow-sm"
-        >
+      <div className="flex items-center gap-6 ml-8">
+        <button className="text-secondary-foreground hover:text-foreground transition-colors relative">
           <Bell size={18} />
-          <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary ring-2 ring-background" />
-        </motion.button>
-
-        {/* User menu */}
-        <div className="relative" ref={menuRef}>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setOpen((v) => !v)}
-            className="flex items-center gap-3 pl-2 pr-4 py-1.5 rounded-2xl bg-surface-low border border-border/50 hover:border-border hover:bg-surface-high transition-all shadow-sm group"
-          >
-            {user ? (
-              <Avatar name={user.username} size="sm" />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-surface-high animate-pulse" />
-            )}
-            <ChevronDown size={14} className={cn("text-muted-foreground transition-transform duration-300 group-hover:text-foreground", open && "rotate-180")} />
-          </motion.button>
-
-          <AnimatePresence>
-            {open && (
-              <motion.div 
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="absolute right-0 top-[calc(100%+8px)] w-60 bg-surface border border-border/80 shadow-2xl rounded-2xl overflow-hidden z-50 backdrop-blur-xl"
-              >
-                {user ? (
-                  <div className="px-5 py-4 border-b border-border/50 bg-gradient-to-b from-surface-low to-transparent">
-                    <p className="text-sm font-bold font-display text-foreground">{user.username}</p>
-                    <p className="text-xs text-muted-foreground truncate font-medium">{user.email}</p>
-                  </div>
-                ) : (
-                  <div className="px-5 py-4 border-b border-border/50 space-y-2">
-                    <div className="h-4 bg-surface-high rounded w-2/3 animate-pulse" />
-                    <div className="h-3 bg-surface-high rounded w-full animate-pulse" />
-                  </div>
-                )}
-                
-                <div className="p-2 space-y-1">
-                  <Link href="/profile" onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors">
-                    <User size={16} /> My Profile
-                  </Link>
-                  <Link href="/settings" onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors">
-                    <Settings size={16} /> Account Settings
-                  </Link>
-                  <div className="h-px bg-border/50 my-1 mx-2" />
-                  <button onClick={logout}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors w-full">
-                    <LogOut size={16} /> Sign out
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <span className="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border-2 border-surface"></span>
+        </button>
+        <button className="text-secondary-foreground hover:text-foreground transition-colors">
+          <Mail size={18} />
+        </button>
+        <div className="h-8 w-[1px] bg-white/10 mx-2"></div>
+        
+        <div 
+          onClick={() => router.push('/profile')}
+          className="flex items-center gap-3 cursor-pointer group"
+        >
+          <div className="text-right">
+            <p className="text-xs font-bold text-foreground">
+              {user ? user.username : "Studio Access"}
+            </p>
+            <p className="text-[10px] text-secondary-foreground uppercase tracking-tighter">
+              {user ? user.role : "Connecting..."}
+            </p>
+          </div>
+          {user ? (
+            <div className="w-10 h-10 rounded-full border border-white/10 group-hover:border-primary transition-colors bg-surface-high flex justify-center items-center text-xs font-bold font-headline text-primary">
+              {user.username.charAt(0).toUpperCase()}
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-surface-highest animate-pulse" />
+          )}
         </div>
       </div>
     </header>

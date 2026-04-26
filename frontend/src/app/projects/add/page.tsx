@@ -33,6 +33,9 @@ export default function AddProjectPage() {
   });
   const [saving, setSaving] = useState(false);
 
+  const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
+  const [audioFile, setAudioFile] = useState<File | null>(null);
+
   const set = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,13 +43,31 @@ export default function AddProjectPage() {
     if (!form.title.trim()) { toast.error("Please enter a project title"); return; }
     if (!form.type) { toast.error("Please select a project type"); return; }
     setSaving(true);
+    
     try {
-      await API.post("/projects", {
-        ...form,
-        genres: form.genres ? [form.genres] : [],
-        coverImage: form.coverImage || undefined,
-        audioLink: form.audioLink || undefined,
-      });
+      const formData = new FormData();
+      formData.append('title', form.title);
+      formData.append('type', form.type);
+      formData.append('description', form.description);
+      formData.append('status', form.status);
+      
+      if (form.genres) {
+        formData.append('genres[]', form.genres);
+      }
+      
+      if (coverImageFile) {
+        formData.append('coverImageFile', coverImageFile);
+      } else if (form.coverImage) {
+        formData.append('coverImage', form.coverImage);
+      }
+      
+      if (audioFile) {
+        formData.append('audioFile', audioFile);
+      } else if (form.audioLink) {
+        formData.append('audioLink', form.audioLink);
+      }
+
+      await API.post("/projects", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       toast.success("Project launched successfully!");
       router.push("/projects");
     } catch (err: any) {
@@ -174,20 +195,39 @@ export default function AddProjectPage() {
             </div>
             
             <div className="space-y-6">
-              <Input 
-                label="Cover Image URL" 
-                value={form.coverImage} 
-                onChange={(e) => set("coverImage", e.target.value)} 
-                placeholder="https://images.com/art.jpg" 
-              />
-              <Input 
-                label="Audio / Media Link" 
-                value={form.audioLink} 
-                onChange={(e) => set("audioLink", e.target.value)} 
-                placeholder="SoundCloud, YouTube, or Google Drive link" 
-              />
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
+                  Cover Image
+                </label>
+                <input 
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setCoverImageFile(e.target.files[0]);
+                      set("coverImage", URL.createObjectURL(e.target.files[0]));
+                    }
+                  }}
+                  className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
+                  Audio / Media File
+                </label>
+                <input 
+                  type="file"
+                  accept="audio/*"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setAudioFile(e.target.files[0]);
+                    }
+                  }}
+                  className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+              </div>
               <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest px-1">
-                Provide links so others in the network can experience your work directly.
+                Upload your work directly so others can experience it in the network.
               </p>
             </div>
           </Card>

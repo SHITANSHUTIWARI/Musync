@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Discover | The Sonic Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#131316",
+              "on-surface": "#e6e4ec",
+              "error-dim": "#b95463",
+              "on-secondary": "#202023",
+              "inverse-surface": "#fcf8fb",
+              "surface-bright": "#2b2c32",
+              "primary-container": "#332dbc",
+              "tertiary": "#e2e7ff",
+              "surface-container-highest": "#25252b",
+              "outline": "#75757b",
+              "on-secondary-fixed-variant": "#5c5b5f",
+              "secondary-container": "#3c3b3f",
+              "primary-fixed-dim": "#d2d0ff",
+              "surface-variant": "#25252b",
+              "on-secondary-container": "#c1bec3",
+              "on-primary": "#2c23b6",
+              "error": "#ec7c8a",
+              "on-primary-fixed": "#2b22b5",
+              "tertiary-fixed": "#d1d9f8",
+              "surface": "#0e0e10",
+              "on-tertiary-fixed": "#313951",
+              "on-tertiary": "#4c546e",
+              "surface-container-high": "#1f1f24",
+              "surface-container-lowest": "#000000",
+              "on-surface-variant": "#abaab1",
+              "surface-tint": "#c2c1ff",
+              "on-error-container": "#ff97a3",
+              "on-background": "#e6e4ec",
+              "secondary-fixed-dim": "#d7d3d8",
+              "inverse-primary": "#4e4bd5",
+              "tertiary-dim": "#c3cbe9",
+              "primary-fixed": "#e2dfff",
+              "tertiary-fixed-dim": "#c3cbe9",
+              "on-tertiary-container": "#444c65",
+              "surface-container": "#19191d",
+              "secondary-fixed": "#e5e1e6",
+              "on-tertiary-fixed-variant": "#4d556f",
+              "outline-variant": "#47474d",
+              "surface-dim": "#0e0e10",
+              "background": "#0e0e10",
+              "secondary-dim": "#9f9da1",
+              "on-error": "#490013",
+              "on-secondary-fixed": "#403f43",
+              "primary-dim": "#b2b1ff",
+              "on-primary-fixed-variant": "#4a47d2",
+              "on-primary-container": "#cdccff",
+              "secondary": "#9f9da1",
+              "inverse-on-surface": "#555557",
+              "primary": "#c2c1ff",
+              "error-container": "#7f2737",
+              "tertiary-container": "#d1d9f8"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e10;
+            color: #e6e4ec;
+            font-family: 'Inter', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0e0e10]/70 backdrop-blur-xl flex justify-between items-center px-12 py-6 font-manrope tracking-tight">
+<div class="text-xl font-bold text-[#e6e4ec]">The Sonic Gallery</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-[#c2c1ff] font-semibold hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Studio</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Library</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Collaborators</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Projects</a>
+<a class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors duration-300 active:scale-95 duration-200" href="#">Marketplace</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-[#abaab1] hover:text-[#e6e4ec] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+<img alt="User profile" data-alt="minimalist close-up portrait of a modern artist with creative lighting and soft focus studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdRCBHamiU449-SVU9byOqYmyrvQ0p7v8ASreMIucJFFTFKfJAYc0C59VEpGUES1oyIw0ptQH78zHDpeSYgZh0W4upGOUHT3a_Zbw24PS1u4Zt7sbVfxnBslHK3obR3pdttl-8BJ-qZYV_8MlbYAGf0D85wjSIz1yV1ufONIQE3VKv7lZud_JO-uteSoqfmLwV-NNWlBDGslnkmqar2Uq-hVqcZBVyOpx2Svq_hNi_D2cU4G6ZyPggGNozzblHLsmRgnCPmCJJ5MU"/>
+</div>
+</div>
+</nav>
+<!-- Sidebar (Desktop Anchor) -->
+<aside class="hidden lg:flex h-screen w-20 hover:w-64 transition-all duration-500 fixed left-0 top-0 z-40 overflow-hidden bg-[#19191d] flex-col py-8 px-4 gap-8 shadow-2xl shadow-black/40 group">
+<div class="flex items-center gap-4 px-2 mb-4">
+<div class="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="gallery_thumbnail">gallery_thumbnail</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+<p class="text-lg font-black tracking-tighter text-[#c2c1ff]">Sonic Gallery</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Professional Studio</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-4 p-3 bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] text-[#2c23b6] rounded-md ease-in-out transform-gpu" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Studio</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="album">album</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Library</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Collaborators</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Projects</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Marketplace</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Help</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] opacity-60 hover:bg-[#1f1f24] hover:opacity-100 rounded-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity font-medium">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:pl-20 pt-32 pb-20 px-6 md:px-12 max-w-[1600px] mx-auto">
+<!-- Discover Header & Search -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+<div class="space-y-2">
+<span class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-on-surface-variant block">Explore the ecosystem</span>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface">Discover.</h1>
+</div>
+<div class="relative w-full md:w-96 group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-6 text-on-surface placeholder:text-on-surface-variant focus:ring-1 focus:ring-primary/20 focus:bg-surface-container transition-all" placeholder="Search artists, tracks, or roles..." type="text"/>
+</div>
+</header>
+<!-- Filters Section -->
+<section class="mb-20 space-y-8">
+<div class="flex flex-wrap gap-4 items-center">
+<div class="flex bg-surface-container rounded-full p-1 items-center">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary text-sm font-medium transition-all">All</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface text-sm font-medium transition-all">Producers</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface text-sm font-medium transition-all">Engineers</button>
+<button class="px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface text-sm font-medium transition-all">Vocalists</button>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant/30 hidden md:block"></div>
+<div class="flex items-center gap-3 overflow-x-auto hide-scrollbar">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="tune">tune</span>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low hover:bg-surface-container rounded-xl text-xs font-medium text-on-surface-variant border border-outline-variant/10 transition-all">
+                        Genre: Techno <span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low hover:bg-surface-container rounded-xl text-xs font-medium text-on-surface-variant border border-outline-variant/10 transition-all">
+                        Location: Berlin <span class="material-symbols-outlined text-xs" data-icon="location_on">location_on</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low hover:bg-surface-container rounded-xl text-xs font-medium text-on-surface-variant border border-outline-variant/10 transition-all">
+                        Availability <span class="material-symbols-outlined text-xs" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Elite Spotlight Section (Bento Style) -->
+<section class="mb-24">
+<div class="flex justify-between items-end mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight">Elite Spotlight</h2>
+<a class="text-primary text-sm font-medium flex items-center gap-1 hover:underline" href="#">View Curated List <span class="material-symbols-outlined text-sm" data-icon="arrow_outward">arrow_outward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 h-auto lg:h-[600px]">
+<div class="md:col-span-8 group relative rounded-xl overflow-hidden bg-surface-container shadow-2xl">
+<img alt="Studio Spotlight" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="cinematic wide shot of a high-end recording studio with violet ambient lighting, vintage analog gear, and a sleek modern aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK_aHI63Edbs6Ku5Q9F78uAdxiFCnByn2led8bHFXlaTiFx4PNZkCpImsCYP7MyWoCn9Ipza8gC2GmCbnoa8aN0CYyU-RtZcDaMnx5uE_8W-rM-cFxs7ZMh1Xz8jaCB_ara46OI3fuPIw8eEaFOdGu8wWd6cZHWZB1ZpwU2fc2-iVg1cz65epPmuFMf8dx9bQmYm0ucmyUxyThrVMs9pjG5bFtJmy1U371WCZ09Z3Qaq39XuHMsiw2ljEr3pfEuik_7jxMEyRTx1s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-90"></div>
+<div class="absolute bottom-12 left-12 right-12">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">Artist of the Month</span>
+<h3 class="text-5xl font-black mb-4 font-headline tracking-tighter">Lyra Vance</h3>
+<p class="text-on-surface-variant max-w-lg mb-8 leading-relaxed">Pioneering the intersection of algorithmic synthesis and analog warmth. Currently open for high-fidelity collaborations.</p>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-md font-bold text-sm hover:brightness-110 transition-all">View Profile</button>
+<button class="bg-surface-container-high/40 backdrop-blur-md text-on-surface px-8 py-3 rounded-md font-bold text-sm hover:bg-surface-container-high transition-all">Listen to Portfolio</button>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 grid grid-rows-2 gap-8">
+<div class="bg-surface-container rounded-xl p-8 flex flex-col justify-between border-l border-primary-container/20">
+<div>
+<span class="material-symbols-outlined text-primary-dim text-4xl mb-4" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h4 class="text-xl font-bold font-headline">New Collaborators</h4>
+<p class="text-on-surface-variant text-sm mt-2">AI-curated matches based on your recent studio sessions.</p>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2">Connect Now <span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span></button>
+</div>
+<div class="bg-surface-container rounded-xl p-8 flex flex-col justify-between overflow-hidden relative">
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[10rem]" data-icon="waves">waves</span>
+</div>
+<div>
+<h4 class="text-xl font-bold font-headline">Sonic Marketplace</h4>
+<p class="text-on-surface-variant text-sm mt-2">Exclusive stems and preset packs from verified elite artists.</p>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2">Browse Store <span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+</section>
+<!-- Artist Grid -->
+<section class="mb-24">
+<div class="flex justify-between items-center mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight">Emerging Talent</h2>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-2 bg-transparent text-on-surface-variant hover:text-on-surface transition-all">
+<span class="material-symbols-outlined" data-icon="view_list">view_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+<!-- Card 1 -->
+<article class="group space-y-4">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative editorial-shadow">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="high-fashion editorial portrait of a woman with braided hair, dramatic shadows, soft violet fill light, professional studio photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhkS65HsY0hcMLvYfnh1NRR-rtXp7Seq9vulc2Srph8XEawfLZmGooTHnezz4nw-d1ksJTBCTXtCHpKOuQccjGBiVbyH37OR4-sdAZ4yuEBNzku3ckctv5lMuffHJmYf6Dn_QzxuUTJTkjqP5nkzPPtYintzP6UAUm3Bi3xzV-65B_r56FS_qLqgW-_xREGnjKXgsGD9H6hj3SoneTlywSQQoq-y-2kSQBXem1w9z21u9K--YBSFbaReSRUPZ5r0WKPENOIrjMiWo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary text-on-primary text-[10px] font-bold rounded">TECHNO</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded">MIXING</span>
+</div>
+</div>
+</div>
+<div class="px-1">
+<h5 class="text-lg font-bold text-on-surface">Elena Rossi</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-medium">Mixing Engineer • Milan</p>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group space-y-4">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative editorial-shadow">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="moody portrait of a man in a dark turtleneck, minimalist background, soft focus, high-end professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIq5zzZoP-prD7b6gx0hAgA_IP6LvDZnZhUUEDFf4xVAePsmSgJX8xkazquQBFrvMU978bQ4BcwTNLphxYy2LkktXPnc7APBiHLaCOq8l3soqW1J0jiXWL1404PeMLeTawzpbnAJF6Q9LXH6v6d4QUyuUlscjmWSCU0IfPQ1afOBO1AMmPKpmHQvxOv3Urh5kRKAZXOpeNS6kaG_sBombU49MsFCULj58PWrTqDWj2Y8rJq69pPpCdCz-OFJfjl8SZbI4sxMtdi9Q"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary text-on-primary text-[10px] font-bold rounded">AMBIENT</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded">SCORING</span>
+</div>
+</div>
+</div>
+<div class="px-1">
+<h5 class="text-lg font-bold text-on-surface">Julian Thorne</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-medium">Composer • London</p>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group space-y-4">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative editorial-shadow">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="striking close-up portrait of a person with minimalist jewelry, clean dark background, artistic composition, soft light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcZ9AK4mfr5hoTzlocGhHIylyLUwOr8ysgEAEU0Vzyc2UVTHu0AidNKZaFq9R4YKzu66fDSWGSR4oH5TQW65G-dnVIJ8aVaueCm017gx-KDf0LWWk93Aif1VglWJ1GSnYBWC9WmcnM1C0ge8V5ZiFlsZdZdam7IeLsa7nw1FDX9RI8E1skSse4mDV0g0r_nnuK-3cmG6o4g2jlKXu32wQVV6mU2pbpGQ84O8fiSildnO_2_Wc9cWL4qNQW4eTHCkOs6t1APo7CP_w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary text-on-primary text-[10px] font-bold rounded">SOUL</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded">VOCALS</span>
+</div>
+</div>
+</div>
+<div class="px-1">
+<h5 class="text-lg font-bold text-on-surface">Mila K.</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-medium">Vocalist • New York</p>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="group space-y-4">
+<div class="aspect-[3/4] rounded-xl overflow-hidden bg-surface-container relative editorial-shadow">
+<img alt="Artist Profile" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="clean minimal portrait of a man looking away, outdoor architectural setting, soft daylight, professional photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCoEdlNvKU14uO0D90hNHfN8QcM_Ll079W2YADW6yccZYc_bRyy4Qn3FeoMSzYoDO39bN-l0bjrWXt1acybB43-zq7b0rWEJkKJerRp8tYM76I86CiEE4jEEKo49xk8c-J_VJqw3bucJz6a9nRbHRsIg8qVpYMIIWJmvvaS2Lg9WYmxXe0lzzUisgZXDnuoZ2SsDY7ApdIohaNQ1J-XeuLxL03MnBAdgsqzvJOlz52aGqXq068faBuaxYPONhinwT_mWmCaoZLEyc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-primary text-on-primary text-[10px] font-bold rounded">HOUSE</span>
+<span class="px-2 py-1 bg-surface-container-high text-on-surface text-[10px] font-bold rounded">PRODUCER</span>
+</div>
+</div>
+</div>
+<div class="px-1">
+<h5 class="text-lg font-bold text-on-surface">Soren Gray</h5>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-medium">Producer • Stockholm</p>
+</div>
+</article>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-32 rounded-2xl bg-surface-container-low p-12 md:p-20 text-center relative overflow-hidden border border-outline-variant/10">
+<div class="absolute inset-0 opacity-30 pointer-events-none">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-container/20 via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-2xl mx-auto space-y-8">
+<h2 class="font-headline text-4xl md:text-5xl font-black tracking-tighter">Curate Your Inner Circle.</h2>
+<p class="text-on-surface-variant leading-relaxed">Join the most exclusive collective of audio professionals. Build meaningful creative partnerships that transcend standard networking.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto bg-primary text-on-primary px-10 py-4 rounded-md font-bold text-sm shadow-xl shadow-primary/10">Apply for Access</button>
+<button class="w-full sm:w-auto bg-transparent border border-outline-variant text-on-surface px-10 py-4 rounded-md font-bold text-sm hover:bg-surface-container transition-all">Learn More</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 flex justify-between items-center px-12 mt-20 font-inter text-[0.6875rem] uppercase tracking-widest bg-transparent">
+<div class="text-[#9f9da1]">© 2024 The Sonic Gallery. Editorial Music Systems.</div>
+<div class="flex gap-8">
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">Terms</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] opacity-80 hover:opacity-100 transition-opacity" href="#">API Status</a>
+</div>
+</footer>
+<!-- FAB (Suppressed as per rules for Details/Settings, but optional for main Discover) -->
+<button class="fixed bottom-10 right-10 w-14 h-14 bg-primary text-on-primary rounded-full editorial-shadow flex items-center justify-center active:scale-95 transition-all z-50 md:hidden">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</body></html>

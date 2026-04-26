@@ -23,6 +23,17 @@ const createProject = async (req, res, next) => {
       status: req.body.status
     };
     
+    // Handle file uploads if present
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    if (req.files) {
+      if (req.files.coverImageFile && req.files.coverImageFile.length > 0) {
+        projectData.coverImage = `${baseUrl}/uploads/images/${req.files.coverImageFile[0].filename}`;
+      }
+      if (req.files.audioFile && req.files.audioFile.length > 0) {
+        projectData.audioLink = `${baseUrl}/uploads/audio/${req.files.audioFile[0].filename}`;
+      }
+    }
+    
     const project = await Project.create(projectData);
     
     res.status(201).json({
@@ -104,6 +115,17 @@ const updateProject = async (req, res, next) => {
     
     // Set updatedAt
     project.updatedAt = new Date();
+    
+    // Handle file uploads if present
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    if (req.files) {
+      if (req.files.coverImageFile && req.files.coverImageFile.length > 0) {
+        project.coverImage = `${baseUrl}/uploads/images/${req.files.coverImageFile[0].filename}`;
+      }
+      if (req.files.audioFile && req.files.audioFile.length > 0) {
+        project.audioLink = `${baseUrl}/uploads/audio/${req.files.audioFile[0].filename}`;
+      }
+    }
     
     await project.save();
     

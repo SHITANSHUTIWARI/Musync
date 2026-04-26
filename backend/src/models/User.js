@@ -29,8 +29,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['artist', 'producer', 'listener'],
-    default: 'artist'
+    enum: ['artist', 'producer', 'listener', 'rapper', 'musician', 'engineer'],
+    default: 'listener'
   },
   createdAt: {
     type: Date,

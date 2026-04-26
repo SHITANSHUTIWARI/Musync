@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MUSYNC | Pro Studio Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#131316",
+              "on-surface": "#e6e4ec",
+              "error-dim": "#b95463",
+              "on-secondary": "#202023",
+              "inverse-surface": "#fcf8fb",
+              "surface-bright": "#2b2c32",
+              "primary-container": "#332dbc",
+              "tertiary": "#e2e7ff",
+              "surface-container-highest": "#25252b",
+              "outline": "#75757b",
+              "on-secondary-fixed-variant": "#5c5b5f",
+              "secondary-container": "#3c3b3f",
+              "primary-fixed-dim": "#d2d0ff",
+              "surface-variant": "#25252b",
+              "on-secondary-container": "#c1bec3",
+              "on-primary": "#2c23b6",
+              "error": "#ec7c8a",
+              "on-primary-fixed": "#2b22b5",
+              "tertiary-fixed": "#d1d9f8",
+              "surface": "#0e0e10",
+              "on-tertiary-fixed": "#313951",
+              "on-tertiary": "#4c546e",
+              "surface-container-high": "#1f1f24",
+              "surface-container-lowest": "#000000",
+              "on-surface-variant": "#abaab1",
+              "surface-tint": "#c2c1ff",
+              "on-error-container": "#ff97a3",
+              "on-background": "#e6e4ec",
+              "secondary-fixed-dim": "#d7d3d8",
+              "inverse-primary": "#4e4bd5",
+              "tertiary-dim": "#c3cbe9",
+              "primary-fixed": "#e2dfff",
+              "tertiary-fixed-dim": "#c3cbe9",
+              "on-tertiary-container": "#444c65",
+              "surface-container": "#19191d",
+              "secondary-fixed": "#e5e1e6",
+              "on-tertiary-fixed-variant": "#4d556f",
+              "outline-variant": "#47474d",
+              "surface-dim": "#0e0e10",
+              "background": "#0e0e10",
+              "secondary-dim": "#9f9da1",
+              "on-error": "#490013",
+              "on-secondary-fixed": "#403f43",
+              "primary-dim": "#b2b1ff",
+              "on-primary-fixed-variant": "#4a47d2",
+              "on-primary-container": "#cdccff",
+              "secondary": "#9f9da1",
+              "inverse-on-surface": "#555557",
+              "primary": "#c2c1ff",
+              "error-container": "#7f2737",
+              "tertiary-container": "#d1d9f8"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            animation: {
+              'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'pulse-soft': 'pulseSoft 2s infinite cubic-bezier(0.4, 0, 0.6, 1)',
+              'glow-pulse': 'glowPulse 3s infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              pulseSoft: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0.4' },
+              },
+              glowPulse: {
+                '0%, 100%': { 'box-shadow': '0 0 0px 0px rgba(194, 193, 255, 0)' },
+                '50%': { 'box-shadow': '0 0 20px 2px rgba(194, 193, 255, 0.2)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e10;
+            color: #e6e4ec;
+            font-family: 'Inter', sans-serif;
+        }
+        .tracking-premium { letter-spacing: -0.04em; }
+        .tracking-ultra-tight { letter-spacing: -0.05em; }
+        
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .hover-card-glow {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-card-glow:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 20px 0 rgba(194, 193, 255, 0.1);
+        }
+        .text-gradient-primary {
+            background: linear-gradient(135deg, #c2c1ff 0%, #7c7aff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        button:active {
+            transform: scale(0.96);
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body overflow-x-hidden antialiased">
+<!-- SideNavBar Shell -->
+<nav class="h-screen w-20 hover:w-64 transition-all duration-500 fixed left-0 top-0 z-[60] overflow-hidden bg-[#131316] flex flex-col py-8 px-4 gap-8 group shadow-2xl shadow-black/40 border-r border-outline-variant/10">
+<div class="flex items-center gap-4 px-2">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c2c1ff] to-[#332dbc] flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[#2c23b6] font-bold">gallery_thumbnail</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">
+<h2 class="text-lg font-black tracking-ultra-tight text-[#c2c1ff] font-headline uppercase">Musync Studio</h2>
+<p class="text-[9px] text-on-surface-variant uppercase tracking-[0.3em] font-bold">Editorial Tier</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-8">
+<a class="flex items-center gap-4 p-3 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold font-headline">Studio Hub</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-white hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="album">album</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Sonic Assets</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-white hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Network</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-white hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">Session Logs</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-white hover:bg-surface-container-high rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">License Market</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<!-- Studio Status Widget -->
+<div class="hidden group-hover:flex items-center gap-3 p-3 mb-4 rounded-xl bg-surface-container-low border border-outline-variant/10 opacity-0 group-hover:opacity-100 transition-all duration-500">
+<div class="relative">
+<div class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+<div class="absolute inset-0 w-3 h-3 rounded-full bg-emerald-500 animate-ping opacity-75"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-white uppercase tracking-wider">Studio Live</span>
+<span class="text-[9px] text-on-surface-variant font-medium">L-Buffer: 12ms</span>
+</div>
+</div>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Support</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-[#9f9da1] hover:text-error transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm">Exit</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-20 transition-all duration-500 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-20 z-50 bg-[#0e0e10]/80 backdrop-blur-2xl flex justify-between items-center px-12 py-6 border-b border-outline-variant/5">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-2">
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded font-bold uppercase tracking-widest">Master</span>
+<h1 class="text-lg font-bold text-[#e6e4ec] font-headline tracking-ultra-tight">Studio Dashboard</h1>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-11 pr-6 py-2.5 text-xs w-96 focus:ring-1 focus:ring-primary/40 transition-all placeholder:text-on-surface-variant/40" placeholder="Search track IDs, collaborators, or licenses..." type="text"/>
+</div>
+</div>
+<nav class="flex items-center gap-8">
+<div class="flex gap-6 items-center">
+<button class="relative material-symbols-outlined text-[#9f9da1] hover:text-white transition-colors" data-icon="notifications">
+                        notifications
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border-2 border-surface"></span>
+</button>
+<button class="material-symbols-outlined text-[#9f9da1] hover:text-white transition-colors" data-icon="settings">settings</button>
+</div>
+<button class="group flex items-center gap-3 pl-1 pr-4 py-1 rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/20 transition-all">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20">
+<img alt="Julian Vox" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB59moyE54wHWBSxXhcWXUGXSS7hPW_sFmCPC0IcNL4rXxMuVB-UdFp_lcRZGC_Kid1x3YPgGCMPG4SSaU_6O27ESjTmFx-QqyYtArtbyDNbf02oXj3IXXdreMzSMqVWeZjwmPQRwgntWiEhw0I6amIOWNJw2RqVUVQ2V_IJAYZlxhHlCkZ8ZVJyLApBWYv_ETaOG5dZtbbIU2k85KM7UfL8D-rT63IylOKxEUfPFVsiZPqUaq_yUEUagePjWOKOs1RC0MnTvQ5IZI"/>
+</div>
+<span class="text-xs font-bold font-headline tracking-tight">Julian Vox</span>
+<span class="material-symbols-outlined text-xs text-on-surface-variant group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</button>
+</nav>
+</header>
+<!-- Page Canvas -->
+<section class="pt-32 px-12 pb-20 max-w-[1500px] mx-auto">
+<!-- Greeting & Editorial Header -->
+<header class="mb-16 opacity-0 animate-fade-in-up">
+<div class="flex items-center gap-3 mb-6">
+<p class="font-label text-[10px] font-bold uppercase tracking-[0.4em] text-on-surface-variant">Monday, October 24</p>
+<div class="h-[1px] w-12 bg-outline-variant/30"></div>
+<span class="text-[10px] font-medium text-primary">Session 4.2 Active</span>
+</div>
+<h2 class="font-headline text-6xl font-extrabold tracking-ultra-tight text-on-surface leading-[0.9]">
+                    Welcome back, <br/><span class="text-gradient-primary">Julian Vox.</span>
+</h2>
+<p class="mt-8 text-on-surface-variant text-xl max-w-2xl font-light leading-relaxed">
+                    Your <span class="text-on-surface font-medium italic">networking velocity</span> is up 12% this week. Three new collaborators are pending review in your studio vault.
+                </p>
+</header>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 opacity-0 animate-fade-in-up stagger-1">
+<!-- Velocity Metric -->
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col justify-between group hover:bg-[#1c1c21] transition-all duration-500 border border-outline-variant/5 hover:border-primary/20">
+<div>
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="bolt">bolt</span>
+</div>
+<h3 class="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Networking Velocity</h3>
+</div>
+<div class="flex items-baseline gap-4 mt-8">
+<span class="text-5xl font-headline font-extrabold tracking-ultra-tight">84.2</span>
+<span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded-full font-bold flex items-center border border-emerald-500/20">
+<span class="material-symbols-outlined text-[10px] mr-1" data-icon="trending_up">trending_up</span> +12.4%
+                        </span>
+</div>
+</div>
+<!-- Invites Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col justify-between group hover:bg-[#1c1c21] transition-all duration-500 border border-outline-variant/5 hover:border-primary/20">
+<div>
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="mail">mail</span>
+</div>
+<h3 class="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Vault Requests</h3>
+</div>
+<div class="mt-8 flex items-center justify-between">
+<span class="text-5xl font-headline font-extrabold tracking-ultra-tight">03</span>
+<div class="flex -space-x-3">
+<img alt="user" class="w-9 h-9 rounded-full border-2 border-[#131316] ring-1 ring-white/5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyidzBP3lvy_GzWvz6qVvitp33SoKPe57x409OZRA_L4svlMo9fqiz8EnVFagXnIY-b7aGfd6Ry_jHrErCG2rIW5phlifAksez2svWk7m100afvpJ8JY7Qu2pec5OCJZITE-CqbZohEdQh5D-GY0s1DWS0P_cK7IBxiSy_7EbG3hqDBKbuJP1aRilPTnWYuWD4XSNvrc4neunor-13kz4v0tDKi_ggAXmiB4ySglS7d1VfGkbfXcD865lqKsm3Z9KSG_WW-j9M8ac"/>
+<img alt="user" class="w-9 h-9 rounded-full border-2 border-[#131316] ring-1 ring-white/5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjn0lN8cJJ7QJjLxYOwLOffWso8RD1WAEDFVF2naK7VupVGl_kc1CEN5QkHenC7Jbu9ErHA5dZelVlTmbcPE_pkiIkoRs25FfnmJs635nSuJtyiVacPEs1PCrXqrcQrrZKMQcoenbNKNX0YOcxUDYSHUK3wAjjyDnYvAZ8pPxmOKQlvKAmSsXYLKLAxDAEz-sfhyqE3nKC6adyDEt57BphaD9SX9keiG0urS1Zwg1b84OrP1NCndwrHGXlklgkTqmmUDyJkueHlJE"/>
+<div class="w-9 h-9 rounded-full border-2 border-[#131316] ring-1 ring-white/5 bg-primary-container text-[11px] flex items-center justify-center text-on-primary-container font-black">+1</div>
+</div>
+</div>
+</div>
+<!-- Studio Time -->
+<div class="bg-surface-container-low p-8 rounded-2xl flex flex-col justify-between group hover:bg-[#1c1c21] transition-all duration-500 border border-outline-variant/5 hover:border-primary/20">
+<div>
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="schedule">schedule</span>
+</div>
+<h3 class="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.2em] mb-1">DAW Runtime (7D)</h3>
+</div>
+<div class="flex items-baseline gap-4 mt-8">
+<span class="text-5xl font-headline font-extrabold tracking-ultra-tight">24h</span>
+<div class="flex flex-col">
+<span class="text-white text-[10px] font-bold uppercase tracking-widest">Active</span>
+<span class="text-on-surface-variant/60 text-[10px]">Across 4 Nodes</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Curated Opportunities -->
+<section class="mb-20 opacity-0 animate-fade-in-up stagger-2">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h3 class="font-headline text-3xl font-extrabold tracking-ultra-tight">Marketplace Matches</h3>
+<p class="text-on-surface-variant mt-2 font-light text-lg">Opportunities analyzed from your latest stems and sonic signature.</p>
+</div>
+<button class="group bg-surface-container-high hover:bg-white hover:text-black transition-all duration-300 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-3">
+                        Enter Marketplace <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Project Card 1 -->
+<div class="relative group aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer editorial-shadow hover-card-glow bg-surface-container">
+<img alt="Neon Studio" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4MH1_lOtnQsZWHMaHHCz9kwfqYxS-Z7Y55IbrDfpQoL7fMd_6N77mfutcd9VcC8WmPThKWoMeL97wXqOMCvicfCO32OcWn53Xvm78qHmImyNNSmQRA1vzNB5ETzqEoTmGWRYAvkvNnFLp_25_up7s3m9YPWr2FS8vdCXgae3aionqYgcc9LAi45gLar9DObxP6FtuV5eS8s0_k277nhmPtupjH2MVpt6chBzR5EzGn5EJNcHnTg1aiXayNRgaB4spiE6groGGp3U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0e0e10] via-[#0e0e10]/20 to-transparent opacity-90 transition-opacity"></div>
+<div class="absolute top-6 right-6">
+<span class="bg-primary/20 backdrop-blur-md text-primary px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] border border-primary/30">Open for Vocals</span>
+</div>
+<div class="absolute bottom-0 left-0 p-10 w-full">
+<span class="inline-block px-3 py-1 bg-primary text-[#2c23b6] text-[10px] font-black rounded-md mb-4 uppercase tracking-[0.15em]">High Fidelity</span>
+<h4 class="text-3xl font-extrabold text-white tracking-ultra-tight group-hover:translate-x-2 transition-transform duration-500">Midnight Sessions Vol. II</h4>
+<p class="text-on-surface-variant text-sm mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 leading-relaxed font-light">Lead synth architecture for a cinematic neo-noir album. $4k License potential.</p>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="relative group aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer editorial-shadow hover-card-glow bg-surface-container">
+<img alt="DJ Table" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbItlxSxQnaL1ecVY7hGTjvvmx7A9p9xcMQF6VE9AHV16R10dHNwdalAD6YnU56Kzay2aYEiy9SMwiBzBHlrodjiwf2tz-Pfv7UdKPUP1N9_c5IW57AC23qiCkgvz3Kv7epfLjF6xcf2enZWpq5SlPB-qN9-BEVFveQpBvX0LEiu39U5w_o1rhUy4_8kJPwnKvr5dmzuoPJe468sOp_S42Sa4A_A5888hOAE1DtDrCECTPPLuIbcMFdL807LskmqbzJMGvmRPn94A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0e0e10] via-[#0e0e10]/20 to-transparent opacity-90 transition-opacity"></div>
+<div class="absolute top-6 right-6">
+<span class="bg-amber-500/20 backdrop-blur-md text-amber-400 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] border border-amber-500/30">Mixing Phase</span>
+</div>
+<div class="absolute bottom-0 left-0 p-10 w-full">
+<span class="inline-block px-3 py-1 bg-surface-container-high text-on-surface text-[10px] font-black rounded-md mb-4 uppercase tracking-[0.15em]">Collaborative</span>
+<h4 class="text-3xl font-extrabold text-white tracking-ultra-tight group-hover:translate-x-2 transition-transform duration-500">Rhythm &amp; Bloom</h4>
+<p class="text-on-surface-variant text-sm mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 leading-relaxed font-light">Organic deep house venture. Spatial audio mastering engineer required for Atmos delivery.</p>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="relative group aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer editorial-shadow hover-card-glow bg-surface-container">
+<img alt="Acoustic Scene" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw8kGtveeOZ95klg8mKU5hdEtSNb7pfwmhwig46iIw_Sz-s_zTc5tmvn06mnwuwmmKOKmPd2Nw3ie5YabDgFsFYcDzR9W7bpZ17Ld2ghJ1gzsvuxarCIeO0L72jPhEhpz9FuleKng6GgFDT7HV8Et3PpxsiKxVrHgAfDyhyvQh019hVB4HqHFQjQ6mHWF7CTKsblNLTEFWFAFfavFyks8z9dckkK_cEmEqrrvq1loBRzb34S9Vf2Hmb8Olah5rKVjr-pbSFh5tvQo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0e0e10] via-[#0e0e10]/20 to-transparent opacity-90 transition-opacity"></div>
+<div class="absolute top-6 right-6">
+<span class="bg-emerald-500/20 backdrop-blur-md text-emerald-400 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] border border-emerald-500/30">Mastering Now</span>
+</div>
+<div class="absolute bottom-0 left-0 p-10 w-full">
+<span class="inline-block px-3 py-1 bg-surface-container-high text-on-surface text-[10px] font-black rounded-md mb-4 uppercase tracking-[0.15em]">Solo Focus</span>
+<h4 class="text-3xl font-extrabold text-white tracking-ultra-tight group-hover:translate-x-2 transition-transform duration-500">Echo Chamber</h4>
+<p class="text-on-surface-variant text-sm mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0 leading-relaxed font-light">Experimental ambient exploration of industrial spaces. Seeking spatial audio specialists.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Activity List -->
+<section class="max-w-4xl opacity-0 animate-fade-in-up stagger-3">
+<div class="flex items-center gap-4 mb-10">
+<h3 class="font-headline text-2xl font-extrabold tracking-ultra-tight">Real-time Stream</h3>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(194,193,255,0.6)]"></span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-5 rounded-2xl bg-surface-container-low/50 hover:bg-surface-container transition-all group border border-outline-variant/5">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center transition-colors group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="handshake">handshake</span>
+</div>
+<div>
+<p class="text-sm font-semibold tracking-tight">Collaboration verified with <span class="text-primary hover:underline cursor-pointer">Elias Thorne</span></p>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">2 hours ago • Project: Synth Collective</p>
+</div>
+</div>
+<button class="p-2 rounded-full bg-transparent hover:bg-primary/10 opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-5 rounded-2xl bg-surface-container-low/50 hover:bg-surface-container transition-all group border border-outline-variant/5">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center transition-colors group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="cloud_done">cloud_done</span>
+</div>
+<div>
+<p class="text-sm font-semibold tracking-tight">Version 4.2 Masters successfully synced for <span class="text-primary hover:underline cursor-pointer">Neon Drift</span></p>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Yesterday at 4:12 PM • 2.4GB processed</p>
+</div>
+</div>
+<button class="p-2 rounded-full bg-transparent hover:bg-primary/10 opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-5 rounded-2xl bg-surface-container-low/50 hover:bg-surface-container transition-all group border border-outline-variant/5">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center transition-colors group-hover:bg-primary/10">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="license">license</span>
+</div>
+<div>
+<p class="text-sm font-semibold tracking-tight">License inquiry received for <span class="text-primary hover:underline cursor-pointer">Midnight Sessions</span></p>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Oct 22, 2024 • Editorial Tier request</p>
+</div>
+</div>
+<button class="p-2 rounded-full bg-transparent hover:bg-primary/10 opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</section>
+</section>
+<!-- Footer Shell -->
+<footer class="flex justify-between items-center px-12 py-12 mt-20 font-headline text-[10px] font-bold uppercase tracking-[0.25em] bg-transparent opacity-40 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-4">
+<span class="w-6 h-[1px] bg-outline-variant"></span>
+<p class="text-[#9f9da1]">© 2024 Musync Studio. Professional Editorial Systems.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors" href="#">Legal Privacy</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors" href="#">User Terms</a>
+<a class="text-[#9f9da1] hover:text-[#c2c1ff] transition-colors flex items-center gap-1" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    API Status
+                </a>
+</div>
+</footer>
+</main>
+</body></html>
