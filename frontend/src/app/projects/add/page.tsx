@@ -2,13 +2,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import Card from "@/components/ui/Card";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/design-system/components/Button";
 import API from "@/lib/api";
 import toast from "react-hot-toast";
-import { Music, FileAudio, Disc, Users as UsersIcon, LayoutGrid, Globe, Save, ArrowLeft, Plus } from "lucide-react";
+import { Music, FileAudio, Disc, Users as UsersIcon, LayoutGrid, Globe, ArrowLeft, Plus, UploadCloud, Disc3 } from "lucide-react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const TYPES = [
   { id: "song", label: "Single / Song", icon: Music },
@@ -81,104 +81,114 @@ export default function AddProjectPage() {
       <motion.div 
         initial={{ opacity: 0, y: 10 }} 
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl mx-auto pb-20"
+        className="max-w-4xl mx-auto pb-20"
       >
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <button 
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors mb-4"
+              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-silver hover:text-white transition-colors mb-6 font-body"
             >
-              <ArrowLeft size={14} /> Back to Projects
+              <ArrowLeft size={14} /> Return to Operations
             </button>
-            <h1 className="text-3xl font-bold tracking-tight">New Project</h1>
-            <p className="text-sm text-muted-foreground mt-1 font-medium">Showcase your latest work to the network.</p>
+            <h1 className="text-4xl font-display font-bold tracking-tight text-white flex items-center gap-3">
+              <Plus size={32} className="text-neon-violet" /> Deploy Asset
+            </h1>
+            <p className="text-sm text-silver mt-2 font-body">Distribute your frequency to the global network.</p>
           </div>
-          <Button onClick={handleSubmit} loading={saving} className="gap-2 shadow-glow px-8">
-            <Plus size={18} /> Launch Project
+          <Button onClick={handleSubmit} disabled={saving} className="gap-2 shadow-glow-sm px-8 h-12 font-bold shrink-0">
+            {saving ? <Disc3 size={18} className="animate-spin-slow" /> : <Plus size={18} />} 
+            {saving ? "Deploying..." : "Launch Asset"}
           </Button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section: Type Selection */}
-          <Card className="p-8 border-border/60">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <LayoutGrid size={20} className="text-primary" />
+          <Card className="p-8 border-white/5 relative overflow-hidden bg-onyx">
+            <div className="absolute -top-10 -right-10 w-48 h-48 aurora-bg blur-[60px] opacity-10 pointer-events-none" />
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                <LayoutGrid size={18} className="text-white" />
               </div>
-              <h2 className="text-xl font-bold tracking-tight">Project Type</h2>
+              <h2 className="text-xl font-display font-bold tracking-tight text-white">Asset Protocol</h2>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 relative z-10">
               {TYPES.map((t) => (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => set("type", t.id)}
-                  className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all gap-3 ${
+                  className={cn(
+                    "flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all gap-4",
                     form.type === t.id 
-                      ? "border-primary bg-primary/5 text-primary shadow-glow-sm" 
-                      : "border-border/60 bg-surface hover:border-primary/20 hover:bg-surface-high text-muted-foreground"
-                  }`}
+                      ? "border-neon-violet bg-neon-violet/10 text-white shadow-[0_0_20px_rgba(138,43,226,0.15)]" 
+                      : "border-white/5 bg-carbon hover:border-white/20 hover:bg-white/5 text-silver"
+                  )}
                 >
-                  <t.icon size={24} />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-center">{t.label}</span>
+                  <t.icon size={28} className={form.type === t.id ? "text-neon-violet" : "opacity-80"} />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-center font-body">{t.label}</span>
                 </button>
               ))}
             </div>
           </Card>
 
           {/* Section: Basic Details */}
-          <Card className="p-8 border-border/60">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <Music size={20} className="text-primary" />
+          <Card className="p-8 border-white/5 relative bg-onyx">
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                <Music size={18} className="text-white" />
               </div>
-              <h2 className="text-xl font-bold tracking-tight">Details</h2>
+              <h2 className="text-xl font-display font-bold tracking-tight text-white">Metadata</h2>
             </div>
             
-            <div className="space-y-6">
-              <Input 
-                label="Project Title *" 
-                value={form.title} 
-                onChange={(e) => set("title", e.target.value)} 
-                placeholder="e.g. Midnight Melodies" 
-                required 
-              />
+            <div className="space-y-6 relative z-10">
+              <div className="flex flex-col gap-2">
+                 <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">
+                   Asset Designation <span className="text-neon-violet">*</span>
+                 </label>
+                 <input
+                   value={form.title}
+                   onChange={(e) => set("title", e.target.value)}
+                   placeholder="e.g. Midnight Horizon Stem"
+                   required
+                   className="w-full h-14 rounded-xl bg-carbon border border-white/10 px-4 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] transition-all font-body text-base"
+                 />
+              </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
-                  Description
+                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">
+                  Mission Brief
                 </label>
                 <textarea 
                   value={form.description} 
                   onChange={(e) => set("description", e.target.value)}
-                  placeholder="Tell potential collaborators about the vision, role, or background of this project..."
+                  placeholder="Detail the vision, required collaborators, or technical specs..."
                   rows={4} 
-                  className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all resize-none shadow-sm" 
+                  className="w-full rounded-xl bg-carbon border border-white/10 px-4 py-3 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] transition-all resize-none font-body text-sm leading-relaxed" 
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">Primary Genre</label>
+                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Soundscape</label>
                   <select 
                     value={form.genres} 
                     onChange={(e) => set("genres", e.target.value)}
-                    className="h-11 px-4 rounded-xl border border-border/60 bg-surface text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 cursor-pointer shadow-sm"
+                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] cursor-pointer"
                   >
-                    <option value="">Select genre</option>
-                    {GENRES.map((g) => <option key={g} value={g}>{g}</option>)}
+                    <option value="" className="bg-onyx">Unspecified</option>
+                    {GENRES.map((g) => <option key={g} value={g} className="bg-onyx">{g}</option>)}
                   </select>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">Visibility</label>
+                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Clearance Level</label>
                   <select 
                     value={form.status} 
                     onChange={(e) => set("status", e.target.value)}
-                    className="h-11 px-4 rounded-xl border border-border/60 bg-surface text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 capitalize cursor-pointer shadow-sm"
+                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm capitalize focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] cursor-pointer"
                   >
-                    {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    {STATUSES.map((s) => <option key={s} value={s} className="bg-onyx">{s === "published" ? "Public Network" : "Private Draft"}</option>)}
                   </select>
                 </div>
               </div>
@@ -186,58 +196,93 @@ export default function AddProjectPage() {
           </Card>
 
           {/* Section: Assets */}
-          <Card className="p-8 border-border/60">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <Globe size={20} className="text-primary" />
+          <Card className="p-8 border-white/5 relative bg-onyx">
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                <Globe size={18} className="text-white" />
               </div>
-              <h2 className="text-xl font-bold tracking-tight">Media Assets</h2>
+              <h2 className="text-xl font-display font-bold tracking-tight text-white">Payload Upload</h2>
             </div>
             
-            <div className="space-y-6">
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
-                  Cover Image
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              
+              {/* Cover Image Upload */}
+              <div className="flex flex-col gap-3">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Cover Art</label>
+                <label className="flex-1 min-h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-2xl bg-carbon hover:border-neon-violet/50 hover:bg-white/5 transition-all cursor-pointer group p-4 text-center relative overflow-hidden">
+                   <input 
+                     type="file"
+                     accept="image/*"
+                     className="hidden"
+                     onChange={(e) => {
+                       if (e.target.files && e.target.files[0]) {
+                         setCoverImageFile(e.target.files[0]);
+                         set("coverImage", URL.createObjectURL(e.target.files[0]));
+                       }
+                     }}
+                   />
+                   {form.coverImage ? (
+                     <div className="absolute inset-0">
+                       <img src={form.coverImage} alt="Cover preview" className="w-full h-full object-cover opacity-60" />
+                       <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                         <span className="text-xs font-bold text-white font-body">Replace Image</span>
+                       </div>
+                     </div>
+                   ) : (
+                     <>
+                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                         <UploadCloud size={20} className="text-silver group-hover:text-neon-violet transition-colors" />
+                       </div>
+                       <span className="text-sm font-bold text-white font-body mb-1">Upload Cover</span>
+                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">JPEG, PNG up to 5MB</span>
+                     </>
+                   )}
                 </label>
-                <input 
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setCoverImageFile(e.target.files[0]);
-                      set("coverImage", URL.createObjectURL(e.target.files[0]));
-                    }
-                  }}
-                  className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                />
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground/80">
-                  Audio / Media File
+
+              {/* Audio Upload */}
+              <div className="flex flex-col gap-3">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Audio Stem / Track</label>
+                <label className="flex-1 min-h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-2xl bg-carbon hover:border-neon-violet/50 hover:bg-white/5 transition-all cursor-pointer group p-4 text-center">
+                   <input 
+                     type="file"
+                     accept="audio/*"
+                     className="hidden"
+                     onChange={(e) => {
+                       if (e.target.files && e.target.files[0]) {
+                         setAudioFile(e.target.files[0]);
+                       }
+                     }}
+                   />
+                   {audioFile ? (
+                     <>
+                       <div className="w-12 h-12 rounded-full bg-neon-violet/20 flex items-center justify-center mb-3 text-neon-violet">
+                         <FileAudio size={20} />
+                       </div>
+                       <span className="text-sm font-bold text-white font-body mb-1 truncate max-w-full px-4">{audioFile.name}</span>
+                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">Ready to deploy</span>
+                     </>
+                   ) : (
+                     <>
+                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                         <Music size={20} className="text-silver group-hover:text-neon-violet transition-colors" />
+                       </div>
+                       <span className="text-sm font-bold text-white font-body mb-1">Upload Audio</span>
+                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">WAV, MP3 up to 50MB</span>
+                     </>
+                   )}
                 </label>
-                <input 
-                  type="file"
-                  accept="audio/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setAudioFile(e.target.files[0]);
-                    }
-                  }}
-                  className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                />
               </div>
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest px-1">
-                Upload your work directly so others can experience it in the network.
-              </p>
+
             </div>
           </Card>
 
-          <div className="flex gap-4 pt-4">
-            <Button type="button" variant="outline" className="h-12 px-10 font-bold border-border" onClick={() => router.push("/projects")}>
-              Cancel
+          <div className="flex gap-4 pt-4 justify-end">
+            <Button type="button" variant="outline" className="h-12 px-8 font-bold border-white/10 text-silver hover:text-white" onClick={() => router.push("/projects")}>
+              Abort
             </Button>
-            <Button type="submit" loading={saving} className="h-12 px-12 font-bold shadow-glow">
-              Launch Project
+            <Button type="submit" disabled={saving} className="h-12 px-12 font-bold shadow-glow-sm">
+              {saving ? "Deploying..." : "Launch Asset"}
             </Button>
           </div>
         </form>
@@ -245,4 +290,3 @@ export default function AddProjectPage() {
     </DashboardLayout>
   );
 }
-

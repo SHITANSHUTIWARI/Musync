@@ -1,30 +1,46 @@
+"use client";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: "default" | "secondary" | "success" | "warning" | "destructive" | "outline" | "premium";
-  className?: string;
-}
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-neon-violet/10 text-neon-violet hover:bg-neon-violet/20",
+        secondary:
+          "border-transparent bg-white/[0.06] text-mist hover:bg-white/[0.1]",
+        destructive:
+          "border-transparent bg-ruby/10 text-ruby hover:bg-ruby/20",
+        outline: "text-mist border-white/[0.06]",
+        neon: "border-neon-violet/30 bg-neon-violet/10 text-neon-violet shadow-glow-sm",
+        success: "border-emerald/30 bg-emerald/10 text-emerald",
+        warning: "border-amber/30 bg-amber/10 text-amber",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
-const variants = {
-  default: "bg-surface-highest text-foreground border-border/40",
-  secondary: "bg-surface-high text-muted-foreground border-transparent",
-  success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  warning: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  destructive: "bg-destructive/10 text-destructive border-destructive/20",
-  outline: "bg-transparent text-foreground border-white/10",
-  premium: "signature-gradient text-white border-transparent shadow-glow-sm font-black",
-};
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {}
 
-export default function Badge({ children, variant = "default", className }: BadgeProps) {
+function Badge({ className, variant, ...props }: BadgeProps) {
   return (
-    <span className={cn(
-      "inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all",
-      variants[variant],
-      className
-    )}>
-      {children}
-    </span>
+    <div
+      className={cn(
+        badgeVariants({ variant }),
+        className,
+        "font-body uppercase tracking-widest text-[10px]"
+      )}
+      {...props}
+    />
   );
 }
 
+export { Badge, badgeVariants };
