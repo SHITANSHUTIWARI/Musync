@@ -1,6 +1,6 @@
 "use client";
 import { Suspense, useEffect, useState, useCallback, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { ArtistCard } from "@/design-system/components/ArtistCard";
 import { Button } from "@/design-system/components/Button";
@@ -214,20 +214,19 @@ function DiscoverContent() {
 
 // Wrapper to handle individual connect states natively using our Reusable Component
 function ArtistCardWrapper({ artist }: { artist: any }) {
-  const [status, setStatus]   = useState<null | "pending" | "connected">(null);
+  const router = useRouter();
+  const [status, setStatus]   = useState<string>(artist.connectionStatus || "none");
   const [loading, setLoading] = useState(false);
 
   const connect = async () => {
-    if (status || loading) return;
+    if (status !== "none" || loading) return;
     setLoading(true);
     try {
       await API.post("/connections/request", { recipient: artist.userId });
-      setStatus("pending");
+      setStatus("sent");
       toast.success("Connection request sent to " + artist.displayName);
     } catch (e: any) {
-      const msg = e.response?.data?.error?.message || "";
-      if (msg.includes("already")) setStatus("connected");
-      else toast.error(msg || "Could not intercept frequency");
+      toast.error(e.response?.data?.error?.message || "Could not intercept frequency");
     } finally {
       setLoading(false);
     }
@@ -236,19 +235,20 @@ function ArtistCardWrapper({ artist }: { artist: any }) {
   const actionNode = (
     <Button
       fullWidth
-      variant={status === "connected" ? "outline" : status === "pending" ? "secondary" : "default"}
+      variant={status === "accepted" ? "outline" : (status === "sent" || status === "received") ? "secondary" : "default"}
       className={cn(
         "h-10 transition-all font-bold text-xs",
-        status === "connected" && "border-emerald/50 text-emerald hover:text-emerald hover:bg-emerald/10 cursor-default shadow-none",
-        status === "pending" && "border-white/10 text-silver cursor-default shadow-none"
+        status === "accepted" && "border-emerald/50 text-emerald hover:text-emerald hover:bg-emerald/10 cursor-default shadow-none",
+        (status === "sent" || status === "received") && "border-white/10 text-silver cursor-default shadow-none"
       )}
       onClick={connect}
-      disabled={!!status || loading}
+      disabled={status !== "none" || loading}
     >
-      {status === "connected" ? <><Check size={14} className="mr-2" /> Connected</>
-       : status === "pending"  ? <><Clock size={14} className="mr-2" /> Pending</>
-       : loading              ? <><Disc3 size={14} className="mr-2 animate-spin-slow" /> Transmitting</>
-       :                        <><UserPlus size={14} className="mr-2" /> Connect</>}
+      {status === "accepted" ? <><Check size={14} className="mr-2" /> Connected</>
+       : status === "sent"     ? <><Clock size={14} className="mr-2" /> Pending</>
+       : status === "received" ? <><UserPlus size={14} className="mr-2" /> Respond</>
+       : loading               ? <><Disc3 size={14} className="mr-2 animate-spin-slow" /> Transmitting</>
+       :                         <><UserPlus size={14} className="mr-2" /> Connect</>}
     </Button>
   );
 
@@ -263,6 +263,7 @@ function ArtistCardWrapper({ artist }: { artist: any }) {
         endorsements={artist.endorsementsCount || 0}
         action={actionNode}
         className="h-full"
+        onClick={() => router.push(`/profile/${artist.userId}`)}
       />
     </motion.div>
   );

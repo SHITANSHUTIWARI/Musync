@@ -8,6 +8,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { Plus, Search, Pencil, Trash2, FolderOpen, SlidersHorizontal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePlayer } from "@/context/PlayerContext";
 
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.05 } } };
 const item = { hidden: { opacity: 0, y: 15 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 28 } } };
@@ -21,6 +22,7 @@ export default function ProjectsPage() {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
+  const { playTrack } = usePlayer();
 
   useEffect(() => {
     API.get("/projects")
@@ -149,7 +151,7 @@ export default function ProjectsPage() {
                         </button>
                      </Link>
                      <button
-                        onClick={() => handleDelete(p._id, p.title)}
+                        onClick={(e) => { e.stopPropagation(); handleDelete(p._id, p.title); }}
                         className="w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/30 flex items-center justify-center text-red-500 transition-all border border-transparent hover:border-red-500/20"
                      >
                         <Trash2 size={12} />
@@ -163,6 +165,14 @@ export default function ProjectsPage() {
                       title={p.title}
                       description={p.description || "No description provided."}
                       imageUrl={imageUrl}
+                      audioUrl={p.audioLink}
+                      onPlay={() => p.audioLink && playTrack({
+                        id: p._id,
+                        title: p.title,
+                        artist: p.creator?.displayName || p.creator?.username || "You",
+                        cover: imageUrl,
+                        url: p.audioLink
+                      })}
                       tag={p.type ? p.type.toUpperCase() : undefined}
                       budgetOrType={p.status ? p.status.toUpperCase() : undefined}
                       creatorName={p.creator?.displayName || p.creator?.username || "You"}

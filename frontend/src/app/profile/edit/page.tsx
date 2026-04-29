@@ -178,7 +178,7 @@ export default function EditProfilePage() {
                     </label>
                     <input 
                       type="file"
-                      accept="image/*"
+                      accept=".jpg,.jpeg,.png,.webp"
                       onChange={handleAvatarChange}
                       className="w-full rounded-2xl border border-border/60 bg-surface px-4 py-3 text-sm font-medium placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                     />

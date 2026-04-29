@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/design-system/components/Button";
 import API from "@/lib/api";
 import toast from "react-hot-toast";
-import { Music, FileAudio, Disc, Users as UsersIcon, LayoutGrid, Globe, ArrowLeft, Plus, UploadCloud, Disc3 } from "lucide-react";
+import { Music, FileAudio, Disc, Users as UsersIcon, LayoutGrid, Globe, ArrowLeft, Save, UploadCloud, Disc3, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -20,8 +20,9 @@ const TYPES = [
 const GENRES = ["Hip-Hop", "R&B", "Pop", "Electronic", "Jazz", "Classical", "Rock", "Afrobeats", "Other"];
 const STATUSES = ["draft", "published"];
 
-export default function AddProjectPage() {
+export default function EditProjectPage() {
   const router = useRouter();
+  const { id } = useParams();
   const [form, setForm] = useState({ 
     title: "", 
     type: "", 
@@ -31,17 +32,38 @@ export default function AddProjectPage() {
     coverImage: "", 
     audioLink: "" 
   });
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   const [coverImageFile, setCoverImageFile] = useState<File | null>(null);
   const [audioFile, setAudioFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (!id) return;
+    API.get(`/projects/${id}`)
+      .then(({ data }) => {
+        const project = data.project;
+        if (project) {
+          setForm({
+            title: project.title || "",
+            type: project.type || "",
+            description: project.description || "",
+            genres: project.genres?.[0] || "",
+            status: project.status || "published",
+            coverImage: project.coverImage || "",
+            audioLink: project.audioLink || ""
+          });
+        }
+      })
+      .catch(() => toast.error("Failed to load project details"))
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const set = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim()) { toast.error("Please enter a project title"); return; }
-    if (!form.type) { toast.error("Please select a project type"); return; }
     setSaving(true);
     
     try {
@@ -57,24 +79,27 @@ export default function AddProjectPage() {
       
       if (coverImageFile) {
         formData.append('coverImageFile', coverImageFile);
-      } else if (form.coverImage) {
-        formData.append('coverImage', form.coverImage);
       }
       
       if (audioFile) {
         formData.append('audioFile', audioFile);
-      } else if (form.audioLink) {
-        formData.append('audioLink', form.audioLink);
       }
 
-      await API.post("/projects", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      toast.success("Project launched successfully!");
+      await API.put(`/projects/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      toast.success("Project updated successfully!");
       router.push("/projects");
     } catch (err: any) {
-      const d = err.response?.data;
-      toast.error(d?.errors?.[0]?.message || d?.error?.message || "Failed to create project");
+      toast.error("Failed to update project");
     } finally { setSaving(false); }
   };
+
+  if (loading) return (
+    <DashboardLayout>
+      <div className="flex items-center justify-center h-[60vh]">
+        <Disc3 size={40} className="animate-spin-slow text-neon-violet opacity-50" />
+      </div>
+    </DashboardLayout>
+  );
 
   return (
     <DashboardLayout>
@@ -89,23 +114,24 @@ export default function AddProjectPage() {
               onClick={() => router.back()}
               className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-silver hover:text-white transition-colors mb-6 font-body"
             >
-              <ArrowLeft size={14} /> Return to Operations
+              <ArrowLeft size={14} /> Back to Projects
             </button>
             <h1 className="text-4xl font-display font-bold tracking-tight text-white flex items-center gap-3">
-              <Plus size={32} className="text-neon-violet" /> Deploy Asset
+               Edit Asset
             </h1>
-            <p className="text-sm text-silver mt-2 font-body">Distribute your frequency to the global network.</p>
+            <p className="text-sm text-silver mt-2 font-body">Modify your deployed asset metadata and files.</p>
           </div>
-          <Button onClick={handleSubmit} disabled={saving} className="gap-2 shadow-glow-sm px-8 h-12 font-bold shrink-0">
-            {saving ? <Disc3 size={18} className="animate-spin-slow" /> : <Plus size={18} />} 
-            {saving ? "Deploying..." : "Launch Asset"}
-          </Button>
+          <div className="flex gap-3">
+             <Button onClick={handleSubmit} disabled={saving} className="gap-2 shadow-glow-sm px-8 h-12 font-bold">
+               {saving ? <Disc3 size={18} className="animate-spin-slow" /> : <Save size={18} />} 
+               {saving ? "Saving..." : "Save Changes"}
+             </Button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section: Type Selection */}
           <Card className="p-8 border-white/5 relative overflow-hidden bg-onyx">
-            <div className="absolute -top-10 -right-10 w-48 h-48 aurora-bg blur-[60px] opacity-10 pointer-events-none" />
             <div className="flex items-center gap-3 mb-6 relative z-10">
               <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                 <LayoutGrid size={18} className="text-white" />
@@ -144,51 +170,44 @@ export default function AddProjectPage() {
             
             <div className="space-y-6 relative z-10">
               <div className="flex flex-col gap-2">
-                 <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">
-                   Asset Designation <span className="text-neon-violet">*</span>
-                 </label>
+                 <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Title</label>
                  <input
                    value={form.title}
                    onChange={(e) => set("title", e.target.value)}
-                   placeholder="e.g. Midnight Horizon Stem"
-                   required
-                   className="w-full h-14 rounded-xl bg-carbon border border-white/10 px-4 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] transition-all font-body text-base"
+                   className="w-full h-14 rounded-xl bg-carbon border border-white/10 px-4 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 transition-all font-body text-base"
                  />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">
-                  Mission Brief
-                </label>
+                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Description</label>
                 <textarea 
                   value={form.description} 
                   onChange={(e) => set("description", e.target.value)}
-                  placeholder="Detail the vision, required collaborators, or technical specs..."
                   rows={4} 
-                  className="w-full rounded-xl bg-carbon border border-white/10 px-4 py-3 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] transition-all resize-none font-body text-sm leading-relaxed" 
+                  className="w-full rounded-xl bg-carbon border border-white/10 px-4 py-3 text-white placeholder:text-silver/50 focus:outline-none focus:border-neon-violet/50 transition-all resize-none font-body text-sm" 
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Soundscape</label>
+                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Genre</label>
                   <select 
                     value={form.genres} 
                     onChange={(e) => set("genres", e.target.value)}
-                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] cursor-pointer"
+                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm focus:outline-none focus:border-neon-violet/50"
                   >
-                    <option value="" className="bg-onyx">Unspecified</option>
-                    {GENRES.map((g) => <option key={g} value={g} className="bg-onyx">{g}</option>)}
+                    <option value="">Unspecified</option>
+                    {GENRES.map((g) => <option key={g} value={g}>{g}</option>)}
                   </select>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Clearance Level</label>
+                  <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Status</label>
                   <select 
                     value={form.status} 
                     onChange={(e) => set("status", e.target.value)}
-                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm capitalize focus:outline-none focus:border-neon-violet/50 focus:shadow-[0_0_15px_rgba(138,43,226,0.2)] cursor-pointer"
+                    className="h-14 px-4 rounded-xl bg-carbon border border-white/10 text-white font-body text-sm capitalize focus:outline-none focus:border-neon-violet/50"
                   >
-                    {STATUSES.map((s) => <option key={s} value={s} className="bg-onyx">{s === "published" ? "Public Network" : "Private Draft"}</option>)}
+                    {STATUSES.map((s) => <option key={s} value={s}>{s === "published" ? "Public Network" : "Private Draft"}</option>)}
                   </select>
                 </div>
               </div>
@@ -201,11 +220,10 @@ export default function AddProjectPage() {
               <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                 <Globe size={18} className="text-white" />
               </div>
-              <h2 className="text-xl font-display font-bold tracking-tight text-white">Payload Upload</h2>
+              <h2 className="text-xl font-display font-bold tracking-tight text-white">Payload Update</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-              
               {/* Cover Image Upload */}
               <div className="flex flex-col gap-3">
                 <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Cover Art</label>
@@ -230,11 +248,10 @@ export default function AddProjectPage() {
                      </div>
                    ) : (
                      <>
-                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                         <UploadCloud size={20} className="text-silver group-hover:text-neon-violet transition-colors" />
+                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3">
+                         <UploadCloud size={20} className="text-silver" />
                        </div>
                        <span className="text-sm font-bold text-white font-body mb-1">Upload Cover</span>
-                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">JPEG, PNG up to 5MB</span>
                      </>
                    )}
                 </label>
@@ -242,7 +259,7 @@ export default function AddProjectPage() {
 
               {/* Audio Upload */}
               <div className="flex flex-col gap-3">
-                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Audio Stem / Track</label>
+                <label className="text-[11px] font-bold uppercase tracking-widest text-silver font-body">Audio Track</label>
                 <label className="flex-1 min-h-[160px] flex flex-col items-center justify-center border-2 border-dashed border-white/10 rounded-2xl bg-carbon hover:border-neon-violet/50 hover:bg-white/5 transition-all cursor-pointer group p-4 text-center">
                    <input 
                      type="file"
@@ -260,29 +277,28 @@ export default function AddProjectPage() {
                          <FileAudio size={20} />
                        </div>
                        <span className="text-sm font-bold text-white font-body mb-1 truncate max-w-full px-4">{audioFile.name}</span>
-                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">Ready to deploy</span>
                      </>
                    ) : (
                      <>
-                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                         <Music size={20} className="text-silver group-hover:text-neon-violet transition-colors" />
+                       <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-3">
+                         <Music size={20} className="text-silver" />
                        </div>
-                       <span className="text-sm font-bold text-white font-body mb-1">Upload Audio</span>
-                       <span className="text-[10px] text-silver font-body uppercase tracking-widest">WAV, MP3 up to 50MB</span>
-                     </>
+                       <span className="text-sm font-bold text-white font-body mb-1">
+                          {form.audioLink ? "Replace Audio" : "Upload Audio"}
+                       </span>
+                    </>
                    )}
                 </label>
               </div>
-
             </div>
           </Card>
 
           <div className="flex gap-4 pt-4 justify-end">
-            <Button type="button" variant="outline" className="h-12 px-8 font-bold border-white/10 text-silver hover:text-white" onClick={() => router.push("/projects")}>
-              Abort
+            <Button type="button" variant="outline" className="h-12 px-8 font-bold border-white/10 text-silver hover:text-white" onClick={() => router.back()}>
+              Cancel
             </Button>
             <Button type="submit" disabled={saving} className="h-12 px-12 font-bold shadow-glow-sm">
-              {saving ? "Deploying..." : "Launch Asset"}
+              {saving ? "Saving..." : "Update Asset"}
             </Button>
           </div>
         </form>

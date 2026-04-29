@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { PlayerProvider } from "@/context/PlayerContext";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
@@ -24,32 +25,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider>
           <AuthProvider>
-            {children}
-            <Toaster
-              position="bottom-right"
-              gutter={10}
-              toastOptions={{
-                duration: 3500,
-                style: {
-                  background: "var(--onyx)",
-                  color: "var(--mist)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "12px",
-                  fontSize: "0.85rem",
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 500,
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,111,224,0.1)",
-                  backdropFilter: "blur(20px)",
-                  padding: "12px 16px",
-                },
-                success: {
-                  iconTheme: { primary: "var(--emerald)", secondary: "var(--onyx)" },
-                },
-                error: {
-                  iconTheme: { primary: "var(--ruby)", secondary: "var(--onyx)" },
-                },
-              }}
-            />
+            <PlayerProvider>
+              {children}
+              <Toaster
+                position="bottom-right"
+                gutter={10}
+                toastOptions={{
+                  duration: 3500,
+                  style: {
+                    background: "var(--onyx)",
+                    color: "var(--mist)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "12px",
+                    fontSize: "0.85rem",
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 500,
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,111,224,0.1)",
+                    backdropFilter: "blur(20px)",
+                    padding: "12px 16px",
+                  },
+                  success: {
+                    iconTheme: { primary: "var(--emerald)", secondary: "var(--onyx)" },
+                  },
+                  error: {
+                    iconTheme: { primary: "var(--ruby)", secondary: "var(--onyx)" },
+                  },
+                }}
+              />
+            </PlayerProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

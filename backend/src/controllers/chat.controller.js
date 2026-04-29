@@ -60,6 +60,16 @@ const sendMessage = async (req, res, next) => {
       { path: 'receiver', select: 'username avatar' }
     ]);
 
+    // Create notification
+    const { createNotification } = require('./notification.controller');
+    await createNotification({
+      recipient: receiver,
+      sender,
+      type: 'new_message',
+      content: 'sent you a new message',
+      relatedId: message._id
+    });
+
     // Emit via socket
     socketService.emitToUser(receiver, 'message:receive', message);
 

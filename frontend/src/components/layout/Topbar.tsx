@@ -5,21 +5,46 @@ import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Bell, ChevronLeft, ChevronRight, LogOut, User, Settings, X } from "lucide-react";
 import Link from "next/link";
+import API from "@/lib/api";
+import { cn } from "@/lib/utils";
 
 export default function Topbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  
   const [search, setSearch]           = useState("");
   const [searchOpen, setSearchOpen]   = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [unreadCount, setUnreadCount]     = useState(0);
+  const [notifOpen, setNotifOpen]         = useState(false);
+  
   const profileRef = useRef<HTMLDivElement>(null);
   const searchRef  = useRef<HTMLInputElement>(null);
+  const notifRef   = useRef<HTMLDivElement>(null);
 
-  // Close profile dropdown on outside click
+  // Fetch initial notifications
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const { data } = await API.get("/notifications");
+        setNotifications(data.notifications || []);
+        setUnreadCount(data.notifications?.filter((n: any) => !n.read).length || 0);
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+    if (user) fetchNotifications();
+  }, [user]);
+
+  // Close dropdowns on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
         setProfileOpen(false);
+      }
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -37,6 +62,26 @@ export default function Topbar() {
       router.push(`/discover?q=${encodeURIComponent(search.trim())}`);
       setSearch("");
       setSearchOpen(false);
+    }
+  };
+
+  const markAllRead = async () => {
+    try {
+      await API.put("/notifications/read-all");
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+      setUnreadCount(0);
+    } catch (err) {
+      console.error("Failed to mark all read:", err);
+    }
+  };
+
+  const markOneRead = async (id: string) => {
+    try {
+      await API.put(`/notifications/${id}/read`);
+      setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
+      setUnreadCount(prev => Math.max(0, prev - 1));
+    } catch (err) {
+      console.error("Failed to mark read:", err);
     }
   };
 
@@ -120,10 +165,74 @@ export default function Topbar() {
       {/* ── Right actions ── */}
       <div className="flex items-center gap-2 shrink-0">
         {/* Notifications */}
-        <button className="w-8 h-8 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center text-silver hover:text-mist transition-all relative">
-          <Bell size={16} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-neon-violet rounded-full" />
-        </button>
+        <div className="relative" ref={notifRef}>
+          <button
+            onClick={() => setNotifOpen(!notifOpen)}
+            className={cn(
+              "w-8 h-8 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center text-silver hover:text-mist transition-all relative",
+              notifOpen && "bg-white/[0.08] text-white"
+            )}
+          >
+            <Bell size={16} />
+            {unreadCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-neon-violet rounded-full text-[10px] font-bold text-white flex items-center justify-center border-2 border-onyx">
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            )}
+          </button>
+
+          <AnimatePresence>
+            {notifOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="absolute right-0 top-12 w-80 glass-obsidian rounded-2xl py-2 shadow-card-lg border border-white/5"
+              >
+                <div className="px-4 py-2 border-b border-white/[0.06] flex items-center justify-between">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Notifications</span>
+                  {unreadCount > 0 && (
+                    <button onClick={markAllRead} className="text-[10px] text-neon-violet hover:underline font-bold">
+                      Mark all as read
+                    </button>
+                  )}
+                </div>
+                <div className="max-h-[320px] overflow-y-auto thin-scrollbar">
+                  {notifications.length === 0 ? (
+                    <div className="px-4 py-8 text-center">
+                      <p className="text-silver text-xs">No notifications yet</p>
+                    </div>
+                  ) : (
+                    notifications.map((n) => (
+                      <div
+                        key={n._id}
+                        onClick={() => markOneRead(n._id)}
+                        className={cn(
+                          "px-4 py-3 flex gap-3 hover:bg-white/[0.04] transition-colors cursor-pointer border-b border-white/[0.03]",
+                          !n.read && "bg-neon-violet/5"
+                        )}
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-carbon flex items-center justify-center shrink-0">
+                          {n.type === 'connection_request' ? <User size={14} className="text-neon-violet" /> : <Bell size={14} className="text-silver" />}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-[13px] text-mist leading-snug">
+                            <span className="font-bold text-white">{n.sender?.username}</span> {n.content}
+                          </p>
+                          <p className="text-[10px] text-silver mt-1">
+                            {new Date(n.createdAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                        {!n.read && <div className="w-1.5 h-1.5 rounded-full bg-neon-violet shrink-0 mt-1.5" />}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <div className="w-px h-5 bg-white/[0.08] mx-1" />
 

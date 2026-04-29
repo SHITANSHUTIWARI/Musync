@@ -15,6 +15,7 @@ interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
   status?: string;
   audioUrl?: string;
   onPlay?: () => void;
+  actionNode?: React.ReactNode;
 }
 
 // Static waveform bars for visual interest
@@ -31,7 +32,7 @@ const Waveform = () => (
 );
 
 export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
-  ({ className, title, description, imageUrl, genres = [], tag, creatorName, budgetOrType, status, audioUrl, onPlay, onClick, ...props }, ref) => {
+  ({ className, title, description, imageUrl, genres = [], tag, creatorName, budgetOrType, status, audioUrl, onPlay, onClick, actionNode, ...props }, ref) => {
     const [hovered, setHovered] = React.useState(false);
 
     return (
@@ -88,6 +89,13 @@ export const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
               )}>
                 {tag || status}
               </span>
+            </div>
+          )}
+
+          {/* Action Overlay */}
+          {actionNode && (
+            <div className="absolute top-3 right-3 z-20">
+              {actionNode}
             </div>
           )}
 

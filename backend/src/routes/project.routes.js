@@ -8,8 +8,10 @@ const router = express.Router();
 const {
   createProject,
   getMyProjects,
+  getProjectById,
   updateProject,
-  deleteProject
+  deleteProject,
+  getProjectsByUser
 } = require('../controllers/project.controller');
 
 const {
@@ -54,6 +56,12 @@ router.post('/', projectUpload, createProjectValidator, createProject);
 
 // GET /api/projects - Get my projects
 router.get('/', getMyProjects);
+
+// GET /api/projects/user/:userId - Get projects by user ID
+router.get('/user/:userId', getProjectsByUser);
+
+// GET /api/projects/:id - Get project by ID
+router.get('/:id', getProjectById);
 
 // PUT /api/projects/:id - Update project
 router.put('/:id', projectUpload, updateProjectValidator, updateProject);

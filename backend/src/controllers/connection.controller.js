@@ -4,6 +4,7 @@
 
 const Connection = require('../models/Connection');
 const User = require('../models/User');
+const { createNotification } = require('./notification.controller');
 
 /**
  * @desc    Send connection request
@@ -55,10 +56,19 @@ const sendRequest = async (req, res, next) => {
     }
 
     // Create request
-    await Connection.create({
+    const connection = await Connection.create({
       requester,
       recipient,
       status: 'pending'
+    });
+
+    // Create notification
+    await createNotification({
+      recipient,
+      sender: requester,
+      type: 'connection_request',
+      content: 'sent you a connection request',
+      relatedId: connection._id
     });
 
     res.status(201).json({
@@ -116,6 +126,17 @@ const respondRequest = async (req, res, next) => {
     connection.updatedAt = new Date();
     await connection.save();
 
+    // Create notification if accepted
+    if (status === 'accepted') {
+      await createNotification({
+        recipient: connection.requester,
+        sender: userId,
+        type: 'connection_accepted',
+        content: 'accepted your connection request',
+        relatedId: connection._id
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: `Connection request ${status}`
@@ -132,39 +153,66 @@ const respondRequest = async (req, res, next) => {
  */
 const getMyConnections = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const { mongoose } = require('mongoose');
+    const userId = new mongoose.Types.ObjectId(req.user.id);
 
-    // Find accepted connections where user is requester OR recipient
-    const connections = await Connection.find({
-      status: 'accepted',
-      $or: [{ requester: userId }, { recipient: userId }]
-    })
-    .populate('requester', 'username email role') // Basic user info
-    .populate('recipient', 'username email role')
-    .sort({ updatedAt: -1 });
-
-    // Format results to just return the "other" user
-    const formattedConnections = connections.map(conn => {
-      const isRequester = conn.requester._id.toString() === userId;
-      const otherUser = isRequester ? conn.recipient : conn.requester;
-      
-      return {
-        _id: conn._id,
-        connectedSince: conn.updatedAt || conn.createdAt,
-        user: {
-          _id: otherUser._id,
-          username: otherUser.username,
-          role: otherUser.role
-          // Ideally we would join Profile to get avatar/name, but User info is requested for now. 
-          // Task requirement says "Return basic public user info". User collection has username/role.
+    const connections = await Connection.aggregate([
+      {
+        $match: {
+          status: 'accepted',
+          $or: [{ requester: userId }, { recipient: userId }]
         }
-      };
-    });
+      },
+      {
+        $addFields: {
+          otherUserId: {
+            $cond: {
+              if: { $eq: ['$requester', userId] },
+              then: '$recipient',
+              else: '$requester'
+            }
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'otherUserId',
+          foreignField: '_id',
+          as: 'u'
+        }
+      },
+      { $unwind: '$u' },
+      {
+        $lookup: {
+          from: 'profiles',
+          localField: 'otherUserId',
+          foreignField: 'user',
+          as: 'p'
+        }
+      },
+      { $unwind: { path: '$p', preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          _id: 1,
+          connectedSince: { $ifNull: ['$updatedAt', '$createdAt'] },
+          user: {
+            _id: '$u._id',
+            username: '$u.username',
+            role: '$u.role',
+            displayName: '$p.displayName',
+            avatar: '$p.avatar',
+            location: '$p.location'
+          }
+        }
+      },
+      { $sort: { connectedSince: -1 } }
+    ]);
 
     res.status(200).json({
       success: true,
-      count: formattedConnections.length,
-      connections: formattedConnections
+      count: connections.length,
+      connections
     });
   } catch (error) {
     next(error);
@@ -180,27 +228,65 @@ module.exports = {
 
 async function getPendingConnections(req, res, next) {
   try {
-    const userId = req.user.id;
-    const connections = await Connection.find({
-      status: 'pending',
-      $or: [{ requester: userId }, { recipient: userId }]
-    })
-    .populate('requester', 'username role')
-    .populate('recipient', 'username role')
-    .sort({ createdAt: -1 });
+    const { mongoose } = require('mongoose');
+    const userId = new mongoose.Types.ObjectId(req.user.id);
 
-    const formatted = connections.map(conn => {
-      const isSender = conn.requester._id.toString() === userId;
-      const other = isSender ? conn.recipient : conn.requester;
-      return {
-        _id: conn._id,
-        type: isSender ? 'sent' : 'received',
-        createdAt: conn.createdAt,
-        user: { _id: other._id, username: other.username, role: other.role }
-      };
-    });
+    const connections = await Connection.aggregate([
+      {
+        $match: {
+          status: 'pending',
+          $or: [{ requester: userId }, { recipient: userId }]
+        }
+      },
+      {
+        $addFields: {
+          isSender: { $eq: ['$requester', userId] },
+          otherUserId: {
+            $cond: {
+              if: { $eq: ['$requester', userId] },
+              then: '$recipient',
+              else: '$requester'
+            }
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'otherUserId',
+          foreignField: '_id',
+          as: 'u'
+        }
+      },
+      { $unwind: '$u' },
+      {
+        $lookup: {
+          from: 'profiles',
+          localField: 'otherUserId',
+          foreignField: 'user',
+          as: 'p'
+        }
+      },
+      { $unwind: { path: '$p', preserveNullAndEmptyArrays: true } },
+      {
+        $project: {
+          _id: 1,
+          type: { $cond: { if: '$isSender', then: 'sent', else: 'received' } },
+          createdAt: 1,
+          user: {
+            _id: '$u._id',
+            username: '$u.username',
+            role: '$u.role',
+            displayName: '$p.displayName',
+            avatar: '$p.avatar',
+            location: '$p.location'
+          }
+        }
+      },
+      { $sort: { createdAt: -1 } }
+    ]);
 
-    res.status(200).json({ success: true, connections: formatted });
+    res.status(200).json({ success: true, connections });
   } catch (error) {
     next(error);
   }

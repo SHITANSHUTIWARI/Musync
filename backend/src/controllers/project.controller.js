@@ -24,7 +24,7 @@ const createProject = async (req, res, next) => {
     };
     
     // Handle file uploads if present
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
     if (req.files) {
       if (req.files.coverImageFile && req.files.coverImageFile.length > 0) {
         projectData.coverImage = `${baseUrl}/uploads/images/${req.files.coverImageFile[0].filename}`;
@@ -117,7 +117,7 @@ const updateProject = async (req, res, next) => {
     project.updatedAt = new Date();
     
     // Handle file uploads if present
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
     if (req.files) {
       if (req.files.coverImageFile && req.files.coverImageFile.length > 0) {
         project.coverImage = `${baseUrl}/uploads/images/${req.files.coverImageFile[0].filename}`;
@@ -178,9 +178,51 @@ const deleteProject = async (req, res, next) => {
   }
 };
 
+const getProjectsByUser = async (req, res, next) => {
+  try {
+    const projects = await Project.find({ owner: req.params.userId })
+      .sort({ createdAt: -1 });
+    
+    res.status(200).json({
+      success: true,
+      count: projects.length,
+      projects
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @desc    Get project by ID
+ * @route   GET /api/projects/:id
+ * @access  Private
+ */
+const getProjectById = async (req, res, next) => {
+  try {
+    const project = await Project.findById(req.params.id).populate('owner', 'displayName username avatar');
+    
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        error: { message: 'Project not found' }
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      project
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProject,
   getMyProjects,
+  getProjectById,
   updateProject,
-  deleteProject
+  deleteProject,
+  getProjectsByUser
 };

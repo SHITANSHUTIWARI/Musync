@@ -35,7 +35,8 @@ const createProfile = async (req, res, next) => {
     };
 
     if (req.file) {
-      profileData.avatar = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/../uploads/images/${req.file.filename}`;
+      const baseUrl = `${req.protocol}://${req.get('host')}`;
+      profileData.avatar = `${baseUrl}/uploads/images/${req.file.filename}`;
     }
     
     const profile = await Profile.create(profileData);
@@ -116,7 +117,8 @@ const updateProfile = async (req, res, next) => {
     profile.updatedAt = new Date();
     
     if (req.file) {
-      profile.avatar = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/../uploads/images/${req.file.filename}`;
+      const baseUrl = `${req.protocol}://${req.get('host')}`;
+      profile.avatar = `${baseUrl}/uploads/images/${req.file.filename}`;
     }
     
     await profile.save();
@@ -131,8 +133,31 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
+const getProfileByUserId = async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.userId });
+    
+    if (!profile) {
+      return res.status(404).json({
+        success: false,
+        error: {
+          message: 'Profile not found'
+        }
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      profile
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProfile,
   getMyProfile,
-  updateProfile
+  updateProfile,
+  getProfileByUserId
 };

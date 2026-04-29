@@ -1,14 +1,10 @@
-/**
- * MUSYNC - Discover Routes
- */
-
 const express = require('express');
 const router = express.Router();
 
 const { getArtists } = require('../controllers/discover.controller');
+const authMiddleware = require('../middleware/auth.middleware');
 
-// Public routes (No auth middleware)
-// GET /api/discover/artists
-router.get('/artists', getArtists);
+// Protected route to support connection status for logged in users
+router.get('/artists', authMiddleware, getArtists);
 
 module.exports = router;

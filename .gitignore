@@ -1,3 +1,6 @@
+
+
+echo -e "\n# uploads (DO NOT push media files)\nbackend/public/uploads/\n\n# temp / system files\n*.swp\n*.log\n\n# build files\n.next/\ndist/" >> .gitignore
 # Dependencies
 node_modules/
 
@@ -25,3 +28,12 @@ npm-debug.log*
 # Editor
 .vscode/
 .idea/
+# uploads (DO NOT push media files)
+backend/public/uploads/
+
+# temp files
+*.swp
+
+# build
+.next/
+dist/

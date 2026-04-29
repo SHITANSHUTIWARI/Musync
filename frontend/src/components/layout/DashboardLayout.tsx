@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { usePlayer } from "@/context/PlayerContext";
+import { AudioPlayer } from "@/design-system/components/AudioPlayer";
 
 const pageVariants = {
   hidden:  { opacity: 0, y: 10 },
@@ -12,6 +14,7 @@ const pageVariants = {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { currentTrack, pauseTrack } = usePlayer();
 
   return (
     <div className="min-h-screen bg-obsidian text-mist flex">
@@ -36,6 +39,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </motion.div>
         </AnimatePresence>
       </main>
+
+      <AudioPlayer track={currentTrack || undefined} onClose={pauseTrack} />
     </div>
   );
 }

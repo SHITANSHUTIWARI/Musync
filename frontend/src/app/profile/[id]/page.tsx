@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Button } from "@/design-system/components/Button";
@@ -8,13 +9,13 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import API from "@/lib/api";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import { usePlayer } from "@/context/PlayerContext";
 import {
-  MapPin, Pencil, Music2, Plus, Github, Twitter,
-  Youtube, Instagram, Globe, Disc3, FolderOpen, Trash2
+  MapPin, Music2, Github, Twitter,
+  Youtube, Instagram, Globe, Disc3, FolderOpen, ArrowLeft, MessageSquare, UserPlus
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import toast from "react-hot-toast";
 
 const SOCIAL_ICONS: Record<string, React.ReactNode> = {
   github:    <Github size={16} />,
@@ -28,21 +29,57 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 28 } } };
 
-export default function ProfilePage() {
-  const { user } = useAuth();
+export default function UserProfilePage() {
+  const { id } = useParams();
+  const { user: currentUser } = useAuth();
   const { playTrack } = usePlayer();
+  const router = useRouter();
   const [profile, setProfile] = useState<any>(null);
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"projects" | "about">("projects");
+  const [connectionStatus, setConnectionStatus] = useState<string>("none");
 
   useEffect(() => {
-    Promise.allSettled([API.get("/profile/me"), API.get("/projects")]).then(([p, pr]) => {
-      if (p.status === "fulfilled") setProfile(p.value.data.profile);
-      if (pr.status === "fulfilled") setProjects(pr.value.data.projects || []);
-      setLoading(false);
-    });
-  }, []);
+    if (!id) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [profileRes, projectsRes] = await Promise.all([
+          API.get(`/profile/${id}`),
+          API.get(`/projects/user/${id}`)
+        ]);
+
+        if (profileRes.data.success) {
+          setProfile(profileRes.data.profile);
+          // In a real app, connection status would come from the profile or a separate call
+          // For now, we'll assume "none" or check if it's the current user
+        }
+        
+        if (projectsRes.data.success) {
+          setProjects(projectsRes.data.projects || []);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+        toast.error("Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleConnect = async () => {
+    try {
+      await API.post("/connections/request", { recipient: id });
+      setConnectionStatus("sent");
+      toast.success("Connection request sent!");
+    } catch (error) {
+      toast.error("Failed to send connection request");
+    }
+  };
 
   if (loading) {
     return (
@@ -51,7 +88,7 @@ export default function ProfilePage() {
           <div className="w-12 h-12 rounded-xl aurora-bg flex items-center justify-center shadow-glow-sm animate-pulse">
             <Disc3 size={24} className="text-white animate-spin-slow" />
           </div>
-          <p className="text-silver font-body text-sm">Loading profile data...</p>
+          <p className="text-silver font-body text-sm">Loading creator identity...</p>
         </div>
       </DashboardLayout>
     );
@@ -60,48 +97,42 @@ export default function ProfilePage() {
   if (!profile) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <Card className="p-12 text-center max-w-lg mx-auto relative overflow-hidden group">
-            <div className="absolute -top-20 -right-20 w-64 h-64 aurora-bg blur-[80px] opacity-20 pointer-events-none" />
-            <div className="w-20 h-20 rounded-3xl aurora-bg flex items-center justify-center mx-auto mb-6 shadow-glow relative z-10">
-              <Music2 size={32} className="text-white" />
-            </div>
-            <h2 className="text-2xl font-display font-bold text-white mb-3 relative z-10 tracking-tight">Identity Missing</h2>
-            <p className="text-silver font-body leading-relaxed mb-8 relative z-10 text-sm">
-              Establish your creator identity to unlock network connectivity, asset publishing, and global discovery.
-            </p>
-            <Link href="/profile/edit" className="relative z-10 block">
-              <Button size="lg" className="w-full text-sm font-bold shadow-glow-sm">
-                <Plus size={16} className="mr-2" /> Initialize Profile
-              </Button>
-            </Link>
-          </Card>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
+          <h2 className="text-2xl font-display font-bold text-white">Creator Not Found</h2>
+          <Button onClick={() => router.back()} variant="secondary">
+            <ArrowLeft size={16} className="mr-2" /> Go Back
+          </Button>
         </div>
       </DashboardLayout>
     );
   }
 
+  const isOwnProfile = currentUser?.id === id;
   const socialLinks = Object.entries(profile.socialLinks || {}).filter(([, v]) => v);
   const initials = profile.displayName?.charAt(0).toUpperCase() || "?";
 
   return (
     <DashboardLayout>
       <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto space-y-8">
+        
+        <button 
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-silver hover:text-white transition-colors"
+        >
+          <ArrowLeft size={14} /> Back to Discovery
+        </button>
 
         {/* ── High-Fidelity Cover & Avatar ── */}
         <motion.div variants={item} className="relative z-10">
           <div className="bg-onyx rounded-[2rem] border border-white/5 shadow-2xl relative">
             
-            {/* Cinematic Cover Background */}
             <div className="h-64 md:h-72 w-full rounded-t-[2rem] relative overflow-hidden bg-carbon group">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-screen transition-transform duration-1000 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-screen" />
               <div className="absolute inset-0 bg-gradient-to-t from-onyx via-onyx/20 to-transparent" />
             </div>
 
-            {/* Profile Content Container */}
             <div className="px-6 md:px-10 pb-10 relative z-10">
               <div className="flex flex-col md:flex-row md:items-end gap-6 -mt-20 md:-mt-24 mb-6">
-                {/* Avatar */}
                 <div className="relative shrink-0 z-20">
                   <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl border-[6px] border-onyx overflow-hidden aurora-bg flex items-center justify-center text-white font-display font-bold text-5xl shadow-glow-sm">
                     {profile.avatar ? (
@@ -110,18 +141,16 @@ export default function ProfilePage() {
                       initials
                     )}
                   </div>
-                  <div className="absolute bottom-1 right-1 w-6 h-6 bg-emerald rounded-full border-[4px] border-onyx shadow-[0_0_10px_rgba(16,214,122,0.6)]" />
                 </div>
 
-                {/* Name & Actions */}
                 <div className="flex-1 pb-2 flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
                     <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-white mb-2">
                        {profile.displayName}
                     </h1>
                     <div className="flex items-center gap-3">
-                       <Badge variant="neon" className="px-3 py-1 text-xs">
-                         {user?.role || "CREATOR"}
+                       <Badge variant="neon" className="px-3 py-1 text-xs uppercase">
+                         {profile.role || "CREATOR"}
                        </Badge>
                        {profile.location && (
                           <span className="flex items-center gap-1 text-[11px] font-bold tracking-widest uppercase text-silver font-body">
@@ -131,21 +160,36 @@ export default function ProfilePage() {
                     </div>
                   </div>
 
-                  <Link href="/profile/edit" className="shrink-0">
-                    <Button variant="secondary" className="gap-2 text-sm font-bold shadow-sm">
-                      <Pencil size={15} /> Edit Profile
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-3">
+                    {isOwnProfile ? (
+                      <Link href="/profile/edit">
+                        <Button variant="secondary" className="gap-2 text-sm font-bold shadow-sm">
+                          Edit Profile
+                        </Button>
+                      </Link>
+                    ) : (
+                      <>
+                        <Button variant="outline" className="gap-2 text-sm font-bold border-white/10 hover:bg-white/5">
+                          <MessageSquare size={16} /> Message
+                        </Button>
+                        <Button 
+                          onClick={handleConnect} 
+                          disabled={connectionStatus !== "none"}
+                          className="gap-2 text-sm font-bold shadow-glow"
+                        >
+                          {connectionStatus === "sent" ? "Request Sent" : <><UserPlus size={16} /> Connect</>}
+                        </Button>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Bio */}
               <p className="text-base font-body text-silver leading-relaxed max-w-3xl mb-8">
-                {profile.bio || "No biography provided. Tell the network about your sound."}
+                {profile.bio || "This creator hasn't shared their story yet."}
               </p>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-white/5 pt-6">
-                 {/* Genres */}
                  <div className="flex flex-wrap items-center gap-2">
                    <span className="text-[10px] font-bold text-silver uppercase tracking-widest mr-2 font-body">Soundscape</span>
                    {profile.genres?.length > 0 ? (
@@ -159,7 +203,6 @@ export default function ProfilePage() {
                    )}
                  </div>
 
-                 {/* Social Links */}
                  {socialLinks.length > 0 && (
                    <div className="flex items-center gap-2">
                      {socialLinks.map(([platform, url]) => (
@@ -218,9 +261,6 @@ export default function ProfilePage() {
                 <h2 className="font-headline font-bold text-2xl text-white flex items-center gap-3">
                    <FolderOpen size={24} className="text-neon-violet" /> Deployed Assets
                 </h2>
-                <Link href="/projects/add">
-                   <Button variant="ghost" size="sm" className="font-bold text-xs"><Plus size={14} /> New Project</Button>
-                </Link>
               </div>
 
               {projects.length === 0 ? (
@@ -228,74 +268,41 @@ export default function ProfilePage() {
                    <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-silver mb-6">
                      <Music2 size={32} />
                    </div>
-                   <h3 className="text-xl font-headline font-bold text-white mb-2">No Projects Found</h3>
-                   <p className="text-silver font-body max-w-sm mx-auto mb-6 text-sm">Upload your first track, beat, or collaboration request.</p>
-                   <Link href="/projects/add">
-                     <Button variant="default" className="font-bold shadow-glow-sm">Distribute Asset</Button>
-                   </Link>
+                   <h3 className="text-xl font-headline font-bold text-white mb-2">No Projects</h3>
+                   <p className="text-silver font-body max-w-sm mx-auto text-sm">This creator hasn't published any assets yet.</p>
                  </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {projects.map((p) => {
-                    const ActionOverlay = (
-                      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 p-2 rounded-xl backdrop-blur-md">
-                        <Link href={`/projects/${p._id}/edit`}>
-                          <button className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-all">
-                            <Pencil size={12} />
-                          </button>
-                        </Link>
-                        <button
-                          onClick={async (e) => {
-                            e.stopPropagation();
-                            if (!confirm("Delete this project?")) return;
-                            try {
-                              await API.delete(`/projects/${p._id}`);
-                              setProjects(prev => prev.filter(x => x._id !== p._id));
-                              toast.success("Project deleted");
-                            } catch {
-                              toast.error("Failed to delete project");
-                            }
-                          }}
-                          className="w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/30 flex items-center justify-center text-red-500 transition-all"
-                        >
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    );
-
-                    return (
-                      <ProjectCard
-                        key={p._id}
-                        title={p.title}
-                        description={p.description}
-                        imageUrl={p.coverImage}
-                        audioUrl={p.audioLink}
-                        tag={p.type ? p.type.toUpperCase() : "AUDIO"}
-                        status={p.status}
-                        creatorName={profile.displayName}
-                        actionNode={ActionOverlay}
-                        onPlay={() => {
-                          if (p.audioLink) {
-                            playTrack({
-                              id: p._id,
-                              title: p.title,
-                              artist: profile.displayName,
-                              url: p.audioLink,
-                              cover: p.coverImage
-                            });
-                          } else {
-                            toast.error("No audio file available");
-                          }
-                        }}
-                      />
-                    );
-                  })}
+                  {projects.map((p) => (
+                    <ProjectCard
+                      key={p._id}
+                      title={p.title}
+                      description={p.description}
+                      imageUrl={p.coverImage}
+                      audioUrl={p.audioLink}
+                      tag={p.type ? p.type.toUpperCase() : "AUDIO"}
+                      status={p.status}
+                      creatorName={profile.displayName}
+                      onPlay={() => {
+                        if (p.audioLink) {
+                          playTrack({
+                            id: p._id,
+                            title: p.title,
+                            artist: profile.displayName,
+                            url: p.audioLink,
+                            cover: p.coverImage
+                          });
+                        } else {
+                          toast.error("No audio file available for this project");
+                        }
+                      }}
+                    />
+                  ))}
                 </div>
               )}
             </motion.div>
           )}
 
-          {/* ── Tab Content: About ── */}
           {activeTab === "about" && (
             <motion.div
               key="about"
@@ -316,16 +323,11 @@ export default function ProfilePage() {
                      <p className="text-2xl font-display font-bold text-white">{projects.length}</p>
                      <p className="text-[10px] uppercase tracking-widest text-silver font-body mt-1">Projects</p>
                    </div>
-                   <div className="p-4 rounded-xl bg-carbon border border-white/5 text-center">
-                     <p className="text-2xl font-display font-bold text-white">0</p>
-                     <p className="text-[10px] uppercase tracking-widest text-silver font-body mt-1">Connections</p>
-                   </div>
                 </div>
               </Card>
             </motion.div>
           )}
         </AnimatePresence>
-
       </motion.div>
     </DashboardLayout>
   );

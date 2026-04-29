@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createProfile, getMyProfile, updateProfile } = require('../controllers/profile.controller');
+const { createProfile, getMyProfile, updateProfile, getProfileByUserId } = require('../controllers/profile.controller');
 const { createProfileValidator, updateProfileValidator } = require('../validators/profile.validator');
 const authMiddleware = require('../middleware/auth.middleware');
 
@@ -30,6 +30,9 @@ router.post('/', uploadImage.single('avatarFile'), parseJsonFields, createProfil
 
 // GET /api/profile/me - Get my profile
 router.get('/me', getMyProfile);
+
+// GET /api/profile/:userId - Get profile by user ID
+router.get('/:userId', getProfileByUserId);
 
 // PUT /api/profile - Update profile
 router.put('/', uploadImage.single('avatarFile'), parseJsonFields, updateProfileValidator, updateProfile);

@@ -17,6 +17,7 @@ const getArtists = async (req, res, next) => {
     const skip = (page - 1) * limit;
 
     const { q, role, genre, location } = req.query;
+    const currentUserId = req.user ? req.user.id : null;
 
     // Build aggregation pipeline
     const pipeline = [];
@@ -31,21 +32,25 @@ const getArtists = async (req, res, next) => {
       }
     });
 
-    // 2. Unwind user data (preserve projects without user? No, we need user for role)
+    // 2. Unwind user data
     pipeline.push({
       $unwind: '$userData'
     });
 
-    // 3. Match safe roles (artist, producer)
-    // Only return users who are artists or producers
-    // If role filter is provided, enforce it, otherwise allow both
-    const rolesToMatch = role ? [role] : ['artist', 'producer'];
+    // 3. Match safe roles
+    const rolesToMatch = role ? [role] : ['artist', 'producer', 'rapper', 'musician', 'engineer'];
     
     const matchStage = {
       'userData.role': { $in: rolesToMatch }
     };
 
-    // 4. Search text (displayName, bio, genres)
+    // Exclude current user from discovery
+    if (currentUserId) {
+      const { mongoose } = require('mongoose');
+      matchStage['userData._id'] = { $ne: new mongoose.Types.ObjectId(currentUserId) };
+    }
+
+    // 4. Search text
     if (q) {
       const searchRegex = { $regex: q, $options: 'i' };
       matchStage.$or = [
@@ -67,6 +72,66 @@ const getArtists = async (req, res, next) => {
 
     pipeline.push({ $match: matchStage });
 
+    // Connection lookup if user is logged in
+    if (currentUserId) {
+      const { mongoose } = require('mongoose');
+      pipeline.push({
+        $lookup: {
+          from: 'connections',
+          let: { artistId: '$userData._id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $or: [
+                      { $eq: ['$requester', new mongoose.Types.ObjectId(currentUserId)] },
+                      { $eq: ['$recipient', new mongoose.Types.ObjectId(currentUserId)] }
+                    ]},
+                    { $or: [
+                      { $eq: ['$requester', '$$artistId'] },
+                      { $eq: ['$recipient', '$$artistId'] }
+                    ]}
+                  ]
+                }
+              }
+            }
+          ],
+          as: 'connection'
+        }
+      });
+
+      pipeline.push({
+        $addFields: {
+          connectionInfo: { $arrayElemAt: ['$connection', 0] }
+        }
+      });
+
+      pipeline.push({
+        $addFields: {
+          connectionStatus: {
+            $cond: {
+              if: { $not: ['$connectionInfo'] },
+              then: 'none',
+              else: {
+                $cond: {
+                  if: { $eq: ['$connectionInfo.status', 'accepted'] },
+                  then: 'accepted',
+                  else: {
+                    $cond: {
+                      if: { $eq: ['$connectionInfo.requester', new mongoose.Types.ObjectId(currentUserId)] },
+                      then: 'sent',
+                      else: 'received'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
     // 7. Pagination Facet
     pipeline.push({
       $facet: {
@@ -85,8 +150,8 @@ const getArtists = async (req, res, next) => {
               avatar: 1,
               socialLinks: 1,
               userId: '$userData._id',
-              role: '$userData.role'
-              // Explicitly excluding private fields by not including them
+              role: '$userData.role',
+              connectionStatus: { $ifNull: ['$connectionStatus', 'none'] }
             }
           }
         ]
