@@ -27,7 +27,7 @@ export default function Topbar() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const { data } = await API.get("/notifications");
+        const { data } = await API.get("/api/notifications");
         setNotifications(data.notifications || []);
         setUnreadCount(data.notifications?.filter((n: any) => !n.read).length || 0);
       } catch (err) {
@@ -67,7 +67,7 @@ export default function Topbar() {
 
   const markAllRead = async () => {
     try {
-      await API.put("/notifications/read-all");
+      await API.put("/api/notifications/read-all");
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
     } catch (err) {
@@ -77,7 +77,7 @@ export default function Topbar() {
 
   const markOneRead = async (id: string) => {
     try {
-      await API.put(`/notifications/${id}/read`);
+      await API.put(`/api/notifications/${id}/read`);
       setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (err) {

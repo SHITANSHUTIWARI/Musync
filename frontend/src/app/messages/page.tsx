@@ -142,7 +142,8 @@ function MessagesContent() {
 
   useEffect(() => {
     const token = getToken();
-    const url   = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001";
+    const url   = process.env.NEXT_PUBLIC_SOCKET_URL;
+    if (!url) return; // Wait for URL or handle failure
     socketRef.current = io(url, { auth: { token } });
     socketRef.current.on("message:receive", (msg: any) => {
       if (msg.sender?._id === active?.userId || msg.sender === active?.userId) setMessages((p) => [...p, msg]);
@@ -153,7 +154,7 @@ function MessagesContent() {
   }, [active?.userId]);
 
   useEffect(() => {
-    API.get("/connections").then(({ data }) => {
+    API.get("/api/connections").then(({ data }) => {
       const convs = (data.connections || []).map((c: any) => ({
         userId: c.user._id, name: c.user.displayName || c.user.username, avatar: c.user.avatar || null, role: c.user.role,
       }));
@@ -168,7 +169,7 @@ function MessagesContent() {
 
   useEffect(() => {
     if (!active) return;
-    API.get(`/chat/${active.userId}`).then(({ data }) => setMessages(data.messages || [])).catch(() => {});
+    API.get(`/api/chat/${active.userId}`).then(({ data }) => setMessages(data.messages || [])).catch(() => {});
   }, [active?.userId]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, typing]);
@@ -178,7 +179,7 @@ function MessagesContent() {
     if (!text.trim() || sending || !active) return;
     setSending(true);
     try {
-      const { data } = await API.post("/chat/send", { receiver: active.userId, content: text.trim() });
+      const { data } = await API.post("/api/chat/send", { receiver: active.userId, content: text.trim() });
       setMessages((p) => [...p, data.data]);
       setText("");
       inputRef.current?.focus();

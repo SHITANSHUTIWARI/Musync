@@ -67,7 +67,7 @@ export default function AddProjectPage() {
         formData.append('audioLink', form.audioLink);
       }
 
-      await API.post("/projects", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await API.post("/api/projects", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       toast.success("Project launched successfully!");
       router.push("/projects");
     } catch (err: any) {

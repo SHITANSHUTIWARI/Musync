@@ -24,7 +24,7 @@ const startServer = async () => {
 ║                                                            ║
 ║   Environment: ${config.env.padEnd(40)}║
 ║   Port: ${String(config.port).padEnd(47)}║
-║   API Base: http://localhost:${config.port}/api${' '.repeat(24)}║
+║   API Base: /api (Port: ${config.port})${' '.repeat(26)}║
 ║                                                            ║
 ╚════════════════════════════════════════════════════════════╝
       `);

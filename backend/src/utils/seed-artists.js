@@ -5,7 +5,7 @@ const Profile = require('../models/Profile');
 
 dotenv.config({ path: '../../.env' });
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/musync';
+const MONGO_URI = process.env.MONGO_URI;
 
 const artists = [
   {

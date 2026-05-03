@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = getToken();
     if (token) {
-      API.get("/auth/me")
+      API.get("/api/auth/me")
         .then(({ data }) => {
           if (data.success) setUser(data.data.user);
         })
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const { data } = await API.post("/auth/login", { email, password });
+      const { data } = await API.post("/api/auth/login", { email, password });
       if (data.success) {
         setToken(data.data.token);
         setUser(data.data.user);
@@ -69,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (userData: Record<string, string>) => {
     try {
-      const { data } = await API.post("/auth/signup", userData);
+      const { data } = await API.post("/api/auth/signup", userData);
       if (data.success) {
         setToken(data.data.token);
         setUser(data.data.user);

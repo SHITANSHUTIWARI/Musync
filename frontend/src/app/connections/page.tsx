@@ -29,7 +29,7 @@ export default function ConnectionsPage() {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      const [c, p] = await Promise.all([API.get("/connections"), API.get("/connections/pending")]);
+      const [c, p] = await Promise.all([API.get("/api/connections"), API.get("/api/connections/pending")]);
       setConnections(c.data.connections || []);
       const all = p.data.connections || [];
       setPending(all.filter((x: any) => x.type === "received"));
@@ -42,7 +42,7 @@ export default function ConnectionsPage() {
 
   const respond = async (id: string, status: string) => {
     try {
-      await API.put(`/connections/respond/${id}`, { status });
+      await API.put(`/api/connections/respond/${id}`, { status });
       toast.success(status === "accepted" ? "Connection accepted!" : "Request ignored");
       fetchAll();
     } catch (e: any) { toast.error(e.response?.data?.error?.message || "Failed"); }

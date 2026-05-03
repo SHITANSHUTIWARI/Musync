@@ -40,7 +40,7 @@ export default function EditProjectPage() {
 
   useEffect(() => {
     if (!id) return;
-    API.get(`/projects/${id}`)
+    API.get(`/api/projects/${id}`)
       .then(({ data }) => {
         const project = data.project;
         if (project) {
@@ -85,7 +85,7 @@ export default function EditProjectPage() {
         formData.append('audioFile', audioFile);
       }
 
-      await API.put(`/projects/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await API.put(`/api/projects/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
       toast.success("Project updated successfully!");
       router.push("/projects");
     } catch (err: any) {

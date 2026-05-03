@@ -12,7 +12,7 @@ const config = {
   
   // MongoDB Configuration
   mongodb: {
-    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/musync_dev',
+    uri: process.env.MONGODB_URI,
     options: {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
@@ -30,7 +30,9 @@ const config = {
   
   // CORS Configuration
   cors: {
-    origin: (process.env.CLIENT_URL || 'http://localhost:3000').split(','),
+    origin: process.env.NODE_ENV === 'production' 
+      ? ["https://musync-omega.vercel.app"] 
+      : ["http://localhost:3000", "https://musync-omega.vercel.app"],
     credentials: true,
   },
   

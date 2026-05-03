@@ -25,10 +25,10 @@ export default function DashboardPage() {
 
   useEffect(() => {
     Promise.allSettled([
-      API.get("/profile/me"),
-      API.get("/projects"),
-      API.get("/discover/artists?limit=4"),
-      API.get("/connections"),
+      API.get("/api/profile/me"),
+      API.get("/api/projects"),
+      API.get("/api/discover/artists?limit=4"),
+      API.get("/api/connections"),
     ]).then(([p, pr, d, c]) => {
       if (p.status === "fulfilled") setProfile(p.value.data.profile);
       if (pr.status === "fulfilled") setProjects(pr.value.data.projects || []);
@@ -40,7 +40,7 @@ export default function DashboardPage() {
 
   const handleConnect = async (userId: string) => {
     try {
-      await API.post("/connections/request", { recipient: userId });
+      await API.post("/api/connections/request", { recipient: userId });
       toast.success("Connection request sent!");
       setSuggestions((p) => p.filter((a) => a.userId !== userId));
     } catch (e: any) {

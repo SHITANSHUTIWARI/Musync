@@ -26,6 +26,13 @@ app.use(helmet());
 app.use(cors(config.cors));
 
 // ===================
+// Root Health Check
+// ===================
+app.get("/", (req, res) => {
+  res.send("MUSYNC API is running 🚀");
+});
+
+// ===================
 // Request Parsing
 // ===================
 app.use(express.json({ limit: '10mb' }));

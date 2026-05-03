@@ -37,7 +37,7 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<"projects" | "about">("projects");
 
   useEffect(() => {
-    Promise.allSettled([API.get("/profile/me"), API.get("/projects")]).then(([p, pr]) => {
+    Promise.allSettled([API.get("/api/profile/me"), API.get("/api/projects")]).then(([p, pr]) => {
       if (p.status === "fulfilled") setProfile(p.value.data.profile);
       if (pr.status === "fulfilled") setProjects(pr.value.data.projects || []);
       setLoading(false);
@@ -249,7 +249,7 @@ export default function ProfilePage() {
                             e.stopPropagation();
                             if (!confirm("Delete this project?")) return;
                             try {
-                              await API.delete(`/projects/${p._id}`);
+                              await API.delete(`/api/projects/${p._id}`);
                               setProjects(prev => prev.filter(x => x._id !== p._id));
                               toast.success("Project deleted");
                             } catch {

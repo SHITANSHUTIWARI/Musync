@@ -23,7 +23,7 @@ export default function EditProfilePage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   useEffect(() => {
-    API.get("/profile/me").then(({ data }) => {
+    API.get("/api/profile/me").then(({ data }) => {
       if (data.success && data.profile) {
         const p = data.profile;
         setIsUpdate(true);
@@ -77,9 +77,9 @@ export default function EditProfilePage() {
       }
 
       if (isUpdate) { 
-        await API.put("/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
+        await API.put("/api/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
       } else { 
-        await API.post("/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
+        await API.post("/api/profile", formData, { headers: { 'Content-Type': 'multipart/form-data' } }); 
       }
       toast.success("Profile updated successfully!");
       router.push("/profile");

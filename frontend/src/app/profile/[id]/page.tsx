@@ -47,8 +47,8 @@ export default function UserProfilePage() {
       setLoading(true);
       try {
         const [profileRes, projectsRes] = await Promise.all([
-          API.get(`/profile/${id}`),
-          API.get(`/projects/user/${id}`)
+          API.get(`/api/profile/${id}`),
+          API.get(`/api/projects/user/${id}`)
         ]);
 
         if (profileRes.data.success) {
@@ -73,7 +73,7 @@ export default function UserProfilePage() {
 
   const handleConnect = async () => {
     try {
-      await API.post("/connections/request", { recipient: id });
+      await API.post("/api/connections/request", { recipient: id });
       setConnectionStatus("sent");
       toast.success("Connection request sent!");
     } catch (error) {
@@ -269,7 +269,7 @@ export default function UserProfilePage() {
                      <Music2 size={32} />
                    </div>
                    <h3 className="text-xl font-headline font-bold text-white mb-2">No Projects</h3>
-                   <p className="text-silver font-body max-w-sm mx-auto text-sm">This creator hasn't published any assets yet.</p>
+                   <p className="text-silver font-body max-w-sm mx-auto text-sm">This creator hasn&apos;t published any assets yet.</p>
                  </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

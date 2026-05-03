@@ -25,7 +25,7 @@ export default function ProjectsPage() {
   const { playTrack } = usePlayer();
 
   useEffect(() => {
-    API.get("/projects")
+    API.get("/api/projects")
       .then(({ data }) => setProjects(data.projects || []))
       .finally(() => setLoading(false));
   }, []);
@@ -42,7 +42,7 @@ export default function ProjectsPage() {
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Permanently delete "${title}"?`)) return;
     try {
-      await API.delete(`/projects/${id}`);
+      await API.delete(`/api/projects/${id}`);
       setProjects((p) => p.filter((x) => x._id !== id));
       toast.success("Project wiped from database.");
     } catch { toast.error("Hardware fault: Could not delete it"); }

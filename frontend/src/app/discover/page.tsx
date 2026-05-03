@@ -35,7 +35,7 @@ function DiscoverContent() {
     try {
       const qs = new URLSearchParams({ ...params, page: String(p), limit: "12" });
       Object.keys(params).forEach((k) => !params[k] && qs.delete(k));
-      const { data } = await API.get(`/discover/artists?${qs}`);
+      const { data } = await API.get(`/api/discover/artists?${qs}`);
       setArtists(data.results || []);
       setTotalPages(data.totalPages || 1);
       setTotal(data.totalResults || 0);
@@ -222,7 +222,7 @@ function ArtistCardWrapper({ artist }: { artist: any }) {
     if (status !== "none" || loading) return;
     setLoading(true);
     try {
-      await API.post("/connections/request", { recipient: artist.userId });
+      await API.post("/api/connections/request", { recipient: artist.userId });
       setStatus("sent");
       toast.success("Connection request sent to " + artist.displayName);
     } catch (e: any) {
