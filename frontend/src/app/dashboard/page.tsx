@@ -134,7 +134,7 @@ export default function DashboardPage() {
                   Share a new beat, song, or project...
                 </Link>
                 <Link href="/projects/add">
-                  <Button variant="default" size="icon" className="shrink-0 rounded-xl w-10 h-10">
+                  <Button variant="primary" size="icon" className="shrink-0 rounded-xl w-10 h-10">
                     <Plus size={18} />
                   </Button>
                 </Link>

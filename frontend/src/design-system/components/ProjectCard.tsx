@@ -11,6 +11,7 @@ interface ProjectCardProps extends React.HTMLAttributes<HTMLDivElement> {
   genres?: string[];
   tag?: string;
   creatorName?: string;
+  creatorAvatarUrl?: string;
   budgetOrType?: string;
   status?: string;
   audioUrl?: string;

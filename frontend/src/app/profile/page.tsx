@@ -231,7 +231,7 @@ export default function ProfilePage() {
                    <h3 className="text-xl font-headline font-bold text-white mb-2">No Projects Found</h3>
                    <p className="text-silver font-body max-w-sm mx-auto mb-6 text-sm">Upload your first track, beat, or collaboration request.</p>
                    <Link href="/projects/add">
-                     <Button variant="default" className="font-bold shadow-glow-sm">Distribute Asset</Button>
+                     <Button variant="primary" className="font-bold shadow-glow-sm">Distribute Asset</Button>
                    </Link>
                  </Card>
               ) : (

@@ -235,7 +235,7 @@ function ArtistCardWrapper({ artist }: { artist: any }) {
   const actionNode = (
     <Button
       fullWidth
-      variant={status === "accepted" ? "outline" : (status === "sent" || status === "received") ? "secondary" : "default"}
+      variant={status === "accepted" ? "outline" : (status === "sent" || status === "received") ? "secondary" : "primary"}
       className={cn(
         "h-10 transition-all font-bold text-xs",
         status === "accepted" && "border-emerald/50 text-emerald hover:text-emerald hover:bg-emerald/10 cursor-default shadow-none",

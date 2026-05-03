@@ -5,6 +5,7 @@ import { Play, Pause, SkipForward, SkipBack, X, Volume2 } from "lucide-react";
 import { usePlayer } from "@/context/PlayerContext";
 
 interface AudioPlayerProps {
+  track?: any;
   onClose?: () => void;
 }
 

@@ -30,7 +30,7 @@ export default function LandingPage() {
             <Button variant="ghost" className="font-bold font-body">Sign In</Button>
           </Link>
           <Link href="/signup">
-            <Button variant="default" className="font-bold font-body">Get Started</Button>
+            <Button variant="primary" className="font-bold font-body">Get Started</Button>
           </Link>
         </div>
       </nav>

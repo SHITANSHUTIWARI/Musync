@@ -13,6 +13,8 @@ const buttonVariants = cva(
         // Aurora gradient primary
         primary:
           "aurora-bg text-white shadow-glow-sm hover:shadow-glow hover:opacity-95 active:scale-[0.97]",
+        default:
+          "aurora-bg text-white shadow-glow-sm hover:shadow-glow hover:opacity-95 active:scale-[0.97]",
         // Ghost: transparent until hovered
         ghost:
           "text-silver hover:text-white hover:bg-white/[0.06] border border-transparent hover:border-white/10 active:scale-[0.97]",
@@ -45,7 +47,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "default",
       size: "DEFAULT",
     },
   }

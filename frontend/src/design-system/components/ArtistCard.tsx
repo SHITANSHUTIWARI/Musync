@@ -13,6 +13,8 @@ interface ArtistCardProps extends React.HTMLAttributes<HTMLDivElement> {
   isConnected?: boolean;
   onConnect?: () => void;
   userId?: string;
+  endorsements?: number;
+  action?: React.ReactNode;
 }
 
 const ROLE_COLORS: Record<string, string> = {
@@ -25,7 +27,7 @@ const ROLE_COLORS: Record<string, string> = {
 };
 
 export const ArtistCard = React.forwardRef<HTMLDivElement, ArtistCardProps>(
-  ({ className, name, role, imageUrl, location, tags = [], isConnected, onConnect, userId, onClick, ...props }, ref) => {
+  ({ className, name, role, imageUrl, location, tags = [], isConnected, onConnect, userId, onClick, endorsements, action, ...props }, ref) => {
     const [connecting, setConnecting] = React.useState(false);
     const roleKey = role?.toLowerCase() ?? "artist";
     const roleClass = ROLE_COLORS[roleKey] ?? ROLE_COLORS.artist;
@@ -86,12 +88,19 @@ export const ArtistCard = React.forwardRef<HTMLDivElement, ArtistCardProps>(
         <div className="pt-10 pb-5 px-5 text-center">
           <h3 className="font-headline font-bold text-white text-base leading-tight">{name}</h3>
 
-          <span className={cn(
-            "inline-block mt-2 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border font-body",
-            roleClass
-          )}>
-            {role}
-          </span>
+          <div className="flex flex-col items-center gap-1 mt-2">
+            <span className={cn(
+              "inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border font-body",
+              roleClass
+            )}>
+              {role}
+            </span>
+            {endorsements !== undefined && (
+              <span className="text-[10px] text-mist/60 font-medium">
+                {endorsements} Endorsements
+              </span>
+            )}
+          </div>
 
           {location && (
             <p className="flex items-center justify-center gap-1 text-[11px] text-silver mt-2 font-body">
@@ -113,29 +122,33 @@ export const ArtistCard = React.forwardRef<HTMLDivElement, ArtistCardProps>(
             </div>
           )}
 
-          {/* Connect button — slides up from bottom on hover */}
+          {/* Action area */}
           <div className="mt-4 overflow-hidden">
-            <motion.button
-              initial={false}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={handleConnect}
-              disabled={isConnected || connecting}
-              className={cn(
-                "w-full py-2 rounded-xl text-xs font-bold font-body transition-all duration-200",
-                isConnected
-                  ? "bg-emerald/10 border border-emerald/20 text-emerald cursor-default"
-                  : "aurora-bg text-white shadow-glow-sm hover:shadow-glow"
-              )}
-            >
-              {isConnected ? (
-                <span className="flex items-center justify-center gap-1.5"><Check size={12} />Connected</span>
-              ) : connecting ? (
-                "Connecting..."
-              ) : (
-                <span className="flex items-center justify-center gap-1.5"><UserPlus size={12} />Connect</span>
-              )}
-            </motion.button>
+            {action ? (
+              <div onClick={(e) => e.stopPropagation()}>{action}</div>
+            ) : (
+              <motion.button
+                initial={false}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={handleConnect}
+                disabled={isConnected || connecting}
+                className={cn(
+                  "w-full py-2 rounded-xl text-xs font-bold font-body transition-all duration-200",
+                  isConnected
+                    ? "bg-emerald/10 border border-emerald/20 text-emerald cursor-default"
+                    : "aurora-bg text-white shadow-glow-sm hover:shadow-glow"
+                )}
+              >
+                {isConnected ? (
+                  <span className="flex items-center justify-center gap-1.5"><Check size={12} />Connected</span>
+                ) : connecting ? (
+                  "Connecting..."
+                ) : (
+                  <span className="flex items-center justify-center gap-1.5"><UserPlus size={12} />Connect</span>
+                )}
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.div>
